@@ -1,3 +1,14 @@
 .main-viewport-area{
     border:1px solid black;
 } 
+
+.settings{
+    border:1px solid #c0c0c0;
+}
+
+.settings table{
+    background: #ccc
+}
+.settings table input{
+    width:90px;
+}

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ViewChild } from '@angular/core';
 import { AfterViewInit } from '@angular/core';
 import { Rectangle } from '../rectangle';
+import { RECTANGLES } from '../mock-rectangles';
 
 @Component({
   selector: 'app-canvas-area',
@@ -10,7 +11,11 @@ import { Rectangle } from '../rectangle';
 })
 export class CanvasAreaComponent implements OnInit, AfterViewInit {
 
+  rectangles = RECTANGLES;
+
   rectangle: Rectangle = {
+    id: 10,
+    color: '#ff0000',
     x: 0,
     y: 0,
     width: 100,
