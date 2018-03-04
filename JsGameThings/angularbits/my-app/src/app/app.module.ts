@@ -6,13 +6,15 @@ import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { KeyUpComponentComponent } from './key-up-component/key-up-component.component';
 import { CanvasAreaComponent } from './canvas-area/canvas-area.component';
+import { GameDetailsComponent } from './game-details/game-details.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     KeyUpComponentComponent,
-    CanvasAreaComponent
+    CanvasAreaComponent,
+    GameDetailsComponent
   ],
   imports: [
     BrowserModule,
