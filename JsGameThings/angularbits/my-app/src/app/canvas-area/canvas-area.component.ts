@@ -86,7 +86,7 @@ export class CanvasAreaComponent implements OnInit, AfterViewInit {
     this.rectangles.find(function(element) {
       console.log('found a rectangle at ' + element.id);
       return element.id === rectangle.id;
-    }).color = '#ff000';
+    }).color = '#00ff00';
   }
 
 }
