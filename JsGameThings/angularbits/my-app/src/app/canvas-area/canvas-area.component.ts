@@ -82,11 +82,14 @@ export class CanvasAreaComponent implements OnInit, AfterViewInit {
   }
 
   onSelect(rectangle: Rectangle): void {
+    console.log('selected ' + rectangle.id);
     this.selectedRectangle = rectangle;
-    this.rectangles.find(function(element) {
-      console.log('found a rectangle at ' + element.id);
-      return element.id === rectangle.id;
-    }).color = '#00ff00';
+    for (const singleRectangle of this.rectangles) {
+      if (singleRectangle.id === this.selectedRectangle.id) {
+        rectangle.color = '#ff0000';
+      } else {
+        rectangle.color = '#000';
+      }
+    }
   }
-
 }
