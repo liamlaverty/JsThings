@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { AfterViewInit } from '@angular/core';
+import { Rectangle } from '../rectangle';
+import { RECTANGLES } from '../mock-rectangles';
 
 @Component({
   selector: 'app-key-up-component',
@@ -7,7 +10,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class KeyUpComponentComponent implements AfterViewInit  {
 
-
+  rectangles: Rectangle[];
+  distanceToMovePerInput: number;
+  character: Rectangle;
   // TODO use this instead of the below junk
   // values = 'vals:';
   // onKey(event: any) {
@@ -15,30 +20,59 @@ export class KeyUpComponentComponent implements AfterViewInit  {
   //   this.values += event.target.value + '|';
   // }
 
-  constructor() { }
+  constructor() {
+    this.rectangles = RECTANGLES;
+    this.character = this.findCharacter();
+    this.distanceToMovePerInput = 1;
+  }
 
-  ngAfterViewInit() {
+  tick(): void {
+    console.log('ticking');
+   requestAnimationFrame(() => {
+      this.tick();
+   });
     const keyPress = document.addEventListener('keydown', this.keyDownHappened);
 
   }
 
-  keyDownHappened(event) {
+  ngAfterViewInit(): void {
+    this.tick();
+  }
+  moveOnAxisX(distance: number): void {
+    console.log('moving on axis x');
+    this.character.x += distance;
+  }
+
+  findCharacter(): Rectangle {
+    for (const singleRectangle of this.rectangles) {
+      if (singleRectangle.name === 'person') {
+        console.log('found person');
+        return singleRectangle;
+      } else {
+        console.log('couldnt find person');
+      }
+    }
+    return null;
+  }
+
+  keyDownHappened(event): void {
      console.log('event pressed was code [' + event.keyCode + ']');
      let message = '';
-     if (event.keyCode === 37) {
+     if (event.keyCode === 65) {
        message += 'left';
+        this.moveOnAxisX(this.distanceToMovePerInput);
      }
-     if (event.keyCode === 39) {
+     if (event.keyCode === 68) {
        message += 'right';
+       this.moveOnAxisX(this.distanceToMovePerInput);
      }
-     if (event.keyCode === 38) {
+     if (event.keyCode === 87) {
        message += 'up';
      }
-     if (event.keyCode === 40) {
+     if (event.keyCode === 83) {
        message += 'down';
      }
      message = 'key [' + message + '] was pressed';
      console.log(message);
   }
-
 }

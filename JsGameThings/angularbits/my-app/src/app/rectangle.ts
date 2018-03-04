@@ -5,4 +5,5 @@ export class Rectangle {
     y: number;
     width: number;
     height: number;
+    name: string;
 }

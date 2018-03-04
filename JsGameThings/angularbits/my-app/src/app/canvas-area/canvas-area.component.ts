@@ -43,7 +43,7 @@ export class CanvasAreaComponent implements OnInit, AfterViewInit {
     });
 
     const ctx = this.context;
-    this.clearScreen(ctx);
+    this.greedyClearScreen(ctx);
 
     // if (this.ticks % 10 === 0) {
       for (const rectangle of this.rectangles) {
@@ -56,7 +56,7 @@ export class CanvasAreaComponent implements OnInit, AfterViewInit {
     // }
   }
 
-  clearScreen(ctx) {
+  greedyClearScreen(ctx) {
     ctx.clearRect(0, 0, 400, 400);
   }
 
