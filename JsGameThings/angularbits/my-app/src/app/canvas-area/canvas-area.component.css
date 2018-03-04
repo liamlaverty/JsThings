@@ -1,7 +1,3 @@
-.main-viewport-area{
-    border:1px solid black;
-} 
-
 .settings{
     border:1px solid #c0c0c0;
 }
@@ -9,6 +5,25 @@
 .settings table{
     background: #ccc
 }
+.settings table tr.selected{
+    background:#fff;
+}
 .settings table input{
     width:90px;
+}
+
+.settings table thead{
+    text-align: center;
+    column-span: 6;
+}
+
+.main-viewport-area{
+    position:relative;
+    height:400px;
+    width:400px;
+    border:1px solid black;
+} 
+.main-viewport-area canvas{
+    position:absolute;
+    background-color:transparent;
 }

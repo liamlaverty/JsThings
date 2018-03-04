@@ -12,31 +12,33 @@ import { RECTANGLES } from '../mock-rectangles';
 export class CanvasAreaComponent implements OnInit, AfterViewInit {
 
   rectangles = RECTANGLES;
+  selectedRectangle: Rectangle;
 
   context: CanvasRenderingContext2D;
-  ticks: number;
+  ticks = 0;
 
   @ViewChild('mycanvas') myCanvas;
 
   constructor() {
   }
 
-  ngOnInit() {
-    console.log('Canvas onInit');
+   ngOnInit() {
+     console.log('Canvas onInit');
   }
 
   ngAfterViewInit() {
     const keyPress = document.addEventListener('keydown', this.keyDownHappened);
     const canvas = this.myCanvas.nativeElement;
     this.context = canvas.getContext('2d');
-    this.ticks  = 0;
-
+    this.ticks = 0;
     this.tick();
   }
 
 
   tick() {
-    this.ticks++;
+    setTimeout(() => {
+       this.ticks++;
+    });
     requestAnimationFrame(() => {
       this.tick();
     });
@@ -44,10 +46,15 @@ export class CanvasAreaComponent implements OnInit, AfterViewInit {
     const ctx = this.context;
     this.clearScreen(ctx);
 
-    for (const rectangle of this.rectangles) {
-      ctx.fillStyle = rectangle.color;
-      ctx.fillRect(rectangle.x, rectangle.y, rectangle.width, rectangle.height);
-    }
+    // if (this.ticks % 10 === 0) {
+      for (const rectangle of this.rectangles) {
+        // console.log('fillstyle will be ' + rectangle.color);
+        ctx.fillStyle = rectangle.color;
+        ctx.fillRect(rectangle.x, rectangle.y, rectangle.width, rectangle.height);
+        // ctx.globalCompositeOperation = 'destination-over';
+      }
+    // ctx.globalCompositeOperation = 'source-over';
+    // }
   }
 
   clearScreen(ctx) {
@@ -72,6 +79,14 @@ export class CanvasAreaComponent implements OnInit, AfterViewInit {
     message = 'key [' + message + '] was pressed';
     console.log(message);
     // this.handleInput(event.keyCode);
+  }
+
+  onSelect(rectangle: Rectangle): void {
+    this.selectedRectangle = rectangle;
+    this.rectangles.find(function(element) {
+      console.log('found a rectangle at ' + element.id);
+      return element.id === rectangle.id;
+    }).color = '#ff000';
   }
 
 }
