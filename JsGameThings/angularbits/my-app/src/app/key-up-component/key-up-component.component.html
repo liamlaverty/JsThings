@@ -1,4 +1,4 @@
-<p>
-  key-up-component works!
-</p>
-{{values}}
+<div class="input-container">.
+  <input [(ngModel)]="boxcontent" (keydown)="onKey($event)" class="enormous-input">
+  <p>{{boxcontent}}</p>
+</div>
