@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ViewChild } from '@angular/core';
 import { AfterViewInit } from '@angular/core';
-import { Rectangle } from '../rectangle';
+import { GameRectangle } from '../rectangle';
 import { RECTANGLES } from '../mock-rectangles';
 
 @Component({
@@ -12,7 +12,7 @@ import { RECTANGLES } from '../mock-rectangles';
 export class CanvasAreaComponent implements OnInit, AfterViewInit {
 
   rectangles = RECTANGLES;
-  selectedRectangle: Rectangle;
+  selectedRectangle: GameRectangle;
 
   context: CanvasRenderingContext2D;
   ticks = 0;
@@ -60,7 +60,7 @@ export class CanvasAreaComponent implements OnInit, AfterViewInit {
     ctx.clearRect(0, 0, 400, 400);
   }
 
-  onSelect(rectangle: Rectangle): void {
+  onSelect(rectangle: GameRectangle): void {
     console.log('selected ' + rectangle.id);
     this.selectedRectangle = rectangle;
     for (const singleRectangle of this.rectangles) {
