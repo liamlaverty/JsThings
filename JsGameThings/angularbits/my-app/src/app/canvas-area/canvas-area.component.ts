@@ -34,7 +34,7 @@ export class CanvasAreaComponent implements OnInit, AfterViewInit {
   }
 
 
-  tick() {
+  tick(): void {
     setTimeout(() => {
        this.ticks++;
     });
