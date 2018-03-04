@@ -56,12 +56,15 @@ export class CanvasAreaComponent implements OnInit, AfterViewInit {
     const ctx = this.context;
     this.clearScreen(ctx);
 
+    for (const rectangle of this.rectangles) {
+      ctx.fillStyle = rectangle.color;
+      ctx.fillRect(rectangle.x, rectangle.y, rectangle.width, rectangle.height);
+    }
 
-    ctx.fillStyle = this.rectColor;
-    ctx.fillRect(0, 0, this.rectW, this.rectH);
+    // ctx.fillRect(0, 0, this.rectW, this.rectH);
 
-    ctx.fillStyle = this.rectColor;
-    ctx.fillRect(0, 200, this.rectangle.width, this.rectangle.height);
+    // ctx.fillStyle = this.rectColor;
+    // ctx.fillRect(0, 200, this.rectangle.width, this.rectangle.height);
   }
 
   clearScreen(ctx) {
