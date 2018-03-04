@@ -3,27 +3,3 @@
 <div class="main-viewport-area">
   <canvas #mycanvas width="400" height="400"></canvas>
 </div>
-<div class="settings">
-
-  <table>
-    <tr>
-      <th>ID</th>
-            <th>Name</th>
-      <th>color</th> 
-      <th>width</th>
-      <th>height</th>
-      <th>posX</th>
-      <th>posY</th>
-    </tr>
-    <tr *ngFor="let rectangle of rectangles" [class.selected]="rectangle === selectedRectangle">
-      <td (click)="onSelect(rectangle)">{{rectangle.id}}</td>
-      <td (click)="onSelect(rectangle)">{{rectangle.name}}</td>
-      <td><input [(ngModel)]="rectangle.color"></td>
-      <td><input type="number" [(ngModel)]="rectangle.width"></td>
-      <td><input type="number" [(ngModel)]="rectangle.height"></td>
-      <td><input type="number" [(ngModel)]="rectangle.x" placeholder="100"></td>
-      <td><input type="number" [(ngModel)]="rectangle.y" placeholder="100"></td>
-    </tr>
-  </table>
-</div>
-<div *ngIf="selectedRectangle"> selected: {{selectedRectangle.id}}</div>
