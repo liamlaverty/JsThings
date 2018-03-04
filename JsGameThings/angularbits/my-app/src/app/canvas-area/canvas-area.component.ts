@@ -13,18 +13,6 @@ export class CanvasAreaComponent implements OnInit, AfterViewInit {
 
   rectangles = RECTANGLES;
 
-  rectangle: Rectangle = {
-    id: 10,
-    color: '#ff0000',
-    x: 0,
-    y: 0,
-    width: 100,
-    height: 100
-  };
-
-  rectW: number = 100;
-  rectH: number = 100;
-  rectColor: string = '#FF0000';
   context: CanvasRenderingContext2D;
   ticks: number;
 
@@ -38,8 +26,8 @@ export class CanvasAreaComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    let keyPress = document.addEventListener('keydown', this.keyDownHappened);
-    let canvas = this.myCanvas.nativeElement;
+    const keyPress = document.addEventListener('keydown', this.keyDownHappened);
+    const canvas = this.myCanvas.nativeElement;
     this.context = canvas.getContext('2d');
     this.ticks  = 0;
 
@@ -60,11 +48,6 @@ export class CanvasAreaComponent implements OnInit, AfterViewInit {
       ctx.fillStyle = rectangle.color;
       ctx.fillRect(rectangle.x, rectangle.y, rectangle.width, rectangle.height);
     }
-
-    // ctx.fillRect(0, 0, this.rectW, this.rectH);
-
-    // ctx.fillStyle = this.rectColor;
-    // ctx.fillRect(0, 200, this.rectangle.width, this.rectangle.height);
   }
 
   clearScreen(ctx) {
