@@ -3,6 +3,7 @@ import { ViewChild } from '@angular/core';
 import { AfterViewInit } from '@angular/core';
 import { GameRectangle } from '../rectangle';
 import { RECTANGLES } from '../mock-rectangles';
+import { Rectangle } from '../models/rectangle';
 
 @Component({
   selector: 'app-canvas-area',
@@ -45,12 +46,15 @@ export class CanvasAreaComponent implements OnInit, AfterViewInit {
     const ctx = this.context;
     this.greedyClearScreen(ctx);
 
+
+
     // if (this.ticks % 10 === 0) {
       for (const rectangle of this.rectangles) {
         // console.log('fillstyle will be ' + rectangle.color);
         ctx.fillStyle = rectangle.color;
         ctx.fillRect(rectangle.x, rectangle.y, rectangle.width, rectangle.height);
         // ctx.globalCompositeOperation = 'destination-over';
+        // rectangle.Bottom();
       }
     // ctx.globalCompositeOperation = 'source-over';
     // }
