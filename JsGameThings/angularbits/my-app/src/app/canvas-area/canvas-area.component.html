@@ -1,5 +1,9 @@
-<canvas #mycanvas width="400" height="400"></canvas>
+<div>
+  <label>square width</label>
+  <input [(ngModel)]="rectangle.width" placeholder="100">
+</div>
 
-<p>
-  canvas-area works!
-</p>
+<p> current ticks: {{ticks}}</p>
+
+<canvas #mycanvas class="main-viewport-area" width="400" height="400"></canvas>
+ 

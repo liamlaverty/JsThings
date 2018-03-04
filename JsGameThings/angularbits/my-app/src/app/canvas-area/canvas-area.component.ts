@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ViewChild } from '@angular/core';
 import { AfterViewInit } from '@angular/core';
+import { Rectangle } from '../rectangle';
 
 @Component({
   selector: 'app-canvas-area',
@@ -9,37 +10,57 @@ import { AfterViewInit } from '@angular/core';
 })
 export class CanvasAreaComponent implements OnInit, AfterViewInit {
 
+  rectangle: Rectangle = {
+    x: 0,
+    y: 0,
+    width: 100,
+    height: 100
+  };
+
   rectW: number = 100;
   rectH: number = 100;
   rectColor: string = '#FF0000';
   context: CanvasRenderingContext2D;
+  ticks: number;
 
   @ViewChild('mycanvas') myCanvas;
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit() {
     console.log('Canvas onInit');
   }
 
-  ngAfterViewInit(){
+  ngAfterViewInit() {
     let keyPress = document.addEventListener('keydown', this.keyDownHappened);
     let canvas = this.myCanvas.nativeElement;
     this.context = canvas.getContext('2d');
+    this.ticks  = 0;
 
     this.tick();
   }
 
 
   tick() {
+    this.ticks++;
     requestAnimationFrame(() => {
       this.tick();
     });
 
-    let ctx = this.context;
-    ctx.clearRect(0, 0, 400, 400);
+    const ctx = this.context;
+    this.clearScreen(ctx);
+
+
     ctx.fillStyle = this.rectColor;
     ctx.fillRect(0, 0, this.rectW, this.rectH);
+
+    ctx.fillStyle = this.rectColor;
+    ctx.fillRect(0, 200, this.rectangle.width, this.rectangle.height);
+  }
+
+  clearScreen(ctx) {
+    ctx.clearRect(0, 0, 400, 400);
   }
 
   keyDownHappened(event) {
