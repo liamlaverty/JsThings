@@ -1,6 +1,6 @@
-import { Rectangle } from './rectangle';
+import { GameRectangle } from './rectangle';
 
-export const RECTANGLES: Rectangle[] = [
+export const RECTANGLES: GameRectangle[] = [
     { name: 'sky', id: 0, color: '#afeeee', x: 0, y: 0, width: 400, height: 400 },
     { name: 'ground', id: 1, color: '#00ff00', x: 0, y: 350, width: 400, height: 100 },
     { name: 'cloud', id: 2, color: '#fff', x: 10, y: 54, width: 100, height: 100 },

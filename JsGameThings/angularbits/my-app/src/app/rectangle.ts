@@ -1,9 +1,11 @@
-export class Rectangle {
+import { Rectangle } from './models/rectangle';
+
+export class GameRectangle extends Rectangle {
     id: number;
     color: string;
-    x: number;
-    y: number;
-    width: number;
-    height: number;
     name: string;
+
+    constructor() {
+        super();
+    }
 }

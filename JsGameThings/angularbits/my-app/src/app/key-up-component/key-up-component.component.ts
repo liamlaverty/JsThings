@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { AfterViewInit } from '@angular/core';
-import { Rectangle } from '../rectangle';
+import { GameRectangle } from '../rectangle';
 import { RECTANGLES } from '../mock-rectangles';
 // import { KeyboardEvent } from '@angular/core';
 
@@ -12,9 +12,9 @@ import { RECTANGLES } from '../mock-rectangles';
 })
 export class KeyUpComponentComponent implements AfterViewInit {
 
-  rectangles: Rectangle[];
+  rectangles: GameRectangle[];
   distanceToMovePerInput: number;
-  character: Rectangle;
+  character: GameRectangle;
   boxcontent: string;
   currentKeyDown: string;
   // TODO use this instead of the below junk
@@ -51,7 +51,7 @@ export class KeyUpComponentComponent implements AfterViewInit {
     this.character.y += distance;
   }
 
-  findCharacter(): Rectangle {
+  findCharacter(): GameRectangle {
     for (const singleRectangle of this.rectangles) {
       if (singleRectangle.name === 'person') {
         console.log('found person');
