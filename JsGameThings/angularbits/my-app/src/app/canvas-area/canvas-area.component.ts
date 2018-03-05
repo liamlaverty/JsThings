@@ -63,16 +63,4 @@ export class CanvasAreaComponent implements OnInit, AfterViewInit {
   greedyClearScreen(ctx) {
     ctx.clearRect(0, 0, 400, 400);
   }
-
-  onSelect(rectangle: GameRectangle): void {
-    console.log('selected ' + rectangle.id);
-    this.selectedRectangle = rectangle;
-    for (const singleRectangle of this.rectangles) {
-      if (singleRectangle.id === this.selectedRectangle.id) {
-        rectangle.color = '#ff0000';
-      } else {
-        rectangle.color = '#000';
-      }
-    }
-  }
 }
