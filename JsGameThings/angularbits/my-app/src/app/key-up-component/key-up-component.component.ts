@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { AfterViewInit } from '@angular/core';
 import { GameRectangle } from '../models/game-rectangle';
 import { RECTANGLES } from '../mock-rectangles';
+import { InputModule } from '../input/input.module';
 // import { KeyboardEvent } from '@angular/core';
 
 

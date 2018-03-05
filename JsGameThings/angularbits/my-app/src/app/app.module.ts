@@ -11,6 +11,7 @@ import { GraphicsModule } from './graphics/graphics.module';
 import { PhysicsModule } from './physics/physics.module';
 import { LightModule } from './light/light.module';
 import { ViewportModule } from './viewport/viewport.module';
+import { InputModule } from './input/input.module';
 
 
 @NgModule({
@@ -23,10 +24,11 @@ import { ViewportModule } from './viewport/viewport.module';
   imports: [
     BrowserModule,
     FormsModule,
-    GraphicsModule,
-    PhysicsModule,
-    LightModule,
-    ViewportModule
+    // GraphicsModule,
+    // PhysicsModule,
+    // LightModule,
+    // ViewportModule,
+    InputModule
   ],
   providers: [],
   bootstrap: [AppComponent]
