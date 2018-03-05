@@ -1,4 +1,4 @@
-import { Rectangle } from './models/rectangle';
+import { Rectangle } from './rectangle';
 
 export class GameRectangle extends Rectangle {
     id: number;

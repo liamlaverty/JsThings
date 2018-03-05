@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 import { KeyUpComponentComponent } from './key-up-component/key-up-component.component';
 import { CanvasAreaComponent } from './canvas-area/canvas-area.component';
 import { GameDetailsComponent } from './game-details/game-details.component';
+import { GraphicsModule } from './graphics/graphics.module';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import { GameDetailsComponent } from './game-details/game-details.component';
   ],
   imports: [
     BrowserModule,
-    FormsModule
+    FormsModule,
+    GraphicsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

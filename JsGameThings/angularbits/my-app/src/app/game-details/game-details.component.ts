@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Rectangle } from '../rectangle';
+import { GameRectangle } from '../models/game-rectangle';
 import { RECTANGLES } from '../mock-rectangles';
 
 @Component({
@@ -10,14 +10,14 @@ import { RECTANGLES } from '../mock-rectangles';
 export class GameDetailsComponent implements OnInit {
 
   rectangles = RECTANGLES;
-  selectedRectangle: Rectangle;
+  selectedRectangle: GameRectangle;
 
   constructor() { }
 
   ngOnInit() {
   }
 
-  onSelect(rectangle: Rectangle): void {
+  onSelect(rectangle: GameRectangle): void {
     console.log('selected ' + rectangle.id);
     this.selectedRectangle = rectangle;
     for (const singleRectangle of this.rectangles) {

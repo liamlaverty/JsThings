@@ -1,4 +1,4 @@
-import { GameRectangle } from './rectangle';
+import { GameRectangle } from './models/game-rectangle';
 
 export const RECTANGLES: GameRectangle[] = [
     { name: 'sky', id: 0, color: '#afeeee', x: 0, y: 0, width: 400, height: 400 },
