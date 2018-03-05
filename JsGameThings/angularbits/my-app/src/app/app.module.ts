@@ -8,6 +8,10 @@ import { KeyUpComponentComponent } from './key-up-component/key-up-component.com
 import { CanvasAreaComponent } from './canvas-area/canvas-area.component';
 import { GameDetailsComponent } from './game-details/game-details.component';
 import { GraphicsModule } from './graphics/graphics.module';
+import { PhysicsModule } from './physics/physics.module';
+import { LightModule } from './light/light.module';
+import { ViewportModule } from './viewport/viewport.module';
+import { InputModule } from './input/input.module';
 
 
 @NgModule({
@@ -20,7 +24,11 @@ import { GraphicsModule } from './graphics/graphics.module';
   imports: [
     BrowserModule,
     FormsModule,
-    GraphicsModule
+    // GraphicsModule,
+    // PhysicsModule,
+    // LightModule,
+    // ViewportModule,
+    InputModule
   ],
   providers: [],
   bootstrap: [AppComponent]
