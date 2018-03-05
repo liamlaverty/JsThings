@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ViewChild } from '@angular/core';
 import { AfterViewInit } from '@angular/core';
-import { GameRectangle } from '../rectangle';
+import { GameRectangle } from '../models/game-rectangle';
 import { RECTANGLES } from '../mock-rectangles';
 import { Rectangle } from '../models/rectangle';
 
