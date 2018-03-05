@@ -64,6 +64,11 @@ export class KeyUpComponentComponent implements AfterViewInit {
     return null;
   }
 
+
+  inputActionHappened(key: string) {
+    console.log('keyup component recognised input of [' + key + ']');
+  }
+
   keyDownHappened(event: KeyboardEvent): void {
     this.currentKeyDown = null;
     this.currentKeyDown = (<HTMLInputElement>event.target).value;

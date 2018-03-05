@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component, OnInit, HostListener, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-input-handle',
@@ -7,18 +7,40 @@ import { Component, OnInit, HostListener } from '@angular/core';
 })
 export class InputHandleComponent implements OnInit {
 
+  @Output()
+   inputActionHappened: EventEmitter<string> = new EventEmitter<string>();
+
   newPressOnly: boolean;
   key: string;
-  constructor() { }
+  validKeys: Array<string>;
+
+  constructor() {
+    this.validKeys = ['w', 'a', 's', 'd', ' '];
+  }
 
   ngOnInit() {
   }
 
   @HostListener('document:keypress', ['$event'])
   handleKeyboardEvent(event: KeyboardEvent) {
-    console.log('keypress');
     this.key = event.key;
+    if (this.checkKeyPressValid()) {
+      this.handleKeyPress();
+    }
+  }
 
-    console.log('key event was ['  + this.key + ']');
+  handleKeyPress() {
+    console.log('key pressed at [' + this.key + ']');
+    // this.inputActionHappened.emit(this.key);
+
+    this.inputActionHappened.emit(this.key);
+  }
+
+
+  checkKeyPressValid() {
+    if (this.validKeys.includes(this.key)) {
+      return true;
+    }
+    return false;
   }
 }
