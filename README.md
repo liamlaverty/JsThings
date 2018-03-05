@@ -1,3 +1,3 @@
 # JsThings
 
-[It's here?](./JsGameThings/angularbits/my-app)
+[It's here](./JsGameThings/angularbits/my-app)
