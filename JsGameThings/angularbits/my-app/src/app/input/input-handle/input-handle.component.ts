@@ -7,15 +7,18 @@ import { Component, OnInit, HostListener } from '@angular/core';
 })
 export class InputHandleComponent implements OnInit {
 
+  newPressOnly: boolean;
+  key: string;
   constructor() { }
 
   ngOnInit() {
   }
 
-
   @HostListener('document:keypress', ['$event'])
   handleKeyboardEvent(event: KeyboardEvent) {
     console.log('keypress');
     this.key = event.key;
+
+    console.log('key event was ['  + this.key + ']');
   }
 }
