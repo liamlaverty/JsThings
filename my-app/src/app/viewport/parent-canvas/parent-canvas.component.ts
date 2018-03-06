@@ -1,27 +1,38 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
+import { BrowserService } from '../browser.service';
 
 @Component({
   selector: 'app-parent-canvas',
   templateUrl: './parent-canvas.component.html',
-  styleUrls: ['./parent-canvas.component.css']
+  styleUrls: ['./parent-canvas.component.css'],
+  providers: [BrowserService]
 })
 export class ParentCanvasComponent implements OnInit {
+  private browserHeight: number;
+  private browserWidth: number;
 
-  SetBrowserHeight(): any {
-    throw new Error('Method not implemented.');
+  constructor(private browserService: BrowserService) { }
+
+  @HostListener('window:resize', ['$event'])
+  onResize() {
+    this.updateBrowserSize();
   }
-  SetBrowserWidth(): any {
-    throw new Error('Method not implemented.');
-  }
-  constructor() { }
 
   ngOnInit() {
-    this.FitToBrowser();
+    this.updateBrowserSize();
   }
 
-  FitToBrowser() {
+  updateBrowserSize() {
     this.SetBrowserWidth();
     this.SetBrowserHeight();
+  }
+
+
+  private SetBrowserHeight(): void {
+    this.browserService.getBrowserHeight();
+  }
+  private SetBrowserWidth(): void {
+    this.browserService.getBrowserWidth();
   }
 
 }
