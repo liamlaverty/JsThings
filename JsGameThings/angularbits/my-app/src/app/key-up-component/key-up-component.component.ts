@@ -1,8 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { AfterViewInit } from '@angular/core';
 import { GameRectangle } from '../models/game-rectangle';
 import { RECTANGLES } from '../mock-rectangles';
 import { InputModule } from '../input/input.module';
+
+import { InputHandleComponent } from '../input/input-handle/input-handle.component';
+
 // import { KeyboardEvent } from '@angular/core';
 
 
@@ -12,18 +15,14 @@ import { InputModule } from '../input/input.module';
   styleUrls: ['./key-up-component.component.css']
 })
 export class KeyUpComponentComponent implements AfterViewInit {
+  @ViewChild(InputHandleComponent)
+  private inputHandleComponent: InputHandleComponent;
 
   rectangles: GameRectangle[];
   distanceToMovePerInput: number;
   character: GameRectangle;
   boxcontent: string;
   currentKeyDown: string;
-  // TODO use this instead of the below junk
-  // values = 'vals:';
-  // onKey(event: any) {
-  //   console.log('key was ' + event.target.value);
-  //   this.values += event.target.value + '|';
-  // }
 
   constructor() {
     this.rectangles = RECTANGLES;
@@ -31,17 +30,21 @@ export class KeyUpComponentComponent implements AfterViewInit {
     this.distanceToMovePerInput = 5;
     this.currentKeyDown = '';
   }
-
-
-  onKey(value: KeyboardEvent) {
-    this.boxcontent = '';
-    console.log('key');
-    this.keyDownHappened(value);
+  inputTick(): void {
+     this.checkCurrentKey();
   }
 
-  ngAfterViewInit(): void {
-    // const keyPress = document.addEventListener('keydown', this.keyDownHappened);
+   ngAfterViewInit(): void {
+     console.log('ngAfterViewInit keyupcomponent');
+   }
+  checkCurrentKey() {
+    if (this.inputHandleComponent.key !== undefined && this.inputHandleComponent.keyPressed) {
+      // console.log('input key is [' + this.inputHandleComponent.key + ']');
+      this.takeActionOnKeyPress(this.inputHandleComponent.key);
+    }
   }
+
+
   moveOnAxisX(distance: number): void {
     // console.log('moving on axis x');
     this.character.x += distance;
@@ -64,38 +67,51 @@ export class KeyUpComponentComponent implements AfterViewInit {
     return null;
   }
 
-
-  inputActionHappened(key: string) {
-    console.log('keyup component recognised input of [' + key + ']');
+  takeActionOnKeyPress(key: string) {
+    if (key === 'a') {
+         this.moveOnAxisX(-this.distanceToMovePerInput);
+       }
+       if (key === 'd') {
+         this.moveOnAxisX(this.distanceToMovePerInput);
+       }
+       if (key === 'w') {
+         this.moveOnAxisY(-this.distanceToMovePerInput);
+       }
+       if (key === 's') {
+         this.moveOnAxisY(this.distanceToMovePerInput);
+       }
+       if (key === ' ') {
+         console.log('JUMP!');
+       }
   }
 
-  keyDownHappened(event: KeyboardEvent): void {
-    this.currentKeyDown = null;
-    this.currentKeyDown = (<HTMLInputElement>event.target).value;
-    if (this.currentKeyDown.length) {
-       console.log('event pressed was code [' + event + ']');
-      let message = '';
-      if (this.currentKeyDown === 'a') {
-        message += 'left';
-        this.moveOnAxisX(-this.distanceToMovePerInput);
-      }
-      if (this.currentKeyDown === 'd') {
-        message += 'right';
-        this.moveOnAxisX(this.distanceToMovePerInput);
-      }
-      if (this.currentKeyDown === 'w') {
-        message += 'up';
-        this.moveOnAxisY(-this.distanceToMovePerInput);
-      }
-      if (this.currentKeyDown === 's') {
-        message += 'down';
-        this.moveOnAxisY(this.distanceToMovePerInput);
-      }
-      if (this.currentKeyDown === ' ') {
-        console.log('JUMP!');
-      }
-      // message = 'key [' + message + '] was pressed';
-      // console.log(message);
-    }
-  }
+  // keyDownHappened(event: KeyboardEvent): void {
+  //   this.currentKeyDown = null;
+  //   this.currentKeyDown = (<HTMLInputElement>event.target).value;
+  //   if (this.currentKeyDown.length) {
+  //      console.log('event pressed was code [' + event + ']');
+  //     let message = '';
+  //     if (this.currentKeyDown === 'a') {
+  //       message += 'left';
+  //       this.moveOnAxisX(-this.distanceToMovePerInput);
+  //     }
+  //     if (this.currentKeyDown === 'd') {
+  //       message += 'right';
+  //       this.moveOnAxisX(this.distanceToMovePerInput);
+  //     }
+  //     if (this.currentKeyDown === 'w') {
+  //       message += 'up';
+  //       this.moveOnAxisY(-this.distanceToMovePerInput);
+  //     }
+  //     if (this.currentKeyDown === 's') {
+  //       message += 'down';
+  //       this.moveOnAxisY(this.distanceToMovePerInput);
+  //     }
+  //     if (this.currentKeyDown === ' ') {
+  //       console.log('JUMP!');
+  //     }
+  //     // message = 'key [' + message + '] was pressed';
+  //     // console.log(message);
+  //   }
+  // }
 }

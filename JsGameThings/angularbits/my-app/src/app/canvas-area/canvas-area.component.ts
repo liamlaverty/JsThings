@@ -4,6 +4,7 @@ import { AfterViewInit } from '@angular/core';
 import { GameRectangle } from '../models/game-rectangle';
 import { RECTANGLES } from '../mock-rectangles';
 import { Rectangle } from '../models/rectangle';
+import { KeyUpComponentComponent } from '../key-up-component/key-up-component.component';
 
 @Component({
   selector: 'app-canvas-area',
@@ -11,6 +12,8 @@ import { Rectangle } from '../models/rectangle';
   styleUrls: ['./canvas-area.component.css']
 })
 export class CanvasAreaComponent implements OnInit, AfterViewInit {
+  @ViewChild(KeyUpComponentComponent)
+  private keyUpComponentComponent: KeyUpComponentComponent;
 
   rectangles = RECTANGLES;
   selectedRectangle: GameRectangle;
@@ -41,6 +44,7 @@ export class CanvasAreaComponent implements OnInit, AfterViewInit {
     });
     requestAnimationFrame(() => {
       this.tick();
+      this.keyUpComponentComponent.inputTick();
     });
 
     const ctx = this.context;
