@@ -12,6 +12,7 @@ import { PhysicsModule } from './physics/physics.module';
 import { LightModule } from './light/light.module';
 import { ViewportModule } from './viewport/viewport.module';
 import { InputModule } from './input/input.module';
+import { GameComponent } from './game/game.component';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import { InputModule } from './input/input.module';
     AppComponent,
     KeyUpComponentComponent,
     CanvasAreaComponent,
-    GameDetailsComponent
+    GameDetailsComponent,
+    GameComponent
   ],
   imports: [
     BrowserModule,
