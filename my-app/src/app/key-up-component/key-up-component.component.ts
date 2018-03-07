@@ -3,8 +3,8 @@ import { AfterViewInit } from '@angular/core';
 import { GameRectangle } from '../models/game-rectangle';
 import { RECTANGLES } from '../mock-rectangles';
 import { InputModule } from '../input/input.module';
-
 import { InputHandleComponent } from '../input/input-handle/input-handle.component';
+
 
 // import { KeyboardEvent } from '@angular/core';
 

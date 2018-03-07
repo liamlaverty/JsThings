@@ -1,8 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 import { KeyUpComponentComponent } from './key-up-component.component';
 import { InputModule } from '../input/input.module';
-import { InputHandleComponent } from '../input/input-handle/input-handle.component';
+// import { InputHandleComponent } from '../input/input-handle/input-handle.component';
 
 describe('KeyUpComponentComponent', () => {
   let component: KeyUpComponentComponent;
@@ -15,7 +16,10 @@ describe('KeyUpComponentComponent', () => {
       ],
       declarations: [
         KeyUpComponentComponent,
-        InputHandleComponent
+        // InputHandleComponent
+      ],
+      schemas: [
+         CUSTOM_ELEMENTS_SCHEMA
       ]
     })
     .compileComponents();
