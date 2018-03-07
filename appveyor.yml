@@ -17,7 +17,7 @@ test_script:
   - node --version
   - npm -- version
   # - npm test
-  - ng test --single-run=true
+  - ps: ng test --single-run=true
   - ps: echo 'done test'
 
 shallow_clone: true
