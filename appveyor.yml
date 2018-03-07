@@ -8,15 +8,18 @@ platform:
 
 install:
   - ps: Install-Product node $env:nodejs_version
-  - yarn install --no-progress
+  - npm install
 
 test_script:
-  - yarn ng -- build --prod --aot --no-progress
-  - yarn test -- --single-run --no-progress
-  - yarn lint
+  # - yarn ng -- build --prod --aot --no-progress
+  # - yarn test -- --single-run --no-progress
+  # - yarn lint
+  - node --version
+  - npm -- version
+  - npm test
 
 build: off
 
 cache:
-  - node_modules -> yarn.lock
-  - "%LOCALAPPDATA%/Yarn"
+  # - node_modules -> yarn.lock
+  # - "%LOCALAPPDATA%/Yarn"
