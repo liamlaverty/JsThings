@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CanvasAreaComponent } from './canvas-area.component';
+import { KeyUpComponentComponent } from '../key-up-component/key-up-component.component';
 
 describe('CanvasAreaComponent', () => {
   let component: CanvasAreaComponent;
@@ -8,9 +9,12 @@ describe('CanvasAreaComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CanvasAreaComponent ]
+      declarations: [
+        CanvasAreaComponent,
+        KeyUpComponentComponent
+      ]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

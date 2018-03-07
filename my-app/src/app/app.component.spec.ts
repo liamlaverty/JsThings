@@ -1,15 +1,28 @@
 import { TestBed, async } from '@angular/core/testing';
+import { FormsModule } from '@angular/forms';
+
 import { AppComponent } from './app.component';
 import { CanvasAreaComponent } from './canvas-area/canvas-area.component';
 import { GameDetailsComponent } from './game-details/game-details.component';
+import { KeyUpComponentComponent } from './key-up-component/key-up-component.component';
+import { InputModule } from './input/input.module';
+import { InputHandleComponent } from './input/input-handle/input-handle.component';
+
+
 describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [
+        FormsModule,
+        InputModule
+      ],
       declarations: [
         AppComponent,
         CanvasAreaComponent,
         GameDetailsComponent,
-      ],
+        KeyUpComponentComponent,
+        InputHandleComponent
+            ],
     }).compileComponents();
   }));
   it('should create the app', async(() => {

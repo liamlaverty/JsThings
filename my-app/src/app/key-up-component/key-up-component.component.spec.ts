@@ -1,6 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { KeyUpComponentComponent } from './key-up-component.component';
+import { InputModule } from '../input/input.module';
+import { InputHandleComponent } from '../input/input-handle/input-handle.component';
 
 describe('KeyUpComponentComponent', () => {
   let component: KeyUpComponentComponent;
@@ -8,7 +10,13 @@ describe('KeyUpComponentComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ KeyUpComponentComponent ]
+      imports: [
+        InputModule
+      ],
+      declarations: [
+        KeyUpComponentComponent,
+        InputHandleComponent
+      ]
     })
     .compileComponents();
   }));
