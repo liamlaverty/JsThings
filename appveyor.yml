@@ -20,9 +20,7 @@ test_script:
   - npm -- version
   - npm test
 
-build: 
-- ng build --prod --base-href "https://liamlaverty.github.io/JsThings/"
+build: off
 
 cache:
-  # - node_modules -> yarn.lock
-  # - "%LOCALAPPDATA%/Yarn"
+  node_modules -> package-lock.json
