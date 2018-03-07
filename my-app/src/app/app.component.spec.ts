@@ -1,11 +1,28 @@
 import { TestBed, async } from '@angular/core/testing';
+import { FormsModule } from '@angular/forms';
+
 import { AppComponent } from './app.component';
+import { CanvasAreaComponent } from './canvas-area/canvas-area.component';
+import { GameDetailsComponent } from './game-details/game-details.component';
+import { KeyUpComponentComponent } from './key-up-component/key-up-component.component';
+import { InputModule } from './input/input.module';
+import { InputHandleComponent } from './input/input-handle/input-handle.component';
+
+
 describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [
-        AppComponent
+      imports: [
+        FormsModule,
+        InputModule
       ],
+      declarations: [
+        AppComponent,
+        CanvasAreaComponent,
+        GameDetailsComponent,
+        KeyUpComponentComponent,
+        InputHandleComponent
+            ],
     }).compileComponents();
   }));
   it('should create the app', async(() => {
@@ -13,15 +30,15 @@ describe('AppComponent', () => {
     const app = fixture.debugElement.componentInstance;
     expect(app).toBeTruthy();
   }));
-  it(`should have as title 'app'`, async(() => {
+  it(`should have as title 'JS Stuff'`, async(() => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.debugElement.componentInstance;
-    expect(app.title).toEqual('app');
+    expect(app.title).toEqual('JS Stuff');
   }));
-  it('should render title in a h1 tag', async(() => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('h1').textContent).toContain('Welcome to app!');
-  }));
+  //  it('should render a canvas element', async(() => {
+  //    const fixture = TestBed.createComponent(AppComponent);
+  //    fixture.detectChanges();
+  //    const compiled = fixture.debugElement.nativeElement;
+  //    expect(compiled.querySelector('canvas').toBeTruthy());
+  //  }));
 });
