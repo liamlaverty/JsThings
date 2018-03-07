@@ -1,3 +1,5 @@
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+
 import { TestBed, async } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 
@@ -6,7 +8,6 @@ import { CanvasAreaComponent } from './canvas-area/canvas-area.component';
 import { GameDetailsComponent } from './game-details/game-details.component';
 import { KeyUpComponentComponent } from './key-up-component/key-up-component.component';
 import { InputModule } from './input/input.module';
-import { InputHandleComponent } from './input/input-handle/input-handle.component';
 
 
 describe('AppComponent', () => {
@@ -21,8 +22,8 @@ describe('AppComponent', () => {
         CanvasAreaComponent,
         GameDetailsComponent,
         KeyUpComponentComponent,
-        InputHandleComponent
             ],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA ]
     }).compileComponents();
   }));
   it('should create the app', async(() => {
