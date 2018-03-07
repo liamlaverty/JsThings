@@ -1,24 +1,25 @@
 image: Visual Studio 2017
 
 environment:
-  nodejs_version: "6"
+  nodejs_version: "8.9.4"
 
 platform:
   - x64
 
 install:
+  - ps: echo 'INSTALL START'
   - ps: Install-Product node $env:nodejs_version
   - cd ./my-app
   - ls 
   - npm install
 
 test_script:
-  # - yarn ng -- build --prod --aot --no-progress
-  # - yarn test -- --single-run --no-progress
-  # - yarn lint
   - node --version
   - npm -- version
   - npm test
+  - ps: echo 'done test'
+
+shallow_clone: true
 
 build: off
 
