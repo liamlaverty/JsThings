@@ -1,5 +1,6 @@
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component, OnInit, HostListener, ViewChild, AfterViewInit, ComponentFactoryResolver, ViewContainerRef } from '@angular/core';
 import { BrowserService } from '../browser.service';
+import { ChildCanvasComponent } from '../child-canvas/child-canvas.component';
 
 @Component({
   selector: 'app-parent-canvas',
@@ -7,13 +8,18 @@ import { BrowserService } from '../browser.service';
   styleUrls: ['./parent-canvas.component.css'],
   providers: [BrowserService]
 })
-export class ParentCanvasComponent implements OnInit {
+export class ParentCanvasComponent implements OnInit, AfterViewInit {
   private browserHeight: number;
   private browserWidth: number;
   private viewportWidth: number;
   private viewportHeight: number;
+  private context: CanvasRenderingContext2D;
 
-  constructor(private browserService: BrowserService) { }
+  constructor(private browserService: BrowserService,
+    private componentFactoryResolver: ComponentFactoryResolver,
+    private viewContainerRef: ViewContainerRef) { }
+
+  @ViewChild('gamecanvas') myCanvas;
 
   @HostListener('window:resize', ['$event'])
   onResize() {
@@ -24,12 +30,31 @@ export class ParentCanvasComponent implements OnInit {
     this.updateBrowserSize();
   }
 
+  ngAfterViewInit() {
+    const canvas = this.myCanvas.nativeElement;
+    this.context = canvas.getContext('2d');
+  }
+
   updateBrowserSize() {
     this.SetBrowserWidth();
     this.SetBrowserHeight();
     this.UpdateCanvasSize(80, 80);
   }
 
+  GetContext() {
+    return this.context;
+  }
+
+  GreedyClearScreen(): void {
+    this.GetContext().clearRect(0, 0, this.viewportHeight, this.viewportWidth);
+  }
+
+
+  private addLayer() {
+    const factory = this.componentFactoryResolver.resolveComponentFactory(ChildCanvasComponent);
+    const ref = this.viewContainerRef.createComponent(factory);
+    ref.changeDetectorRef.detectChanges();
+  }
 
   private SetBrowserHeight(): void {
     this.browserHeight = this.browserService.getBrowserHeight();
