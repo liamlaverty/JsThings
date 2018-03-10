@@ -2,6 +2,7 @@ import { Component, OnInit, HostListener, ViewChild, AfterViewInit, ComponentFac
 import { BrowserService } from '../browser.service';
 import { ChildCanvasComponent } from '../child-canvas/child-canvas.component';
 import { SimpleCanvasComponent } from '../simple-canvas/simple-canvas.component';
+import { Layer } from '../../models/layer.model';
 
 @Component({
   selector: 'app-parent-canvas',
@@ -44,10 +45,13 @@ export class ParentCanvasComponent extends SimpleCanvasComponent implements OnIn
     }
   }
 
-  addLayer() {
+  addLayer(layer: Layer) {
+    console.log('adding new layer');
     const factory = this.componentFactoryResolver.resolveComponentFactory(ChildCanvasComponent);
     const ref = this.myParentCanvas.createComponent(factory);
     const canvas = (<ChildCanvasComponent>ref.instance);
+    canvas.layer = layer;
+    console.log('layer contains [' + canvas.layer.Rectangles.length + '] items');
     ref.changeDetectorRef.detectChanges();
     this.childCanvasArray.push(canvas);
   }
