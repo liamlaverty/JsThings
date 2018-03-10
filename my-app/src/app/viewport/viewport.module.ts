@@ -11,8 +11,8 @@ import { SimpleCanvasComponent } from './simple-canvas/simple-canvas.component';
     CommonModule
   ],
   declarations: [ParentCanvasComponent, ChildCanvasComponent, ChildCanvasComponent, SimpleCanvasComponent],
-  entryComponents: [ChildCanvasComponent],
+  entryComponents: [ChildCanvasComponent, ParentCanvasComponent],
   providers: [BrowserService, ChildCanvasService],
-  exports: [ ParentCanvasComponent, ChildCanvasComponent ]
+  exports: [ ParentCanvasComponent ]
 })
 export class ViewportModule { }

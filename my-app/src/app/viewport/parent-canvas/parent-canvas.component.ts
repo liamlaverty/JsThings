@@ -20,8 +20,7 @@ export class ParentCanvasComponent extends SimpleCanvasComponent implements OnIn
 
      }
 
-  @ViewChild('mySimpleCanvas') myCanvas;
-  @ViewChild('mySimpleCanvas', { read: ViewContainerRef }) myParentCanvas;
+    @ViewChild('mySimpleCanvas', { read: ViewContainerRef }) myParentCanvas;
 
   ngOnInit() {
     this.absOnInit();
@@ -29,7 +28,7 @@ export class ParentCanvasComponent extends SimpleCanvasComponent implements OnIn
 
   ngAfterViewInit() {
     this.abstAfterViewInit();
-    const canvas = this.myCanvas.nativeElement;
+    // const canvas = this.myCanvas.nativeElement;
     console.log('parent class ngAfterViewInit');
   }
 
@@ -37,11 +36,19 @@ export class ParentCanvasComponent extends SimpleCanvasComponent implements OnIn
     this.greedyClearCanvas();
   }
 
+  Draw() {
+    // console.log('drawing main game component');
 
-  private addLayer() {
+    for (const childCanvas of this.childCanvasArray) {
+       childCanvas.Draw();
+    }
+  }
+
+  addLayer() {
     const factory = this.componentFactoryResolver.resolveComponentFactory(ChildCanvasComponent);
     const ref = this.myParentCanvas.createComponent(factory);
+    const canvas = (<ChildCanvasComponent>ref.instance);
     ref.changeDetectorRef.detectChanges();
-    this.childCanvasArray.push(ref);
+    this.childCanvasArray.push(canvas);
   }
 }

@@ -49,7 +49,8 @@ export abstract class SimpleCanvasComponent implements OnInit {
   }
 
   Draw() {
-    console.log('drawing canvas');
+    // console.log('drawing abstract canvas');
+
   }
 
   protected greedyClearCanvas() {
