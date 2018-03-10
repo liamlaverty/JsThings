@@ -8,6 +8,7 @@ import { BrowserService } from './browser.service';
     CommonModule
   ],
   declarations: [ParentCanvasComponent],
-  providers: [BrowserService]
+  providers: [BrowserService],
+  exports: [ParentCanvasComponent]
 })
 export class ViewportModule { }
