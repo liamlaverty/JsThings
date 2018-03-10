@@ -1,5 +1,6 @@
 import { Component, AfterViewInit } from '@angular/core';
 import { ChildCanvasService } from './services/child-canvas.service';
+import { SimpleCanvasComponent } from '../simple-canvas/simple-canvas.component';
 
 
 @Component({
@@ -7,10 +8,12 @@ import { ChildCanvasService } from './services/child-canvas.service';
   templateUrl: './child-canvas.component.html',
   styleUrls: ['./child-canvas.component.css']
 })
-export class ChildCanvasComponent implements AfterViewInit {
+export class ChildCanvasComponent extends SimpleCanvasComponent implements AfterViewInit {
   private canvasName = 'canvas';
 
-  constructor(private childCanvasService: ChildCanvasService) { }
+  constructor(private childCanvasService: ChildCanvasService) {
+    super();
+  }
 
   ngAfterViewInit(): void {
     this.setCanvasLayerDetails();

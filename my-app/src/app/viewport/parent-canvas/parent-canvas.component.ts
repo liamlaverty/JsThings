@@ -1,6 +1,7 @@
 import { Component, OnInit, HostListener, ViewChild, AfterViewInit, ComponentFactoryResolver, ViewContainerRef } from '@angular/core';
 import { BrowserService } from '../browser.service';
 import { ChildCanvasComponent } from '../child-canvas/child-canvas.component';
+import { SimpleCanvasComponent } from '../simple-canvas/simple-canvas.component';
 
 @Component({
   selector: 'app-parent-canvas',
@@ -8,7 +9,7 @@ import { ChildCanvasComponent } from '../child-canvas/child-canvas.component';
   styleUrls: ['./parent-canvas.component.css'],
   providers: [BrowserService]
 })
-export class ParentCanvasComponent implements OnInit, AfterViewInit {
+export class ParentCanvasComponent extends SimpleCanvasComponent implements OnInit, AfterViewInit  {
   private browserHeight: number;
   private browserWidth: number;
   private viewportWidth: number;
@@ -17,7 +18,9 @@ export class ParentCanvasComponent implements OnInit, AfterViewInit {
 
   constructor(private browserService: BrowserService,
     private componentFactoryResolver: ComponentFactoryResolver,
-    private viewContainerRef: ViewContainerRef) { }
+    private viewContainerRef: ViewContainerRef) {
+      super();
+     }
 
   @ViewChild('gamecanvas') myCanvas;
   @ViewChild('gamecanvas', { read: ViewContainerRef }) myParentCanvas;
