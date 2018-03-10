@@ -1,5 +1,7 @@
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component, OnInit, HostListener, ViewChild, AfterViewInit, ComponentFactoryResolver, ViewContainerRef } from '@angular/core';
 import { BrowserService } from '../browser.service';
+import { ChildCanvasComponent } from '../child-canvas/child-canvas.component';
+import { SimpleCanvasComponent } from '../simple-canvas/simple-canvas.component';
 
 @Component({
   selector: 'app-parent-canvas',
@@ -7,32 +9,46 @@ import { BrowserService } from '../browser.service';
   styleUrls: ['./parent-canvas.component.css'],
   providers: [BrowserService]
 })
-export class ParentCanvasComponent implements OnInit {
-  private browserHeight: number;
-  private browserWidth: number;
+export class ParentCanvasComponent extends SimpleCanvasComponent implements OnInit, AfterViewInit  {
+  private childCanvasArray: Array<ChildCanvasComponent>;
 
-  constructor(private browserService: BrowserService) { }
+  constructor(protected browserService: BrowserService,
+    private componentFactoryResolver: ComponentFactoryResolver,
+    private viewContainerRef: ViewContainerRef) {
+    super(browserService);
+      this.childCanvasArray = new Array<ChildCanvasComponent>();
 
-  @HostListener('window:resize', ['$event'])
-  onResize() {
-    this.updateBrowserSize();
-  }
+     }
+
+    @ViewChild('mySimpleCanvas', { read: ViewContainerRef }) myParentCanvas;
 
   ngOnInit() {
-    this.updateBrowserSize();
+    this.absOnInit();
   }
 
-  updateBrowserSize() {
-    this.SetBrowserWidth();
-    this.SetBrowserHeight();
+  ngAfterViewInit() {
+    this.abstAfterViewInit();
+    // const canvas = this.myCanvas.nativeElement;
+    console.log('parent class ngAfterViewInit');
   }
 
-
-  private SetBrowserHeight(): void {
-    this.browserService.getBrowserHeight();
-  }
-  private SetBrowserWidth(): void {
-    this.browserService.getBrowserWidth();
+  GreedyClearScreen(): void {
+    this.greedyClearCanvas();
   }
 
+  Draw() {
+    // console.log('drawing main game component');
+
+    for (const childCanvas of this.childCanvasArray) {
+       childCanvas.Draw();
+    }
+  }
+
+  addLayer() {
+    const factory = this.componentFactoryResolver.resolveComponentFactory(ChildCanvasComponent);
+    const ref = this.myParentCanvas.createComponent(factory);
+    const canvas = (<ChildCanvasComponent>ref.instance);
+    ref.changeDetectorRef.detectChanges();
+    this.childCanvasArray.push(canvas);
+  }
 }

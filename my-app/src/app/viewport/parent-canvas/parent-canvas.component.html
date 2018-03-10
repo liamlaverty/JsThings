@@ -1,3 +1,6 @@
-<p>
-  parent-canvas works!
-</p>
+<button (click)="addLayer()">Add Layer</button>
+<div>this is parent</div>
+
+<div class="game-viewport-area" [style.width.px]="viewportWidth" [style.height.px]="viewportHeight">
+  <canvas  #mySimpleCanvas class="game-canvas gamelayer"></canvas>  
+</div>
