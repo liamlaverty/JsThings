@@ -10,6 +10,8 @@ import { BrowserService } from '../browser.service';
 export class ParentCanvasComponent implements OnInit {
   private browserHeight: number;
   private browserWidth: number;
+  private viewportWidth: number;
+  private viewportHeight: number;
 
   constructor(private browserService: BrowserService) { }
 
@@ -25,14 +27,22 @@ export class ParentCanvasComponent implements OnInit {
   updateBrowserSize() {
     this.SetBrowserWidth();
     this.SetBrowserHeight();
+    this.UpdateCanvasSize(80, 80);
   }
 
 
   private SetBrowserHeight(): void {
-    this.browserService.getBrowserHeight();
+    this.browserHeight = this.browserService.getBrowserHeight();
+
   }
   private SetBrowserWidth(): void {
-    this.browserService.getBrowserWidth();
+    this.browserWidth = this.browserService.getBrowserWidth();
+  }
+
+  private UpdateCanvasSize(heightPercent: number, widthPercent: number) {
+    this.viewportHeight = ((this.browserHeight / 100) * heightPercent);
+    this.viewportWidth = ((this.browserWidth / 100) * widthPercent);
+
   }
 
 }
