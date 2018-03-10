@@ -13,11 +13,11 @@ export class ChildCanvasComponent implements AfterViewInit {
   constructor(private childCanvasService: ChildCanvasService) { }
 
   ngAfterViewInit(): void {
-    this.canvasName = 'canvas1';
+    this.setCanvasLayerDetails();
   }
 
-  private getAnswer() {
-    return this.childCanvasService.giveMeTheAnswer();
+  private setCanvasLayerDetails() {
+    this.canvasName = this.canvasName + this.childCanvasService.getCanvasNumber();
   }
 
 }

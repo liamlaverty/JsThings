@@ -20,6 +20,7 @@ export class ParentCanvasComponent implements OnInit, AfterViewInit {
     private viewContainerRef: ViewContainerRef) { }
 
   @ViewChild('gamecanvas') myCanvas;
+  @ViewChild('gamecanvas', { read: ViewContainerRef }) myParentCanvas;
 
   @HostListener('window:resize', ['$event'])
   onResize() {
@@ -52,7 +53,7 @@ export class ParentCanvasComponent implements OnInit, AfterViewInit {
 
   private addLayer() {
     const factory = this.componentFactoryResolver.resolveComponentFactory(ChildCanvasComponent);
-    const ref = this.viewContainerRef.createComponent(factory);
+    const ref = this.myParentCanvas.createComponent(factory);
     ref.changeDetectorRef.detectChanges();
   }
 
