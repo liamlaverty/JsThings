@@ -15,15 +15,18 @@ export class ParentCanvasComponent extends SimpleCanvasComponent implements OnIn
   private viewportWidth: number;
   private viewportHeight: number;
   private context: CanvasRenderingContext2D;
+  private childCanvasArray: Array<ChildCanvasComponent>;
 
   constructor(private browserService: BrowserService,
     private componentFactoryResolver: ComponentFactoryResolver,
     private viewContainerRef: ViewContainerRef) {
       super();
+      this.childCanvasArray = new Array<ChildCanvasComponent>();
+
      }
 
-  @ViewChild('gamecanvas') myCanvas;
-  @ViewChild('gamecanvas', { read: ViewContainerRef }) myParentCanvas;
+  @ViewChild('mySimpleCanvas') myCanvas;
+  @ViewChild('mySimpleCanvas', { read: ViewContainerRef }) myParentCanvas;
 
   @HostListener('window:resize', ['$event'])
   onResize() {
@@ -35,22 +38,20 @@ export class ParentCanvasComponent extends SimpleCanvasComponent implements OnIn
   }
 
   ngAfterViewInit() {
+    this.abstAfterViewInit();
     const canvas = this.myCanvas.nativeElement;
+    console.log('parent class ngAfterViewInit');
     this.context = canvas.getContext('2d');
   }
 
   updateBrowserSize() {
     this.SetBrowserWidth();
     this.SetBrowserHeight();
-    this.UpdateCanvasSize(80, 80);
-  }
-
-  GetContext() {
-    return this.context;
+    this.UpdateCanvasSize(80, 80); // 80% of window size
   }
 
   GreedyClearScreen(): void {
-    this.GetContext().clearRect(0, 0, this.viewportHeight, this.viewportWidth);
+    this.greedyClearCanvas();
   }
 
 
@@ -58,6 +59,7 @@ export class ParentCanvasComponent extends SimpleCanvasComponent implements OnIn
     const factory = this.componentFactoryResolver.resolveComponentFactory(ChildCanvasComponent);
     const ref = this.myParentCanvas.createComponent(factory);
     ref.changeDetectorRef.detectChanges();
+    this.childCanvasArray.push(ref);
   }
 
   private SetBrowserHeight(): void {
