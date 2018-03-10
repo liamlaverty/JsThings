@@ -6,7 +6,8 @@
   "apps": [
     {
       "root": "src",
-      "outDir": "../../liamlaverty.github.io/dist",
+      "outDir": "../JsThingsDist/dist",
+
       "assets": [
         "assets",
         "favicon.ico"
