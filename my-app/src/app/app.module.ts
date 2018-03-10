@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 
 
 import { AppComponent } from './app.component';
+import { ParentCanvasComponent } from './viewport/parent-canvas/parent-canvas.component';
 import { KeyUpComponentComponent } from './key-up-component/key-up-component.component';
 import { CanvasAreaComponent } from './canvas-area/canvas-area.component';
 import { GameDetailsComponent } from './game-details/game-details.component';
@@ -12,6 +13,7 @@ import { PhysicsModule } from './physics/physics.module';
 import { LightModule } from './light/light.module';
 import { ViewportModule } from './viewport/viewport.module';
 import { InputModule } from './input/input.module';
+import { GameComponent } from './game/game.component';
 
 
 @NgModule({
@@ -19,7 +21,8 @@ import { InputModule } from './input/input.module';
     AppComponent,
     KeyUpComponentComponent,
     CanvasAreaComponent,
-    GameDetailsComponent
+    GameDetailsComponent,
+    GameComponent
   ],
   imports: [
     BrowserModule,
@@ -27,7 +30,7 @@ import { InputModule } from './input/input.module';
     // GraphicsModule,
     // PhysicsModule,
     // LightModule,
-    // ViewportModule,
+    ViewportModule,
     InputModule
   ],
   providers: [],
