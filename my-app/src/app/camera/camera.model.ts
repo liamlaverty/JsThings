@@ -38,20 +38,17 @@ export class Camera {
         const negativeOriginVect3 = this.vector3Service.CreateFromVector2(negativeOriginVect2, 0);
         const trnsMtxFromNegativeOrigin = this.mtxService.CreateTranslationFromVector3(negativeOriginVect3);
 
+        const mtxFromRotation = this.mtxService.CreateRotationZ(this.Rotation);
 
         const zoomVect3 = this.vector3Service.Create(this.Zoom, this.Zoom, 1);
 
+
+
         const positiveOriginVect3 = this.vector3Service.CreateFromVector2(this.Origin, 0);
-
-
-
-
-
-
 
         let result = this.mtxService.Multiply(trnsMtxFromNegativePosByParallax, trnsMtxFromNegativeOrigin);
         result = this.mtxService.Multiply(result, trnsMtxFromNegativeOrigin);
-
+        result = this.mtxService.Multiply(result, mtxFromRotation);
 
         return result;
         // const Mtx = this.mtxService.CreateTranslation(
