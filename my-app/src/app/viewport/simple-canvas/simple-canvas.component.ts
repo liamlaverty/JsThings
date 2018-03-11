@@ -10,6 +10,7 @@ import { Layer } from '../../models/layer.model';
   providers: [BrowserService]
 })
 export abstract class SimpleCanvasComponent implements OnInit {
+  private AspectRatio = 1;
   @ViewChild('mySimpleCanvas') mySimpleCanvas;
   rectangles: Array<GameRectangle>;
   ctx: CanvasRenderingContext2D;
@@ -90,8 +91,13 @@ export abstract class SimpleCanvasComponent implements OnInit {
   }
 
   private UpdateCanvasSize(heightPercent: number, widthPercent: number) {
-    this.viewportHeight = ((this.browserHeight / 100) * heightPercent);
-    this.viewportWidth =  ((this.browserWidth / 100) * widthPercent);
 
+    this.viewportHeight = ((this.browserHeight / 100) * heightPercent);
+
+    // this.viewportWidth = ((this.browserWidth / 100) * widthPercent);
+    this.viewportWidth = (this.viewportHeight * (this.AspectRatio));
+    console.log('height is ' + this.viewportHeight);
+
+    //
   }
 }
