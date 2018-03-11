@@ -18,8 +18,8 @@ export abstract class SimpleCanvasComponent implements OnInit {
   layer: Layer;
   private browserHeight: number;
   private browserWidth: number;
-  private viewportWidth: number;
-  private viewportHeight: number;
+  viewportWidth: number;
+  viewportHeight: number;
 
   constructor(protected browserService: BrowserService) {
     console.log('in simplecanvas');
@@ -44,8 +44,8 @@ export abstract class SimpleCanvasComponent implements OnInit {
   abstAfterViewInit() {
     console.log('abstract class ngAfterViewInit');
     const canvas = this.mySimpleCanvas.nativeElement;
-    this.canvasHeight = canvas.offsetHeight;
-    this.canvasWidth = canvas.offsetWidth;
+     this.canvasHeight = canvas.offsetHeight;
+     this.canvasWidth = canvas.offsetWidth;
     this.ctx = canvas.getContext('2d');
 
     console.log('canvas setup with height [' + this.canvasHeight + '], width [' + this.canvasWidth + ']');
@@ -62,13 +62,15 @@ export abstract class SimpleCanvasComponent implements OnInit {
     for (const rectangle of this.layer.Rectangles) {
       this.ctx.fillStyle = rectangle.color;
       this.ctx.fillRect(rectangle.x, rectangle.y, rectangle.width, rectangle.height);
+      // console.log('drawing at x[ ' + rectangle.x + ' ], y[ ' + rectangle.y +' ], h[ ' +
+      // rectangle.width + ' ], w[ ' + rectangle.height + ' ]');
     }
   }
 
   }
 
   protected greedyClearCanvas() {
-    this.GetContext().clearRect(0, 0, this.canvasHeight, this.canvasWidth);
+    this.ctx.clearRect(0, 0, this.canvasWidth, this.canvasHeight);
   }
 
 
@@ -88,8 +90,8 @@ export abstract class SimpleCanvasComponent implements OnInit {
   }
 
   private UpdateCanvasSize(heightPercent: number, widthPercent: number) {
-    this.viewportHeight = 600; // ((this.browserHeight / 100) * heightPercent);
-    this.viewportWidth = 800; // ((this.browserWidth / 100) * widthPercent);
+    this.viewportHeight = ((this.browserHeight / 100) * heightPercent);
+    this.viewportWidth =  ((this.browserWidth / 100) * widthPercent);
 
   }
 }

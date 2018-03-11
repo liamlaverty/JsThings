@@ -7,10 +7,8 @@ import { ChildCanvasService } from './child-canvas/services/child-canvas.service
 import { SimpleCanvasComponent } from './simple-canvas/simple-canvas.component';
 
 @NgModule({
-  imports: [
-    CommonModule
-  ],
-  declarations: [ParentCanvasComponent, ChildCanvasComponent, ChildCanvasComponent, SimpleCanvasComponent],
+  declarations: [ParentCanvasComponent, ChildCanvasComponent, ChildCanvasComponent],
+  imports: [ CommonModule ],
   entryComponents: [ChildCanvasComponent, ParentCanvasComponent],
   providers: [BrowserService, ChildCanvasService],
   exports: [ ParentCanvasComponent ]
