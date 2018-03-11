@@ -26,23 +26,34 @@ export class Camera {
         this.ViewportDiv2 = new Vector2(this.Viewport.x / 2, this.Viewport.y / 2);
     }
 
-    GetViewMatrix(parallax: Vector2) {
+    GetViewMatrix(parallax: Vector2): Matrix {
         this.LookAt(this.FocalPoint);
-
-        // let positionByParallax = this.vector2Service.
 
         const negativePositionVect = this.vector2Service.NegativeOf(this.Position);
         const negativePosByParallax = this.vector2Service.Multiply(negativePositionVect, parallax);
         const firstTranslation = this.vector3Service.CreateFromVector2(negativePosByParallax, 0);
+        const trnsMtxFromNegativePosByParallax = this.mtxService.CreateTranslationFromVector3(firstTranslation);
 
         const negativeOriginVect2 = this.vector2Service.NegativeOf(this.Origin);
         const negativeOriginVect3 = this.vector3Service.CreateFromVector2(negativeOriginVect2, 0);
+        const trnsMtxFromNegativeOrigin = this.mtxService.CreateTranslationFromVector3(negativeOriginVect3);
+
 
         const zoomVect3 = this.vector3Service.Create(this.Zoom, this.Zoom, 1);
 
         const positiveOriginVect3 = this.vector3Service.CreateFromVector2(this.Origin, 0);
 
 
+
+
+
+
+
+        let result = this.mtxService.Multiply(trnsMtxFromNegativePosByParallax, trnsMtxFromNegativeOrigin);
+        result = this.mtxService.Multiply(result, trnsMtxFromNegativeOrigin);
+
+
+        return result;
         // const Mtx = this.mtxService.CreateTranslation(
         //    vector3Service.CreateFromVector2(-Position * parallax, 0));
     }

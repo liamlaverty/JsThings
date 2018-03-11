@@ -4,6 +4,11 @@ import { Vector3 } from '../vector3/vector3.model';
 
 @Injectable()
 export class MatrixService {
+  private static IdentityMtx = new Matrix(
+    1, 0, 0, 0,
+    0, 1, 0, 0,
+    0, 0, 1, 0,
+    0, 0, 0, 1);
 
   constructor() { }
 
@@ -36,6 +41,28 @@ export class MatrixService {
     );
     return resultMtx;
 
+  }
+
+  Multiply(mtx1: Matrix, mtx2: Matrix): Matrix {
+
+  }
+  MultiplyByScaleFactor(mtx1: Matrix, scaleFactor: number): Matrix {
+
+  }
+
+  CreateRotationZ(radians: number): Matrix {
+
+    const mtx1 = MatrixService.IdentityMtx;
+
+    const cos1 = Math.cos(radians);
+    const sin1 = Math.sin(radians);
+
+    mtx1.M11 = cos1;
+    mtx1.M12 = sin1;
+    mtx1.M21 = -sin1;
+    mtx1.M22 = cos1;
+
+    return mtx1;
   }
 
 }
