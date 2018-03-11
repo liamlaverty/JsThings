@@ -79,15 +79,16 @@ export class GameComponent implements OnInit, AfterViewInit {
     const myDiff: number = (myCompletedTime.getTime() - myTime.getTime());
     this.frameBuffer.push(myDiff);
 
-    if (this.frameBuffer.length >= 100) {
+    if (this.frameBuffer.length >= 30) {
       this.calculateFps();
     }
   }
 
   calculateFps() {
-    const bufferlength = this.frameBuffer.length;
-    const bufferTotalTime = this.frameBuffer.reduce((a, b) => a + b, 0);
-    this.fps = bufferlength / bufferTotalTime;
+
+     const bufferlength = this.frameBuffer.length;
+     const bufferTotalTime = this.frameBuffer.reduce((a, b) => a + b, 0);
+     this.fps = bufferlength / bufferTotalTime;
 
     while (this.frameBuffer.length) {
       this.frameBuffer.pop();
