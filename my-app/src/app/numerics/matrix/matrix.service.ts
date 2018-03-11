@@ -27,7 +27,46 @@ export class MatrixService {
        0, 0, 1, 0,
        position.X, position.Y, position.Z, 1);
       return resultMtx;
+  }
 
+  Add(mtx1: Matrix, mtx2: Matrix): Matrix {
+    mtx1.M11 = mtx1.M11 + mtx2.M11;
+    mtx1.M12 = mtx1.M12 + mtx2.M12;
+    mtx1.M13 = mtx1.M13 + mtx2.M13;
+    mtx1.M14 = mtx1.M14 + mtx2.M14;
+    mtx1.M21 = mtx1.M21 + mtx2.M21;
+    mtx1.M22 = mtx1.M22 + mtx2.M22;
+    mtx1.M23 = mtx1.M23 + mtx2.M23;
+    mtx1.M24 = mtx1.M24 + mtx2.M24;
+    mtx1.M31 = mtx1.M31 + mtx2.M31;
+    mtx1.M32 = mtx1.M32 + mtx2.M32;
+    mtx1.M33 = mtx1.M33 + mtx2.M33;
+    mtx1.M34 = mtx1.M34 + mtx2.M34;
+    mtx1.M41 = mtx1.M41 + mtx2.M41;
+    mtx1.M42 = mtx1.M42 + mtx2.M42;
+    mtx1.M43 = mtx1.M43 + mtx2.M43;
+    mtx1.M44 = mtx1.M44 + mtx2.M44;
+    return mtx1;
+  }
+
+  Subtract(mtx1: Matrix, mtx2: Matrix): Matrix {
+    mtx1.M11 = mtx1.M11 - mtx2.M11;
+    mtx1.M12 = mtx1.M12 - mtx2.M12;
+    mtx1.M13 = mtx1.M13 - mtx2.M13;
+    mtx1.M14 = mtx1.M14 - mtx2.M14;
+    mtx1.M21 = mtx1.M21 - mtx2.M21;
+    mtx1.M22 = mtx1.M22 - mtx2.M22;
+    mtx1.M23 = mtx1.M23 - mtx2.M23;
+    mtx1.M24 = mtx1.M24 - mtx2.M24;
+    mtx1.M31 = mtx1.M31 - mtx2.M31;
+    mtx1.M32 = mtx1.M32 - mtx2.M32;
+    mtx1.M33 = mtx1.M33 - mtx2.M33;
+    mtx1.M34 = mtx1.M34 - mtx2.M34;
+    mtx1.M41 = mtx1.M41 - mtx2.M41;
+    mtx1.M42 = mtx1.M42 - mtx2.M42;
+    mtx1.M43 = mtx1.M43 - mtx2.M43;
+    mtx1.M44 = mtx1.M44 - mtx2.M44;
+    return mtx1;
   }
 
   Multiply(mtx1: Matrix, mtx2: Matrix): Matrix {
@@ -113,6 +152,27 @@ export class MatrixService {
       0, 0, 0, 1
     );
     return resultMtx;
+  }
+
+  Negate(mtx: Matrix): Matrix {
+    mtx.M11 = -mtx.M11;
+    mtx.M12 = -mtx.M12;
+    mtx.M13 = -mtx.M13;
+    mtx.M14 = -mtx.M14;
+    mtx.M21 = -mtx.M21;
+    mtx.M22 = -mtx.M22;
+    mtx.M23 = -mtx.M23;
+    mtx.M24 = -mtx.M24;
+    mtx.M31 = -mtx.M31;
+    mtx.M32 = -mtx.M32;
+    mtx.M33 = -mtx.M33;
+    mtx.M34 = -mtx.M34;
+    mtx.M41 = -mtx.M41;
+    mtx.M42 = -mtx.M42;
+    mtx.M43 = -mtx.M43;
+    mtx.M44 = -mtx.M44;
+
+    return mtx;
   }
 
 }
