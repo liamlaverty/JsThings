@@ -175,4 +175,14 @@ export class MatrixService {
     return mtx;
   }
 
+  Transpose(mtx1: Matrix): Matrix {
+    const transposedMtx = new Matrix(
+      mtx1.M11,    mtx1.M21,    mtx1.M31,    mtx1.M41,
+      mtx1.M12,    mtx1.M22,    mtx1.M32,    mtx1.M42,
+      mtx1.M13,    mtx1.M23,    mtx1.M33,    mtx1.M43,
+      mtx1.M14,    mtx1.M24,    mtx1.M34,    mtx1.M44,
+    );
+    return transposedMtx;
+  }
+
 }
