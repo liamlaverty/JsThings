@@ -54,7 +54,6 @@ export class Camera {
         result = this.mtxService.Multiply(result, mtxFromRotation);
         result = this.mtxService.Multiply(result, scaleMtx);
         result = this.mtxService.Multiply(result, mtxFromPositiveOrigin);
-        
 
         return result;
         // const Mtx = this.mtxService.CreateTranslation(

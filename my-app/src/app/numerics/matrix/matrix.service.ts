@@ -175,6 +175,9 @@ export class MatrixService {
     return mtx;
   }
 
+  /*
+  * swaps the mtx rows for coulmns, returns a new matrix
+  */
   Transpose(mtx1: Matrix): Matrix {
     const transposedMtx = new Matrix(
       mtx1.M11,    mtx1.M21,    mtx1.M31,    mtx1.M41,
