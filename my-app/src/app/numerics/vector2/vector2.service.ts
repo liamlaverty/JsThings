@@ -17,16 +17,28 @@ export class Vector2Service {
     return new Vector2(vecX, vecY);
   }
 
+  CompareEquality(left: Vector2, right: Vector2): boolean {
+    return left.x !== right.x || left.y !== right.y;
+  }
+
   /*
   * divides the first vector by the second
   * this is not scalar division
   */
   Divide(left: Vector2, right: Vector2): Vector2 {
-    throw new Error('Divide not implemented');
+    const vecX = left.x / right.x;
+    const vecY = left.y / right.y;
+    return new Vector2(vecX, vecY);
+  }
 
-    const vecX = 0;
-    const vecY = 0;
+  /*
+  * divides a given source vector2 by a scale factor
+  */
+  DivideByScale(source: Vector2, scaleFactor: number): Vector2 {
+    const factor: number = 1 / scaleFactor;
 
+    const vecX = source.x * factor;
+    const vecY = source.y * factor;
     return new Vector2(vecX, vecY);
   }
 
@@ -47,5 +59,22 @@ export class Vector2Service {
       const vecY = left.y - right.y;
 
       return new Vector2(vecX, vecY);
+  }
+
+  NegativeOf(source: Vector2) {
+    const vecX = -source.x;
+    const vecY = -source.y;
+    return new Vector2(vecX, vecY);
+  }
+
+  Multiply(left: Vector2, right: Vector2) {
+    const vecX = left.x * right.x;
+    const vecY = left.y * right.y;
+    return new Vector2(vecX, vecY);
+  }
+  MultiplyByScale(source: Vector2, scaleFactor: number) {
+    const vecX = source.x * scaleFactor;
+    const vecY = source.y * scaleFactor;
+    return new Vector2(vecX, vecY);
   }
 }
