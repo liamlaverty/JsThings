@@ -1,7 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { AfterViewInit } from '@angular/core';
 import { GameRectangle } from '../models/game-rectangle';
-import { RECTANGLES } from '../mock-rectangles';
+import { RECTANGLES, PLAYER } from '../mock-rectangles';
 import { InputModule } from '../input/input.module';
 import { InputHandleComponent } from '../input/input-handle/input-handle.component';
 
@@ -25,7 +25,7 @@ export class KeyUpComponentComponent implements AfterViewInit {
   currentKeyDown: string;
 
   constructor() {
-    this.rectangles = RECTANGLES;
+    this.rectangles = PLAYER;
     this.character = this.findCharacter();
     this.distanceToMovePerInput = 5;
     this.currentKeyDown = '';
@@ -61,7 +61,7 @@ export class KeyUpComponentComponent implements AfterViewInit {
         console.log('found person');
         return singleRectangle;
       } else {
-        console.log('couldnt find person');
+        console.log('couldn\'t find person');
       }
     }
     return null;
