@@ -22,7 +22,7 @@ export class Vector2Service {
   * this is not scalar division
   */
   Divide(left: Vector2, right: Vector2): Vector2 {
-    throw new Error('Divide not implemented');
+    console.log('Divide not implemented for Vector2s');
 
     const vecX = 0;
     const vecY = 0;
