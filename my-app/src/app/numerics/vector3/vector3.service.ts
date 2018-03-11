@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Vector3 } from './vector3.model';
+import { Vector2 } from '../vector2/vector2.model';
 
 @Injectable()
 export class Vector3Service {
@@ -67,6 +68,16 @@ export class Vector3Service {
 
   Backward(): Vector3 {
     return Vector3Service.backward;
+  }
+
+  Create(x: number, y: number, z: number): Vector3 {
+    return new Vector3(x, y, z);
+  }
+  CreateFromVector2(value: Vector2, z: number): Vector3 {
+    return this.Create(value.x, value.y, z);
+  }
+  CreateFromValue(value: number): Vector3 {
+    return this.Create(value, value, value);
   }
 
 }
