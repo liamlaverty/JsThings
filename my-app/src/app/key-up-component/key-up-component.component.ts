@@ -52,7 +52,7 @@ export class KeyUpComponentComponent implements AfterViewInit {
 
 
   moveOnAxisX(distance: number): void {
-    console.log('moving on axis x');
+    // console.log('moving on axis x');
     // this.character.position.x += distance;
     this.mainCharacter.force.x -= distance * 1;
   }

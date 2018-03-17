@@ -36,7 +36,7 @@ export class MainCharacter {
         this.rectangleDetails.position.x += this.force.x;
         this.rectangleDetails.position.y += this.force.y;
 
-        console.log('moving on x to ' + this.rectangleDetails.position.x);
+        // console.log('moving on x to ' + this.rectangleDetails.position.x);
     }
 
     HandleInput(gameTime: number): void {
