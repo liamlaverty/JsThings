@@ -61,7 +61,7 @@ export abstract class SimpleCanvasComponent implements OnInit {
     if (this.layer.Rectangles !== undefined) {
     for (const rectangle of this.layer.Rectangles) {
       this.ctx.fillStyle = rectangle.color;
-      this.ctx.fillRect(rectangle.x, rectangle.y, rectangle.width, rectangle.height);
+      this.ctx.fillRect(rectangle.position.x, rectangle.position.y, rectangle.size.x, rectangle.size.y);
     }
   }
 
