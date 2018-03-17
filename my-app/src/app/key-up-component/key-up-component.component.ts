@@ -89,8 +89,9 @@ export class KeyUpComponentComponent implements AfterViewInit {
        if (key === 's') {
          this.moveOnAxisY(this.distanceToMovePerInput);
        }
-       if (key === ' ') {
+       if (key === ' ' ) {
          console.log('JUMP!');
+         this.moveOnAxisY(-this.distanceToMovePerInput * 3);
        }
   }
 

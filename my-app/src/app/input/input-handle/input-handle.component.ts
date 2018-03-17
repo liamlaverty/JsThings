@@ -27,6 +27,7 @@ export class InputHandleComponent implements OnInit {
     this.keyPressed = true;
     this.key = event.key;
     if (this.checkKeyPressValid()) {
+      this.preventDefaults(event);
       this.handleKeyPress();
     }
   }
@@ -34,6 +35,10 @@ export class InputHandleComponent implements OnInit {
   @HostListener('document:keyup', ['$event'])
   handleKeyboardEventFinished(event: KeyboardEvent) {
     this.keyPressed = false;
+  }
+
+  preventDefaults(e) {
+    e.preventDefault();
   }
 
   handleKeyPress() {
