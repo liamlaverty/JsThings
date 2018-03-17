@@ -5,6 +5,10 @@ import { Layer } from '../models/layer.model';
 import { Rectangle } from '../models/rectangle';
 import { RECTANGLES, CLOUDS, PLAYER, GROUND, SKY } from '../mock-rectangles';
 import { KeyUpComponentComponent } from '../key-up-component/key-up-component.component';
+import { Camera } from '../camera/camera.model';
+import { MainCharacter } from './MainCharacter/main-character.model';
+import { GameRectangle } from '../models/game-rectangle';
+import { MainCharacterService } from './MainCharacter/main-character.service';
 
 // import { ParentCanvasComponent } from '../viewport/parent-canvas/parent-canvas.component';
 
@@ -12,11 +16,18 @@ import { KeyUpComponentComponent } from '../key-up-component/key-up-component.co
 @Component({
   selector: 'app-game',
   templateUrl: './game.component.html',
-  styleUrls: ['./game.component.css']
+  styleUrls: ['./game.component.css'],
+  providers: [ MainCharacterService ]
 })
 export class GameComponent implements OnInit, AfterViewInit {
 
-  constructor(private componentFactoryResolver: ComponentFactoryResolver) { }
+  constructor(private componentFactoryResolver: ComponentFactoryResolver,
+    public mainCharacterService: MainCharacterService ) {
+
+      this.mainCharacter = mainCharacterService.GetMainCharacter();
+    }
+
+
   @ViewChild(KeyUpComponentComponent)
   private keyUpComponentComponent: KeyUpComponentComponent;
   @ViewChild('game', { read: ViewContainerRef }) theGameRegion;
@@ -28,18 +39,27 @@ export class GameComponent implements OnInit, AfterViewInit {
   timeDiff: number;
   frameBuffer: number[];
   fps = 0;
+  theCamera: Camera;
+  mainCharacter: MainCharacter;
+  // copyOfPlayerRect: GameRectangle[];
+  // mainCharacterService: MainCharacterService;
 
   ngOnInit() {
+
+    // this.copyOfPlayerRect = <GameRectangle[]> JSON.parse(JSON.stringify(PLAYER));
+
     const initTime = new Date();
     this.startTime = initTime.valueOf();
     this.frameBuffer = new Array<number>();
 
-
+    // this.theCamera = new Camera()
 
     // this.startTime = new Date();
     console.log('game main init');
 
     const layers = this.GetLayerSettings();
+
+    this.mainCharacter = this.mainCharacterService.GetMainCharacter();
 
     const factory = this.componentFactoryResolver.resolveComponentFactory(ParentCanvasComponent);
     this.theGameRef = this.theGameRegion.createComponent(factory);
@@ -131,7 +151,11 @@ export class GameComponent implements OnInit, AfterViewInit {
 
   SetupPlayerLayer(layerCollection: Array<Layer>): void {
     const thisLayer: Layer = new Layer;
-    thisLayer.Rectangles = PLAYER;
+
+    const thisRectangleSet = new Array<GameRectangle>();
+    thisRectangleSet.push(this.mainCharacter.rectangleDetails);
+
+    thisLayer.Rectangles = thisRectangleSet; //  PLAYER; // this.copyOfPlayerRect;
 
     layerCollection.push(thisLayer);
   }
@@ -144,6 +168,7 @@ export class GameComponent implements OnInit, AfterViewInit {
   }
 
   SetupSkyLayer(layerCollection: Array<Layer>): void {
+
     const thisLayer: Layer = new Layer;
     thisLayer.Rectangles = SKY;
 

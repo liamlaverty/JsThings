@@ -13,7 +13,7 @@ export const GROUND: GameRectangle[] = [
 ];
 
 export const PLAYER: GameRectangle[] = [
-    { name: 'person', id: 4, color: '#ff0000', x: 10, y: 275, width: 50, height: 100 },
+    { name: 'person', id: 4, color: '#ff0000', x: 10, y: 275, width: 150, height: 100 },
 ];
 
 export const CLOUDS: GameRectangle[] = [

@@ -58,13 +58,10 @@ export abstract class SimpleCanvasComponent implements OnInit {
 
   Draw() {
     this.greedyClearCanvas();
-    // console.log('drawing abstract canvas');
     if (this.layer.Rectangles !== undefined) {
     for (const rectangle of this.layer.Rectangles) {
       this.ctx.fillStyle = rectangle.color;
       this.ctx.fillRect(rectangle.x, rectangle.y, rectangle.width, rectangle.height);
-      // console.log('drawing at x[ ' + rectangle.x + ' ], y[ ' + rectangle.y +' ], h[ ' +
-      // rectangle.width + ' ], w[ ' + rectangle.height + ' ]');
     }
   }
 

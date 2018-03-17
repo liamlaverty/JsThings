@@ -4,6 +4,8 @@ import { GameRectangle } from '../models/game-rectangle';
 import { RECTANGLES, PLAYER } from '../mock-rectangles';
 import { InputModule } from '../input/input.module';
 import { InputHandleComponent } from '../input/input-handle/input-handle.component';
+import { MainCharacterService } from '../game/MainCharacter/main-character.service';
+import { MainCharacter } from '../game/MainCharacter/main-character.model';
 
 
 // import { KeyboardEvent } from '@angular/core';
@@ -12,7 +14,8 @@ import { InputHandleComponent } from '../input/input-handle/input-handle.compone
 @Component({
   selector: 'app-key-up-component',
   templateUrl: './key-up-component.component.html',
-  styleUrls: ['./key-up-component.component.css']
+  styleUrls: ['./key-up-component.component.css'],
+  providers: [ MainCharacterService]
 })
 export class KeyUpComponentComponent implements AfterViewInit {
   @ViewChild(InputHandleComponent)
@@ -23,12 +26,16 @@ export class KeyUpComponentComponent implements AfterViewInit {
   character: GameRectangle;
   boxcontent: string;
   currentKeyDown: string;
+  // mainCharacterService: MainCharacterService;
+  mainCharacter: MainCharacter;
 
-  constructor() {
+  constructor(public mainCharacterService: MainCharacterService ) {
     this.rectangles = PLAYER;
     this.character = this.findCharacter();
     this.distanceToMovePerInput = 5;
     this.currentKeyDown = '';
+    // this.mainCharacterService.GetMainCharacter();
+    // this.mainCharacter = this.mainCharacterService.GetMainCharacter();
   }
   inputTick(): void {
      this.checkCurrentKey();

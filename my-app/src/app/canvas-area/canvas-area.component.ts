@@ -48,20 +48,19 @@ export class CanvasAreaComponent implements OnInit, AfterViewInit {
     });
 
     const ctx = this.context;
-    this.greedyClearScreen(ctx);
 
+    this.Draw(ctx);
+  }
 
-
-    // if (this.ticks % 10 === 0) {
-      for (const rectangle of this.rectangles) {
-        // console.log('fillstyle will be ' + rectangle.color);
-        ctx.fillStyle = rectangle.color;
-        ctx.fillRect(rectangle.x, rectangle.y, rectangle.width, rectangle.height);
-        // ctx.globalCompositeOperation = 'destination-over';
-        // rectangle.Bottom();
-      }
-    // ctx.globalCompositeOperation = 'source-over';
-    // }
+  Draw(ctx, doGreedyClearScreen: boolean = true) {
+    console.log('drawing');
+    if (doGreedyClearScreen) {
+      this.greedyClearScreen(ctx);
+    }
+    for (const rectangle of this.rectangles) {
+      ctx.fillStyle = rectangle.color;
+      ctx.fillRect(rectangle.x, rectangle.y, rectangle.width, rectangle.height);
+    }
   }
 
   greedyClearScreen(ctx) {

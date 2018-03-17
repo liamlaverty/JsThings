@@ -19,7 +19,7 @@ export class MainCharacter {
 
 
     public Update(gameTime: number): void {
-
+        console.log('updating Mc');
         this.force.x = this.mathHelperService.Lerp(-this.force.x, 0, 1);
         this.force.y = this.mathHelperService.Lerp(-this.force.y, 0, 1);
     }
