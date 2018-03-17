@@ -59,7 +59,8 @@ export class CanvasAreaComponent implements OnInit, AfterViewInit {
     }
     for (const rectangle of this.rectangles) {
       ctx.fillStyle = rectangle.color;
-      ctx.fillRect(rectangle.x, rectangle.y, rectangle.width, rectangle.height);
+      ctx.fillRect(rectangle.position.x, rectangle.position.y,
+        rectangle.size.x, rectangle.size.y);
     }
   }
 

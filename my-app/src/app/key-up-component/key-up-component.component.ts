@@ -54,12 +54,12 @@ export class KeyUpComponentComponent implements AfterViewInit {
 
   moveOnAxisX(distance: number): void {
     // console.log('moving on axis x');
-    this.character.x += distance;
+    this.character.position.x += distance;
   }
 
   moveOnAxisY(distance: number): void {
     // console.log('moving on axis y');
-    this.character.y += distance;
+    this.character.position.y += distance;
   }
 
   findCharacter(): GameRectangle {
