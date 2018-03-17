@@ -2,12 +2,13 @@ import { Component, OnInit, ViewChild, AfterViewInit, HostListener } from '@angu
 import { BrowserService } from '../browser.service';
 import { GameRectangle } from '../../models/game-rectangle';
 import { Layer } from '../../models/layer.model';
+import { CameraService } from '../../camera/camera.service';
 
 @Component({
   selector: 'app-simple-canvas',
   templateUrl: './simple-canvas.component.html',
   styleUrls: ['./simple-canvas.component.css'],
-  providers: [BrowserService]
+  providers: [BrowserService, CameraService]
 })
 export abstract class SimpleCanvasComponent implements OnInit {
   private AspectRatio = 1;
@@ -21,9 +22,11 @@ export abstract class SimpleCanvasComponent implements OnInit {
   private browserWidth: number;
   viewportWidth: number;
   viewportHeight: number;
+  private cameraService: CameraService;
 
   constructor(protected browserService: BrowserService) {
     console.log('in simplecanvas');
+    this.cameraService = new CameraService;
   }
 
   @HostListener('window:resize', ['$event'])

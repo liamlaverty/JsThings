@@ -15,13 +15,28 @@ export class MainCharacter {
     constructor(rectangles: GameRectangle[]) {
         this.force = new Vector2(0, 0);
         this.rectangleDetails = rectangles[0];
+        this.mathHelperService = new MathHelperService();
     }
 
 
     public Update(gameTime: number): void {
-        console.log('updating Mc');
-        this.force.x = this.mathHelperService.Lerp(-this.force.x, 0, 1);
-        this.force.y = this.mathHelperService.Lerp(-this.force.y, 0, 1);
+        // console.log('force = ' + this.force.x);
+        this.force.x = this.mathHelperService.Lerp(-this.force.x, 0, 0.75);
+        // console.log('force = ' + this.force.x);
+        this.force.y = this.mathHelperService.Lerp(-this.force.y, 0, 0.75);
+
+
+        this.MoveMe();
+    }
+
+
+
+    MoveMe() {
+        // console.log('moving');
+        this.rectangleDetails.position.x += this.force.x;
+        this.rectangleDetails.position.y += this.force.y;
+
+        console.log('moving on x to ' + this.rectangleDetails.position.x);
     }
 
     HandleInput(gameTime: number): void {

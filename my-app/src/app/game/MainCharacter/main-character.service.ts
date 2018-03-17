@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { MainCharacter, MAINCHARACTER } from './main-character.model';
 import { GameRectangle } from '../../models/game-rectangle';
 import { PLAYER } from '../../mock-rectangles';
+import { MathHelperService } from '../../numerics/math-helper/math-helper.service';
 
 @Injectable()
 export class MainCharacterService {
@@ -17,6 +18,11 @@ export class MainCharacterService {
 
   }
 
+
+  // Update(gameTime: number): void {
+  //   this.mainCharacter.force.x = this.mathHelperService.Lerp(-this.mainCharacter.force.x, 0, 1);
+  //   this.mainCharacter.force.y = this.mathHelperService.Lerp(-this.mainCharacter.force.y, 0, 1);
+  // }
 
   SetMainCharacter() {
     console.log('setting main character');

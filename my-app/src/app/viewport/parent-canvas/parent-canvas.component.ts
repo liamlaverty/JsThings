@@ -3,6 +3,7 @@ import { BrowserService } from '../browser.service';
 import { ChildCanvasComponent } from '../child-canvas/child-canvas.component';
 import { SimpleCanvasComponent } from '../simple-canvas/simple-canvas.component';
 import { Layer } from '../../models/layer.model';
+import { CameraService } from '../../camera/camera.service';
 
 @Component({
   selector: 'app-parent-canvas',

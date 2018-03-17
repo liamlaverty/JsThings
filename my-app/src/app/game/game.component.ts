@@ -98,6 +98,7 @@ export class GameComponent implements OnInit, AfterViewInit {
     const myCompletedTime: Date = new Date();
     const myDiff: number = (myCompletedTime.getTime() - myTime.getTime());
     this.frameBuffer.push(myDiff);
+    this.mainCharacter.Update(myTime.valueOf());
 
     if (this.frameBuffer.length >= 30) {
       this.calculateFps();

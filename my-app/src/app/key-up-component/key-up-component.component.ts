@@ -31,11 +31,10 @@ export class KeyUpComponentComponent implements AfterViewInit {
 
   constructor(public mainCharacterService: MainCharacterService ) {
     this.rectangles = PLAYER;
+    this.mainCharacter = mainCharacterService.GetMainCharacter();
     this.character = this.findCharacter();
-    this.distanceToMovePerInput = 5;
+    this.distanceToMovePerInput = 60;
     this.currentKeyDown = '';
-    // this.mainCharacterService.GetMainCharacter();
-    // this.mainCharacter = this.mainCharacterService.GetMainCharacter();
   }
   inputTick(): void {
      this.checkCurrentKey();
@@ -53,13 +52,16 @@ export class KeyUpComponentComponent implements AfterViewInit {
 
 
   moveOnAxisX(distance: number): void {
-    // console.log('moving on axis x');
-    this.character.position.x += distance;
+    console.log('moving on axis x');
+    // this.character.position.x += distance;
+    this.mainCharacter.force.x -= distance * 1;
   }
 
   moveOnAxisY(distance: number): void {
     // console.log('moving on axis y');
-    this.character.position.y += distance;
+    // this.character.position.y += distance;
+
+    this.mainCharacter.force.y -= distance * 1;
   }
 
   findCharacter(): GameRectangle {
