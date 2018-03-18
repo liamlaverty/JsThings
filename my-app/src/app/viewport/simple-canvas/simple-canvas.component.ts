@@ -6,6 +6,8 @@ import { CameraService } from '../../camera/camera.service';
 import { Matrix } from '../../numerics/matrix/matrix.model';
 import { MatrixService } from '../../numerics/matrix/matrix.service';
 import { Vector2 } from '../../numerics/vector2/vector2.model';
+import { MathHelperService } from '../../numerics/math-helper/math-helper.service';
+import { Rectangle } from '../../models/rectangle';
 
 @Component({
   selector: 'app-simple-canvas',
@@ -27,11 +29,13 @@ export abstract class SimpleCanvasComponent implements OnInit {
   viewportHeight: number;
   private cameraService: CameraService;
   private matrixService: MatrixService;
+  private mathHelperService: MathHelperService;
 
   constructor(protected browserService: BrowserService) {
     console.log('in simplecanvas');
     this.matrixService = new MatrixService();
     this.cameraService = new CameraService();
+    this.mathHelperService = new MathHelperService();
   }
 
   @HostListener('window:resize', ['$event'])
@@ -64,7 +68,7 @@ export abstract class SimpleCanvasComponent implements OnInit {
     return this.ctx;
   }
 
-  Draw(cameraPosition: Vector2, cameraFocalPoint: Vector2, transformMatrix?: Matrix) {
+  Draw(cameraPosition: Vector2, cameraSize: Vector2, transformMatrix?: Matrix) {
     if (transformMatrix == null) { transformMatrix = this.matrixService.GetIdentityMtx(); }
 
     this.greedyClearCanvas();
@@ -72,7 +76,7 @@ export abstract class SimpleCanvasComponent implements OnInit {
 
 
         for (const rectangle of this.layer.Rectangles) {
-          if (this.RectIsOnScreen(rectangle, cameraPosition, cameraFocalPoint)) {
+          if (this.RectIsOnScreen(rectangle, cameraPosition, cameraSize)) {
 
             this.ctx.fillStyle = rectangle.color;
             this.ctx.fillRect(rectangle.position.x, rectangle.position.y, rectangle.size.x, rectangle.size.y);
@@ -82,11 +86,42 @@ export abstract class SimpleCanvasComponent implements OnInit {
     }
   }
 
-  protected RectIsOnScreen(theRect: GameRectangle, cameraPosition: Vector2, cameraOrigin: Vector2) {
-    return true;
+  protected RectIsOnScreen(theRect: GameRectangle, cameraPosition: Vector2, cameraSize: Vector2) {
 
-    // if the top of the rectangle is above the bottom of the camera
+    if (theRect.name === 'person') {
+      const cameraRect = new Rectangle();
+      cameraRect.position = cameraPosition;
+      cameraRect.size = cameraSize;
 
+      console.log('cam pos: ' + cameraRect.position.concat());
+      console.log('cam size: ' + cameraRect.size.concat());
+
+      // const rectBottom = this.mathHelperService.GetRectBottom(theRect);
+      // const rectTop = this.mathHelperService.GetRectBottom(theRect);
+      // const rectLeft = this.mathHelperService.GetRectBottom(theRect);
+      // const rectRight = this.mathHelperService.GetRectBottom(theRect);
+
+      // const camBottom = this.mathHelperService.GetRectBottom(cameraRect);
+      // const camTop = this.mathHelperService.GetRectBottom(cameraRect);
+      // const camLeft = this.mathHelperService.GetRectBottom(cameraRect);
+      // const camRight = this.mathHelperService.GetRectBottom(cameraRect);
+
+      if (this.mathHelperService.RectanglesIntersect(theRect, cameraRect)) {
+        console.log('shoudl draw rectangle [id: ' + theRect.id + ' |name:' + theRect.name + ']');
+      } else {
+         console.log('this rectangle is definitely not on screen');
+         return false;
+      }
+
+      // if the top of the rectangle is above the bottom of the camera
+      // if (rectBottom > camTop) {
+      //   console.log('this rectangle [id: ' + theRect.id + ' |name:' + theRect.name + '] is possibly on screen'
+      // + '[rectbottom: ' + rectBottom + '] camTop:[' + camTop + ']');
+      // } else {
+      //   console.log('this rectangle is definitely not on screen');
+      //   return false;
+      // }
+    }
     // if (theRect.position.y )
 
    // }
@@ -96,7 +131,7 @@ export abstract class SimpleCanvasComponent implements OnInit {
     // if the right of the rectangle is the right of the left of the camera
 
     // if the bottom of the rectangle is below the top of the camera
-
+    return true;
   }
 
 

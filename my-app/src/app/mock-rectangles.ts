@@ -20,7 +20,7 @@ export const SKY: GameRectangle[] = [
 export const GROUND: GameRectangle[] = [
     {
         name: 'ground', id: 1, color: '#00ff00',
-        position: new Vector2(0, 350),
+        position: new Vector2(0, 620),
         size: new Vector2(4000, 100),
     },
 ];
@@ -46,7 +46,7 @@ export const CLOUDS: GameRectangle[] = [
     },
     {
         name: 'cloud', id: 4, color: '#fff',
-        position: new Vector2(600, -50),
+        position: new Vector2(100, -50),
         size: new Vector2(100, 100),
     },
     {

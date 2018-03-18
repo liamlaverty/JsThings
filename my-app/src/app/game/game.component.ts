@@ -108,7 +108,7 @@ export class GameComponent implements OnInit, AfterViewInit {
 
     const parallax = new Vector2(0, 0);
     // this.theCamera.GetViewMatrix(parallax);
-    this.theGame.Draw(this.theCamera.Position, this.theCamera.FocalPoint, this.theCamera.GetViewMatrix(parallax));
+    this.theGame.Draw(this.theCamera.Position, this.theCamera.Viewport, this.theCamera.GetViewMatrix(parallax));
     const myCompletedTime: Date = new Date();
     const myDiff: number = (myCompletedTime.getTime() - myTime.getTime());
     this.frameBuffer.push(myDiff);
