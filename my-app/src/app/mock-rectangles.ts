@@ -59,54 +59,54 @@ function GetClouds() {
 
     return myClouds;
 
-    return [
-    {
-        name: 'cloud', id: 2, color: '#fff',
-        texture: '/assets/img/cloud.png',
-        position: new Vector2(10, 54),
-        size: new Vector2(100, 100),
-    },
-    {
-        name: 'cloud', id: 3, color: '#fff',
-        texture: '/assets/img/cloud.png',
-        position: new Vector2(-100, -50),
-        size: new Vector2(100, 100),
-    },
-    {
-        name: 'cloud', id: 4, color: '#fff',
-        texture: '/assets/img/cloud.png',
-        position: new Vector2(100, -50),
-        size: new Vector2(100, 100),
-    },
-    {
-        name: 'cloud', id: 5, color: '#fff',
-        texture: '/assets/img/cloud.png',
-        position: new Vector2(155, 10),
-        size: new Vector2(100, 100),
-    },
-    {
-        name: 'cloud', id: 6, color: '#fff',
-        texture: '/assets/img/cloud.png',
-        position: new Vector2(10, 54),
-        size: new Vector2(100, 100),
-    },
-    {
-        name: 'cloud', id: 7, color: '#fff',
-        texture: '/assets/img/cloud.png',
-        position: new Vector2(-100, -50),
-        size: new Vector2(100, 100),
-    },
-    {
-        name: 'cloud', id: 8, color: '#fff',
-        texture: '/assets/img/cloud.png',
-        position: new Vector2(1100, 350),
-        size: new Vector2(250, 400),
-    },
-    {
-        name: 'cloud', id: 9, color: '#fff',
-        texture: '/assets/img/cloud.png',
-        position: new Vector2(1055, 210),
-        size: new Vector2(200, 100),
-    },
-];
+    // return [
+    // {
+    //     name: 'cloud', id: 2, color: '#fff',
+    //     texture: '/assets/img/cloud.png',
+    //     position: new Vector2(10, 54),
+    //     size: new Vector2(100, 100),
+    // },
+    // {
+    //     name: 'cloud', id: 3, color: '#fff',
+    //     texture: '/assets/img/cloud.png',
+    //     position: new Vector2(-100, -50),
+    //     size: new Vector2(100, 100),
+    // },
+    // {
+    //     name: 'cloud', id: 4, color: '#fff',
+    //     texture: '/assets/img/cloud.png',
+    //     position: new Vector2(100, -50),
+    //     size: new Vector2(100, 100),
+    // },
+    // {
+    //     name: 'cloud', id: 5, color: '#fff',
+    //     texture: '/assets/img/cloud.png',
+    //     position: new Vector2(155, 10),
+    //     size: new Vector2(100, 100),
+    // },
+    // {
+    //     name: 'cloud', id: 6, color: '#fff',
+    //     texture: '/assets/img/cloud.png',
+    //     position: new Vector2(10, 54),
+    //     size: new Vector2(100, 100),
+    // },
+    // {
+    //     name: 'cloud', id: 7, color: '#fff',
+    //     texture: '/assets/img/cloud.png',
+    //     position: new Vector2(-100, -50),
+    //     size: new Vector2(100, 100),
+    // },
+    // {
+    //     name: 'cloud', id: 8, color: '#fff',
+    //     texture: '/assets/img/cloud.png',
+    //     position: new Vector2(1100, 350),
+    //     size: new Vector2(250, 400),
+    // },
+    // {
+    //     name: 'cloud', id: 9, color: '#fff',
+    //     texture: '/assets/img/cloud.png',
+    //     position: new Vector2(1055, 210),
+    //     size: new Vector2(200, 100),
+    // },
+// ];
 }
