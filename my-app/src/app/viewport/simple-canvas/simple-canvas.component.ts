@@ -111,8 +111,8 @@ export abstract class SimpleCanvasComponent implements OnInit {
       return true;
     }
 
-    console.log('cam pos: ' + cameraRect.position.concat());
-    console.log('cam size: ' + cameraRect.size.concat());
+    // console.log('cam pos: ' + cameraRect.position.concat());
+    // console.log('cam size: ' + cameraRect.size.concat());
 
     if (this.mathHelperService.RectanglesIntersect(theRect, cameraRect)) {
       // console.log('shoudl draw rectangle [id: ' + theRect.id + ' |name:' + theRect.name + ']');
