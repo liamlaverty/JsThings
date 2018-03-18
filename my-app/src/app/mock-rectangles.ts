@@ -41,6 +41,16 @@ export const CLOUDS: GameRectangle[] = [
     },
     {
         name: 'cloud', id: 3, color: '#fff',
+        position: new Vector2(-100, -50),
+        size: new Vector2(100, 100),
+    },
+    {
+        name: 'cloud', id: 4, color: '#fff',
+        position: new Vector2(600, -50),
+        size: new Vector2(100, 100),
+    },
+    {
+        name: 'cloud', id: 5, color: '#fff',
         position: new Vector2(155, 10),
         size: new Vector2(100, 100),
     },

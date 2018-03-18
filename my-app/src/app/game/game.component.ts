@@ -9,6 +9,9 @@ import { Camera } from '../camera/camera.model';
 import { MainCharacter } from './MainCharacter/main-character.model';
 import { GameRectangle } from '../models/game-rectangle';
 import { MainCharacterService } from './MainCharacter/main-character.service';
+import { Vector2 } from '../numerics/vector2/vector2.model';
+import { Vector2Service } from '../numerics/vector2/vector2.service';
+import { CameraService } from '../camera/camera.service';
 
 // import { ParentCanvasComponent } from '../viewport/parent-canvas/parent-canvas.component';
 
@@ -17,20 +20,11 @@ import { MainCharacterService } from './MainCharacter/main-character.service';
   selector: 'app-game',
   templateUrl: './game.component.html',
   styleUrls: ['./game.component.css'],
-  providers: [ MainCharacterService ]
+  providers: [MainCharacterService]
 })
 export class GameComponent implements OnInit, AfterViewInit {
 
-  constructor(private componentFactoryResolver: ComponentFactoryResolver,
-    public mainCharacterService: MainCharacterService ) {
-
-      this.mainCharacter = mainCharacterService.GetMainCharacter();
-    }
-
-
-  @ViewChild(KeyUpComponentComponent)
-  private keyUpComponentComponent: KeyUpComponentComponent;
-  @ViewChild('game', { read: ViewContainerRef }) theGameRegion;
+  cameraService: CameraService;
   theGame: ParentCanvasComponent;
   theGameRef;
   ticks = 0;
@@ -41,6 +35,25 @@ export class GameComponent implements OnInit, AfterViewInit {
   fps = 0;
   theCamera: Camera;
   mainCharacter: MainCharacter;
+
+  constructor(private componentFactoryResolver: ComponentFactoryResolver,
+    public mainCharacterService: MainCharacterService) {
+
+    this.mainCharacter = mainCharacterService.GetMainCharacter();
+    this.mainCharacter = this.mainCharacterService.GetMainCharacter();
+    this.cameraService = new CameraService();
+    this.cameraService.CreateCamera(new Vector2(720, 720), this.mainCharacter.rectangleDetails.position);
+    this.theCamera = this.cameraService.GetCamera();
+    // this.theCamera = new Camera(
+    //   new Vector2(720, 720), // 720px x 720px
+    //   this.mainCharacter.rectangleDetails.position,
+    // );
+  }
+
+
+  @ViewChild(KeyUpComponentComponent)
+  private keyUpComponentComponent: KeyUpComponentComponent;
+  @ViewChild('game', { read: ViewContainerRef }) theGameRegion;
   // copyOfPlayerRect: GameRectangle[];
   // mainCharacterService: MainCharacterService;
 
@@ -52,14 +65,12 @@ export class GameComponent implements OnInit, AfterViewInit {
     this.startTime = initTime.valueOf();
     this.frameBuffer = new Array<number>();
 
-    // this.theCamera = new Camera()
-
     // this.startTime = new Date();
     console.log('game main init');
 
     const layers = this.GetLayerSettings();
 
-    this.mainCharacter = this.mainCharacterService.GetMainCharacter();
+
 
     const factory = this.componentFactoryResolver.resolveComponentFactory(ParentCanvasComponent);
     this.theGameRef = this.theGameRegion.createComponent(factory);
@@ -94,7 +105,10 @@ export class GameComponent implements OnInit, AfterViewInit {
     });
 
     const myTime: Date = new Date();
-    this.theGame.Draw();
+
+    const parallax = new Vector2(0, 0);
+    // this.theCamera.GetViewMatrix(parallax);
+    this.theGame.Draw(this.theCamera.Position, this.theCamera.FocalPoint, this.theCamera.GetViewMatrix(parallax));
     const myCompletedTime: Date = new Date();
     const myDiff: number = (myCompletedTime.getTime() - myTime.getTime());
     this.frameBuffer.push(myDiff);
@@ -107,9 +121,9 @@ export class GameComponent implements OnInit, AfterViewInit {
 
   calculateFps() {
 
-     const bufferlength = this.frameBuffer.length;
-     const bufferTotalTime = this.frameBuffer.reduce((a, b) => a + b, 0);
-     this.fps = bufferlength / bufferTotalTime;
+    const bufferlength = this.frameBuffer.length;
+    const bufferTotalTime = this.frameBuffer.reduce((a, b) => a + b, 0);
+    this.fps = bufferlength / bufferTotalTime;
 
     while (this.frameBuffer.length) {
       this.frameBuffer.pop();

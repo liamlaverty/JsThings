@@ -19,15 +19,22 @@ export class Camera {
     Zoom: number;
     Rotation: number;
 
-    constructor(myViewport: Vector2, myFocalPoint: Vector2,
-    vector2Service: Vector2Service, vector3Service: Vector3Service, mtxService: MatrixService) {
+    constructor(myViewport: Vector2, myFocalPoint: Vector2) { // ,
+    // vector2Service: Vector2Service, vector3Service: Vector3Service, mtxService: MatrixService) {
+        this.vector2Service = new Vector2Service();
+        this.vector3Service = new Vector3Service();
+        this.mtxService = new MatrixService();
+
         this.Viewport = myViewport;
         this.FocalPoint = myFocalPoint;
         this.ViewportDiv2 = new Vector2(this.Viewport.x / 2, this.Viewport.y / 2);
+        this.Origin = this.ViewportDiv2;
     }
 
     GetViewMatrix(parallax: Vector2): Matrix {
         this.LookAt(this.FocalPoint);
+
+        // console.log('looking at focal point:' + this.FocalPoint.concat());
 
         const negativePositionVect = this.vector2Service.NegativeOf(this.Position);
         const negativePosByParallax = this.vector2Service.Multiply(negativePositionVect, parallax);
