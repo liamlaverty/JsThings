@@ -3,6 +3,9 @@ import { BrowserService } from '../browser.service';
 import { ChildCanvasComponent } from '../child-canvas/child-canvas.component';
 import { SimpleCanvasComponent } from '../simple-canvas/simple-canvas.component';
 import { Layer } from '../../models/layer.model';
+import { CameraService } from '../../camera/camera.service';
+import { Matrix } from '../../numerics/matrix/matrix.model';
+import { Vector2 } from '../../numerics/vector2/vector2.model';
 
 @Component({
   selector: 'app-parent-canvas',
@@ -37,11 +40,11 @@ export class ParentCanvasComponent extends SimpleCanvasComponent implements OnIn
     this.greedyClearCanvas();
   }
 
-  Draw() {
+  Draw(cameraPosition: Vector2, cameraFocalPoint: Vector2, transformMatrix?: Matrix) {
     // console.log('drawing main game component');
 
     for (const childCanvas of this.childCanvasArray) {
-       childCanvas.Draw();
+      childCanvas.Draw(cameraPosition, cameraFocalPoint, transformMatrix);
     }
   }
 

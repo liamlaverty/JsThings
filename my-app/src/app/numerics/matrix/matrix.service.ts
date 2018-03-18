@@ -4,13 +4,21 @@ import { Vector3 } from '../vector3/vector3.model';
 
 @Injectable()
 export class MatrixService {
-  private static IdentityMtx = new Matrix(
+  protected static IdentityMtx = new Matrix(
     1, 0, 0, 0,
     0, 1, 0, 0,
     0, 0, 1, 0,
     0, 0, 0, 1);
 
   constructor() { }
+
+  GetIdentityMtx() {
+    return new Matrix(
+      1, 0, 0, 0,
+      0, 1, 0, 0,
+      0, 0, 1, 0,
+      0, 0, 0, 1);
+  }
 
   CreateTranslation(xPos: number, yPos: number, zPos: number): Matrix {
     let resultMtx: Matrix;

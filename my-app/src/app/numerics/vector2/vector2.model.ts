@@ -7,6 +7,10 @@ export class Vector2 {
         this.y = y;
     }
 
+    concat() {
+        return 'x:[' + this.x + '], y:[' + this.y + ']';
+    }
+
     getValueX() {
         return this.x;
     }

@@ -47,22 +47,23 @@ export class CanvasAreaComponent implements OnInit, AfterViewInit {
       this.keyUpComponentComponent.inputTick();
     });
 
-    const ctx = this.context;
-    this.greedyClearScreen(ctx);
+    console.log('not drawing in canvas-area-component. Handled in simple canvas component');
+    // const ctx = this.context;
 
-
-
-    // if (this.ticks % 10 === 0) {
-      for (const rectangle of this.rectangles) {
-        // console.log('fillstyle will be ' + rectangle.color);
-        ctx.fillStyle = rectangle.color;
-        ctx.fillRect(rectangle.x, rectangle.y, rectangle.width, rectangle.height);
-        // ctx.globalCompositeOperation = 'destination-over';
-        // rectangle.Bottom();
-      }
-    // ctx.globalCompositeOperation = 'source-over';
-    // }
+    // this.Draw(ctx);
   }
+
+  // Draw(ctx, doGreedyClearScreen: boolean = true) {
+  //   console.log('drawing');
+  //   if (doGreedyClearScreen) {
+  //     this.greedyClearScreen(ctx);
+  //   }
+  //   for (const rectangle of this.rectangles) {
+  //     ctx.fillStyle = rectangle.color;
+  //     ctx.fillRect(rectangle.position.x, rectangle.position.y,
+  //       rectangle.size.x, rectangle.size.y);
+  //   }
+  // }
 
   greedyClearScreen(ctx) {
     ctx.clearRect(0, 0, 400, 400);
