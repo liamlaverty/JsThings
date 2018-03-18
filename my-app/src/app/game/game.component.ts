@@ -3,7 +3,7 @@ import { ParentCanvasComponent } from '../viewport/parent-canvas/parent-canvas.c
 import { ViewportModule } from '../viewport/viewport.module';
 import { Layer } from '../models/layer.model';
 import { Rectangle } from '../models/rectangle';
-import { RECTANGLES, CLOUDS, PLAYER, GROUND, SKY } from '../mock-rectangles';
+import { RECTANGLES, CLOUDS, PLAYER, GROUND } from '../mock-rectangles';
 import { KeyUpComponentComponent } from '../key-up-component/key-up-component.component';
 import { Camera } from '../camera/camera.model';
 import { MainCharacter } from './MainCharacter/main-character.model';
@@ -182,11 +182,11 @@ export class GameComponent implements OnInit, AfterViewInit {
     layerCollection.push(thisLayer);
   }
 
-  SetupSkyLayer(layerCollection: Array<Layer>): void {
+  // SetupSkyLayer(layerCollection: Array<Layer>): void {
 
-    const thisLayer: Layer = new Layer;
-    thisLayer.Rectangles = SKY;
+  //   const thisLayer: Layer = new Layer;
+  //   thisLayer.Rectangles = SKY;
 
-    layerCollection.push(thisLayer);
-  }
+  //   layerCollection.push(thisLayer);
+  // }
 }

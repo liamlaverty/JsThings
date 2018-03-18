@@ -82,10 +82,28 @@ export abstract class SimpleCanvasComponent implements OnInit {
 
           const rectRelativeToCamera = this.GetRectRelativeToCamera(rectangle, cameraRect);
 
-          this.ctx.fillStyle = rectangle.color;
-          // this.ctx.fillRect(rectangle.position.x, rectangle.position.y, rectangle.size.x, rectangle.size.y);
-          this.ctx.fillRect(rectRelativeToCamera.position.x, rectRelativeToCamera.position.y,
+          // pattern: CanvasPattern;
+          if (rectangle.texture !== null && rectangle.texture !== undefined && rectangle.texture.length > 0) {
+
+            const image = new Image(rectangle.size.x, rectangle.size.y);
+             const drawable = image.onload = function() {
+              //  const thisTexture = document.createElement('canvas');
+              //  thisTexture.width = rectRelativeToCamera.size.x;
+              //  thisTexture.height = rectRelativeToCamera.size.y;
+              //  thisTexture.getContext('2d').drawImage(image, 0, 0, rectangle.size.x, rectangle.size.y);
+             };
+             image.src = rectangle.texture;
+
+            const pattern = this.ctx.drawImage(image, rectRelativeToCamera.position.x, rectRelativeToCamera.position.y,
+              rectRelativeToCamera.size.x, rectRelativeToCamera.size.y);
+             // this.ctx.fillStyle = pattern;
+
+          } else {
+            this.ctx.fillStyle = rectangle.color;
+             this.ctx.fillRect(rectRelativeToCamera.position.x, rectRelativeToCamera.position.y,
             rectRelativeToCamera.size.x, rectRelativeToCamera.size.y);
+          }
+          // this.ctx.fillRect(rectangle.position.x, rectangle.position.y, rectangle.size.x, rectangle.size.y);
         }
       }
       // }
