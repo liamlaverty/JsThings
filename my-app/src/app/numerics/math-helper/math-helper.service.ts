@@ -17,26 +17,27 @@ export class MathHelperService {
 
   RectanglesIntersect(left: Rectangle, right: Rectangle): boolean {
     if (this.GetRectLeft(left) > this.GetRectRight(right)) {
-      console.log('object intersection failed at left check (left.left was[' + this.GetRectLeft(left) +
-       '] | right.right was[' + this.GetRectRight(right) + ']');
+      // console.log('object intersection failed at left check (left.left was[' + this.GetRectLeft(left) +
+      //  '] | right.right was[' + this.GetRectRight(right) + ']');
       return false;
     }
     if (this.GetRectRight(left) < this.GetRectLeft(right)) {
-      console.log('object intersection failed at right check');
+      // console.log('object intersection failed at right check (left.right was[' + this.GetRectRight(left) +
+      //   '] | right.left was[' + this.GetRectLeft(right) + ']');
       return false;
     }
 
-    if (this.GetRectTop(left) < this.GetRectBottom(right)) {
-      console.log('object intersection failed at top check');
+    if (this.GetRectTop(left) > this.GetRectBottom(right)) {
+      // console.log('object intersection failed at top check');
       return false;
     }
-    if (this.GetRectBottom(left) > this.GetRectTop(right)) {
-      console.log('object intersection failed at bottom check');
+    if (this.GetRectBottom(left) < this.GetRectTop(right)) {
+      // console.log('object intersection failed at bottom check');
       return false;
     }
 
     // if it gets to here, it must be on the screen
-    console.log('object intersects');
+    // console.log('object intersects');
     return true;
   }
 

@@ -73,65 +73,85 @@ export abstract class SimpleCanvasComponent implements OnInit {
 
     this.greedyClearCanvas();
     if (this.layer.Rectangles !== undefined) {
-
-
-        for (const rectangle of this.layer.Rectangles) {
-          if (this.RectIsOnScreen(rectangle, cameraPosition, cameraSize)) {
-
-            this.ctx.fillStyle = rectangle.color;
-            this.ctx.fillRect(rectangle.position.x, rectangle.position.y, rectangle.size.x, rectangle.size.y);
-          }
-        }
-      // }
-    }
-  }
-
-  protected RectIsOnScreen(theRect: GameRectangle, cameraPosition: Vector2, cameraSize: Vector2) {
-
-    if (theRect.name === 'person') {
       const cameraRect = new Rectangle();
       cameraRect.position = cameraPosition;
       cameraRect.size = cameraSize;
 
-      console.log('cam pos: ' + cameraRect.position.concat());
-      console.log('cam size: ' + cameraRect.size.concat());
+      for (const rectangle of this.layer.Rectangles) {
+        if (this.RectIsOnScreen(rectangle, cameraRect)) {
 
-      // const rectBottom = this.mathHelperService.GetRectBottom(theRect);
-      // const rectTop = this.mathHelperService.GetRectBottom(theRect);
-      // const rectLeft = this.mathHelperService.GetRectBottom(theRect);
-      // const rectRight = this.mathHelperService.GetRectBottom(theRect);
+          const rectRelativeToCamera = this.GetRectRelativeToCamera(rectangle, cameraRect);
 
-      // const camBottom = this.mathHelperService.GetRectBottom(cameraRect);
-      // const camTop = this.mathHelperService.GetRectBottom(cameraRect);
-      // const camLeft = this.mathHelperService.GetRectBottom(cameraRect);
-      // const camRight = this.mathHelperService.GetRectBottom(cameraRect);
-
-      if (this.mathHelperService.RectanglesIntersect(theRect, cameraRect)) {
-        console.log('shoudl draw rectangle [id: ' + theRect.id + ' |name:' + theRect.name + ']');
-      } else {
-         console.log('this rectangle is definitely not on screen');
-         return false;
+          this.ctx.fillStyle = rectangle.color;
+          // this.ctx.fillRect(rectangle.position.x, rectangle.position.y, rectangle.size.x, rectangle.size.y);
+          this.ctx.fillRect(rectRelativeToCamera.position.x, rectRelativeToCamera.position.y,
+            rectRelativeToCamera.size.x, rectRelativeToCamera.size.y);
+        }
       }
-
-      // if the top of the rectangle is above the bottom of the camera
-      // if (rectBottom > camTop) {
-      //   console.log('this rectangle [id: ' + theRect.id + ' |name:' + theRect.name + '] is possibly on screen'
-      // + '[rectbottom: ' + rectBottom + '] camTop:[' + camTop + ']');
-      // } else {
-      //   console.log('this rectangle is definitely not on screen');
-      //   return false;
       // }
     }
+  }
+
+  protected GetRectRelativeToCamera(theRect: GameRectangle, cameraRect: Rectangle) {
+    const returnRect = new Rectangle();
+
+    returnRect.size = new Vector2(theRect.size.x, theRect.size.y);
+    returnRect.position = new Vector2(-cameraRect.position.x, -cameraRect.position.y);
+
+    returnRect.position.x += theRect.position.x;
+    returnRect.position.y += theRect.position.y;
+
+    return returnRect;
+
+  }
+
+  protected RectIsOnScreen(theRect: GameRectangle, cameraRect: Rectangle) {
+
+    if (theRect.name !== 'person') {
+      return true;
+    }
+
+    console.log('cam pos: ' + cameraRect.position.concat());
+    console.log('cam size: ' + cameraRect.size.concat());
+
+    if (this.mathHelperService.RectanglesIntersect(theRect, cameraRect)) {
+      // console.log('shoudl draw rectangle [id: ' + theRect.id + ' |name:' + theRect.name + ']');
+      return true;
+    } else {
+      // console.log('this rectangle is definitely not on screen');
+      return false;
+      // return false;
+    }
+
+    // const rectBottom = this.mathHelperService.GetRectBottom(theRect);
+    // const rectTop = this.mathHelperService.GetRectBottom(theRect);
+    // const rectLeft = this.mathHelperService.GetRectBottom(theRect);
+    // const rectRight = this.mathHelperService.GetRectBottom(theRect);
+
+    // const camBottom = this.mathHelperService.GetRectBottom(cameraRect);
+    // const camTop = this.mathHelperService.GetRectBottom(cameraRect);
+    // const camLeft = this.mathHelperService.GetRectBottom(cameraRect);
+    // const camRight = this.mathHelperService.GetRectBottom(cameraRect);
+
+    // if the top of the rectangle is above the bottom of the camera
+    // if (rectBottom > camTop) {
+    //   console.log('this rectangle [id: ' + theRect.id + ' |name:' + theRect.name + '] is possibly on screen'
+    // + '[rectbottom: ' + rectBottom + '] camTop:[' + camTop + ']');
+    // } else {
+    //   console.log('this rectangle is definitely not on screen');
+    //   return false;
+    // }
+    // }
     // if (theRect.position.y )
 
-   // }
+    // }
 
     // if the left of the rectangle is to the left of the right of the camera
 
     // if the right of the rectangle is the right of the left of the camera
 
     // if the bottom of the rectangle is below the top of the camera
-    return true;
+    // return true;
   }
 
 

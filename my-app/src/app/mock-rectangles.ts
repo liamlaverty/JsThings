@@ -28,7 +28,7 @@ export const GROUND: GameRectangle[] = [
 export const PLAYER: GameRectangle[] = [
     {
         name: 'person', id: 4, color: '#ff0000',
-        position: new Vector2(10, 275),
+        position: new Vector2(300, 550),
         size: new Vector2(150, 100),
     },
 ];

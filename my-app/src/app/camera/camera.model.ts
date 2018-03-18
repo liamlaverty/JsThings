@@ -33,8 +33,7 @@ export class Camera {
 
     GetViewMatrix(parallax: Vector2): Matrix {
         this.LookAt(this.FocalPoint);
-
-        // console.log('looking at focal point:' + this.FocalPoint.concat());
+        // this.LookAt(new Vector2(0, 0));
 
         const negativePositionVect = this.vector2Service.NegativeOf(this.Position);
         const negativePosByParallax = this.vector2Service.Multiply(negativePositionVect, parallax);
@@ -69,6 +68,15 @@ export class Camera {
 
 
     LookAt(position: Vector2): void {
-        this.Position = this.vector2Service.Subtract(position, this.ViewportDiv2);
+        // this.Position = new Vector2(0, 0);
+
+
+        const viewportSmall = new Vector2(this.Viewport.x / 2, 0); // this.Viewport.y / 2);
+        const tmpPosition = new Vector2(position.x, 0);
+        // position.y = 0;
+
+        // console.log('looking at focal point:' + this.FocalPoint.concat() + ' viewportSm:[' + viewportSmall.concat() + ']');
+        this.Position = this.vector2Service.Subtract(tmpPosition, viewportSmall);
+        // this.Position = this.vector2Service.Subtract(position, this.ViewportDiv2);
     }
 }
