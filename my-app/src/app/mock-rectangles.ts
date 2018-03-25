@@ -4,8 +4,8 @@ import { Vector2 } from './numerics/vector2/vector2.model';
 
 export const RECTANGLES: GameRectangle[] = [
     {
-        name: 'sky', id: 0, color: '',
-        texture: '/assets/img/bg.jpg',
+        name: 'sky', id: 0, color: '#00bfff',
+        // texture: '/assets/img/bg.jpg',
         position: new Vector2(0, 0),
         size: new Vector2(10000, 1000),
     },
@@ -21,7 +21,7 @@ export const RECTANGLES: GameRectangle[] = [
 // ];
 export const GROUND: GameRectangle[] = [
     {
-        name: 'ground', id: 1, color: '#00ff00',
+        name: 'ground', id: 1, color: '#7cfc00',
         position: new Vector2(0, 620),
         size: new Vector2(40000, 100),
     },
