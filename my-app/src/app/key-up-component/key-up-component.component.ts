@@ -37,22 +37,31 @@ export class KeyUpComponentComponent implements AfterViewInit {
     this.currentKeyDown = '';
   }
   inputTick(): void {
-     this.checkCurrentKey();
+    this.checkCurrentKeySet();
   }
 
    ngAfterViewInit(): void {
      console.log('ngAfterViewInit keyupcomponent');
    }
-  checkCurrentKey() {
-    if (this.inputHandleComponent.key !== undefined && this.inputHandleComponent.keyPressed) {
-      // console.log('input key is [' + this.inputHandleComponent.key + ']');
-      this.takeActionOnKeyPress(this.inputHandleComponent.key);
+
+checkCurrentKeySet() {
+  if (this.inputHandleComponent.currentlyDown !== undefined && this.inputHandleComponent.currentlyDown.length > 0) {
+    for (let i = 0; i < this.inputHandleComponent.currentlyDown.length; i++) {
+      this.takeActionOnKeyPress(this.inputHandleComponent.currentlyDown[i]);
     }
   }
+}
+
+  // checkCurrentKey() {
+  //   if (this.inputHandleComponent.key !== undefined && this.inputHandleComponent.keyPressed) {
+  //     console.log('input key is [' + this.inputHandleComponent.key + ']');
+  //     this.takeActionOnKeyPress(this.inputHandleComponent.key);
+  //   }
+  // }
 
 
   moveOnAxisX(distance: number): void {
-    // console.log('moving on axis x');
+     // console.log('moving on axis x');
     // this.character.position.x += distance;
     this.mainCharacter.force.x -= distance * 1;
   }

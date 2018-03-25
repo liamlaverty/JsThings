@@ -50,16 +50,20 @@ export class InputHandleComponent implements OnInit {
   }
   pushToCurrentKeys(input: string) {
     if (!this.checkCurrentKeysForInput(input)) {
-      console.log('adding [' + input + '] to current');
+      // console.log('adding [' + input + '] to current');
       this.currentlyDown.push(input);
     }
   }
   popFromCurrentKeys(input: string) {
     if (this.checkCurrentKeysForInput(input)) {
-      console.log('removing  [' + input + '] to current');
+      // console.log('removing  [' + input + '] to current');
       const locationInArr = this.currentlyDown.indexOf(input);
-      delete this.currentlyDown[locationInArr];
+
+      this.currentlyDown.splice(locationInArr, 1);
+
+      // delete this.currentlyDown[locationInArr];
     }
+    console.log('input arr is now [' + this.currentlyDown.length + '] long. contents:[' + JSON.stringify(this.currentlyDown) + ']' );
   }
   preventDefaults(e) {
     e.preventDefault();
