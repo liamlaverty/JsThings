@@ -207,6 +207,7 @@ export class GameComponent implements OnInit, AfterViewInit {
   SetupGroundLayer(layerCollection: Array<Layer>): void {
     const thisLayer: Layer = new Layer;
     thisLayer.Rectangles = GROUND;
+    this.RegisterPhysicals(thisLayer.Rectangles);
 
     layerCollection.push(thisLayer);
   }
