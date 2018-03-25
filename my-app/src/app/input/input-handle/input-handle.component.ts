@@ -8,6 +8,8 @@ import { Component, OnInit, HostListener, EventEmitter, Output } from '@angular/
 export class InputHandleComponent implements OnInit {
   static validKeys: Array<string> = ['w', 'a', 's', 'd', ' '];
 
+  currentlyDown: string[];
+
   newPressOnly: boolean;
   key: string;
   keyPressed: boolean;
@@ -17,6 +19,7 @@ export class InputHandleComponent implements OnInit {
 
   constructor() {
     // this.validKeys = ['w', 'a', 's', 'd', ' '];
+    this.currentlyDown = new Array<string>();
   }
 
   ngOnInit() {
@@ -26,6 +29,8 @@ export class InputHandleComponent implements OnInit {
   handleKeyboardEvent(event: KeyboardEvent) {
     this.keyPressed = true;
     this.key = event.key;
+    const myKey = event.key;
+    this.pushToCurrentKeys(myKey);
     if (this.checkKeyPressValid()) {
       this.preventDefaults(event);
       this.handleKeyPress();
@@ -35,8 +40,31 @@ export class InputHandleComponent implements OnInit {
   @HostListener('document:keyup', ['$event'])
   handleKeyboardEventFinished(event: KeyboardEvent) {
     this.keyPressed = false;
+    const myKey = event.key;
+    this.popFromCurrentKeys(myKey);
   }
 
+  checkCurrentKeysForInput(input: string) {
+    const exists = this.currentlyDown.indexOf(input) > -1;
+    return exists;
+  }
+  pushToCurrentKeys(input: string) {
+    if (!this.checkCurrentKeysForInput(input)) {
+      // console.log('adding [' + input + '] to current');
+      this.currentlyDown.push(input);
+    }
+  }
+  popFromCurrentKeys(input: string) {
+    if (this.checkCurrentKeysForInput(input)) {
+      // console.log('removing  [' + input + '] to current');
+      const locationInArr = this.currentlyDown.indexOf(input);
+
+      this.currentlyDown.splice(locationInArr, 1);
+
+      // delete this.currentlyDown[locationInArr];
+    }
+    console.log('input arr is now [' + this.currentlyDown.length + '] long. contents:[' + JSON.stringify(this.currentlyDown) + ']' );
+  }
   preventDefaults(e) {
     e.preventDefault();
   }
