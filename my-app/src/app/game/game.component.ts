@@ -12,6 +12,7 @@ import { MainCharacterService } from './MainCharacter/main-character.service';
 import { Vector2 } from '../numerics/vector2/vector2.model';
 import { Vector2Service } from '../numerics/vector2/vector2.service';
 import { CameraService } from '../camera/camera.service';
+import { PhysicalEntityService } from '../physics/physical-entity.service';
 
 // import { ParentCanvasComponent } from '../viewport/parent-canvas/parent-canvas.component';
 
@@ -25,6 +26,7 @@ import { CameraService } from '../camera/camera.service';
 export class GameComponent implements OnInit, AfterViewInit {
 
   cameraService: CameraService;
+  physicalEntityService: PhysicalEntityService;
   theGame: ParentCanvasComponent;
   theGameRef;
   ticks = 0;
@@ -43,6 +45,7 @@ export class GameComponent implements OnInit, AfterViewInit {
     this.mainCharacter = mainCharacterService.GetMainCharacter();
     this.mainCharacter = this.mainCharacterService.GetMainCharacter();
     this.cameraService = new CameraService();
+    this.physicalEntityService = new PhysicalEntityService();
     this.cameraService.CreateCamera(new Vector2(720, 720), this.mainCharacter.rectangleDetails.position);
     this.theCamera = this.cameraService.GetCamera();
     // this.theCamera = new Camera(
@@ -80,8 +83,13 @@ export class GameComponent implements OnInit, AfterViewInit {
 
     for (const layer of layers) {
       this.theGame.addLayer(layer);
+      this.RegisterPhysicals(layer.Rectangles);
     }
     this.theGameRef.changeDetectorRef.detectChanges();
+  }
+
+  RegisterPhysicals(rects: Array<GameRectangle>) {
+    this.physicalEntityService.RegisterPhysicalEntityCollection(rects);
   }
 
   ngAfterViewInit() {
@@ -108,7 +116,11 @@ export class GameComponent implements OnInit, AfterViewInit {
 
     const myTime: Date = new Date();
 
+
+
     const parallax = new Vector2(0, 0);
+
+    this.physicalEntityService.TickOnPhysicalEntities();
     // this.theCamera.GetViewMatrix(parallax);
     this.theGame.Draw(this.theCamera.Position, this.theCamera.Viewport, this.theCamera.GetViewMatrix(parallax));
     const myCompletedTime: Date = new Date();
@@ -160,9 +172,8 @@ export class GameComponent implements OnInit, AfterViewInit {
     // this.SetupSkyLayer(Layers);
     this.SetupCloudLayer(Layers);
     this.SetupGroundLayer(Layers);
-    this.SetupPhysicalLayer(Layers);
+    this.SetupPhysicalObjectsDrawingLayer(Layers);
     this.SetupPlayerLayer(Layers);
-    
 
     return Layers;
   }
@@ -174,7 +185,7 @@ export class GameComponent implements OnInit, AfterViewInit {
     layerCollection.push(thisLayer);
   }
 
-  SetupPhysicalLayer(layerCollection: Array<Layer>): void {
+  SetupPhysicalObjectsDrawingLayer(layerCollection: Array<Layer>): void {
     const thisLayer: Layer = new Layer;
 
     thisLayer.Rectangles = PHYSICAL_OBJECTS;

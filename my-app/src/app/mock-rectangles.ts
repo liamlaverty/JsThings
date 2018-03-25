@@ -47,7 +47,7 @@ function GetPhysicalObjects(itemCount: number): Array<GameRectangle> {
         const rndsize = 100; //  Math.floor(Math.random() * 120) + 100;
 
         const myRect = new GameRectangle();
-        myRect.name = 'physical';
+        myRect.name = 'physical' + i;
         myRect.isPhysicalObject = true;
         myRect.id = 2;
         myRect.color = '#8A2BE2';
@@ -70,7 +70,7 @@ function GetClouds(itemCount: number): Array<GameRectangle> {
         const rndsize = Math.floor(Math.random() * 120) + 100;
 
         const myRect = new GameRectangle();
-        myRect.name = 'cloud';
+        myRect.name = 'cloud' + i;
         myRect.id = 2;
         myRect.color = '#fff';
         myRect.texture = '/assets/img/cloud.png';

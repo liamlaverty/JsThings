@@ -63,7 +63,7 @@ export class InputHandleComponent implements OnInit {
 
       // delete this.currentlyDown[locationInArr];
     }
-    console.log('input arr is now [' + this.currentlyDown.length + '] long. contents:[' + JSON.stringify(this.currentlyDown) + ']' );
+    // console.log('input arr is now [' + this.currentlyDown.length + '] long. contents:[' + JSON.stringify(this.currentlyDown) + ']' );
   }
   preventDefaults(e) {
     e.preventDefault();
