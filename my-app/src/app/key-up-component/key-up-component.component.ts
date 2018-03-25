@@ -94,34 +94,4 @@ export class KeyUpComponentComponent implements AfterViewInit {
          this.moveOnAxisY(-this.distanceToMovePerInput * 3);
        }
   }
-
-  // keyDownHappened(event: KeyboardEvent): void {
-  //   this.currentKeyDown = null;
-  //   this.currentKeyDown = (<HTMLInputElement>event.target).value;
-  //   if (this.currentKeyDown.length) {
-  //      console.log('event pressed was code [' + event + ']');
-  //     let message = '';
-  //     if (this.currentKeyDown === 'a') {
-  //       message += 'left';
-  //       this.moveOnAxisX(-this.distanceToMovePerInput);
-  //     }
-  //     if (this.currentKeyDown === 'd') {
-  //       message += 'right';
-  //       this.moveOnAxisX(this.distanceToMovePerInput);
-  //     }
-  //     if (this.currentKeyDown === 'w') {
-  //       message += 'up';
-  //       this.moveOnAxisY(-this.distanceToMovePerInput);
-  //     }
-  //     if (this.currentKeyDown === 's') {
-  //       message += 'down';
-  //       this.moveOnAxisY(this.distanceToMovePerInput);
-  //     }
-  //     if (this.currentKeyDown === ' ') {
-  //       console.log('JUMP!');
-  //     }
-  //     // message = 'key [' + message + '] was pressed';
-  //     // console.log(message);
-  //   }
-  // }
 }
