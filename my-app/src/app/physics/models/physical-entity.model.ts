@@ -10,16 +10,16 @@ export class PhysicalEntity extends GameRectangle {
 
 
 
-    GetAABB(): AABB {
-        const myAABB = new AABB();
+    // public GetAABB(): AABB {
+    //     const myAABB = new AABB();
 
-        myAABB.max = new Vector2(this.position.x, this.position.y);
-        myAABB.min = new Vector2(
-            this.position.x + this.size.x,
-            this.position.y + this.size.y);
-        this.AABB = myAABB;
-        return myAABB;
-    }
+    //     myAABB.max = new Vector2(this.position.x, this.position.y);
+    //     myAABB.min = new Vector2(
+    //         this.position.x + this.size.x,
+    //         this.position.y + this.size.y);
+    //     this.AABB = myAABB;
+    //     return myAABB;
+    // }
 }
 
 

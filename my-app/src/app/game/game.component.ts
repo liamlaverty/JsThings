@@ -83,7 +83,7 @@ export class GameComponent implements OnInit, AfterViewInit {
 
     for (const layer of layers) {
       this.theGame.addLayer(layer);
-      this.RegisterPhysicals(layer.Rectangles);
+      // this.RegisterPhysicals(layer.Rectangles);
     }
     this.theGameRef.changeDetectorRef.detectChanges();
   }
@@ -189,7 +189,7 @@ export class GameComponent implements OnInit, AfterViewInit {
     const thisLayer: Layer = new Layer;
 
     thisLayer.Rectangles = PHYSICAL_OBJECTS;
-
+    this.RegisterPhysicals(thisLayer.Rectangles);
     layerCollection.push(thisLayer);
   }
 
@@ -200,7 +200,7 @@ export class GameComponent implements OnInit, AfterViewInit {
     thisRectangleSet.push(this.mainCharacter.rectangleDetails);
 
     thisLayer.Rectangles = thisRectangleSet; //  PLAYER; // this.copyOfPlayerRect;
-
+    this.RegisterPhysicals(thisLayer.Rectangles);
     layerCollection.push(thisLayer);
   }
 
