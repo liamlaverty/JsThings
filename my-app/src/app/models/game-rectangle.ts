@@ -1,8 +1,11 @@
 import { Rectangle } from './rectangle';
+import { Vector2 } from '../numerics/vector2/vector2.model';
 
 export class GameRectangle extends Rectangle {
     id: number;
     color: string;
+
+    force?: Vector2;
 
     texture?: string;
 

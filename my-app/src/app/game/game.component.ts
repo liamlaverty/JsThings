@@ -37,15 +37,16 @@ export class GameComponent implements OnInit, AfterViewInit {
   fps = 0;
   theCamera: Camera;
   mainCharacter: MainCharacter;
+  worldBounds: Vector2;
 
 
   constructor(private componentFactoryResolver: ComponentFactoryResolver,
     public mainCharacterService: MainCharacterService) {
-
+    this.worldBounds = new Vector2(40000, 1000);
     this.mainCharacter = mainCharacterService.GetMainCharacter();
     this.mainCharacter = this.mainCharacterService.GetMainCharacter();
     this.cameraService = new CameraService();
-    this.physicalEntityService = new PhysicalEntityService();
+    this.physicalEntityService = new PhysicalEntityService(this.worldBounds);
     this.cameraService.CreateCamera(new Vector2(720, 720), this.mainCharacter.rectangleDetails.position);
     this.theCamera = this.cameraService.GetCamera();
     // this.theCamera = new Camera(

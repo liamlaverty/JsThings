@@ -2,14 +2,19 @@ import { Injectable } from '@angular/core';
 import { PhysicalEntity } from './models/physical-entity.model';
 import { GameRectangle } from '../models/game-rectangle';
 import { MathHelperService } from '../numerics/math-helper/math-helper.service';
+import { Vector2 } from '../numerics/vector2/vector2.model';
 
 @Injectable()
 export class PhysicalEntityService {
 
   physicalEntities: PhysicalEntity[];
   mathHelperService: MathHelperService;
+  worldBounds: Vector2;
 
-  constructor() {
+  constructor(worldBounds?: Vector2) {
+    if (worldBounds !== null) {
+      this.worldBounds = worldBounds;
+    }
     console.log('PhysicalEntityService constructor: creating physical entity arr');
     this.physicalEntities = new Array<PhysicalEntity>();
     this.mathHelperService = new MathHelperService();
@@ -17,20 +22,26 @@ export class PhysicalEntityService {
 
   TickOnPhysicalEntities() {
     // console.log('ticking on physical entities');
+    this.GreedyApplyGravity(0.1);
+    this.GreedyCheckIntersection();
 
+  }
+
+  GreedyCheckIntersection() {
     let tickChecks = 0;
     let cols = 0;
     let objCount = 0;
-    for (let x = 0; x < this.physicalEntities.length; x++ ) {
+    for (let x = 0; x < this.physicalEntities.length; x++) {
       objCount++;
+
       const leftAabb = this.mathHelperService.GetAABB(
         this.physicalEntities[x].position,
         this.physicalEntities[x].size
       );
       // if (this.physicalEntities[x].name === 'person') {
-      //   console.log('on player [' + JSON.stringify(leftAabb) + ']');
+      //   console.log('on player [' + JSON.stringify(leftAabdb) + ']');
       // }
-      for (let y = 0; y < this.physicalEntities.length; y++ ) {
+      for (let y = x + 1; y < this.physicalEntities.length; y++) {
         tickChecks++;
         // if ()
         const rightAabb = this.mathHelperService.GetAABB(
@@ -42,17 +53,36 @@ export class PhysicalEntityService {
         }
       }
     }
-    console.log('collided [' + cols + '] | objs: [' + objCount + '] | chekced [' + tickChecks
-    +  ']');
+    // console.log('collided [' + cols + '] | objs: [' + objCount + '] | chekced [' + tickChecks
+    // +  ']');
+  }
 
 
+  GreedyApplyGravity(gravFoce: number) {
+
+    for (let x = 0; x < this.physicalEntities.length; x++) {
+      if (this.physicalEntities[x].name !== 'ground') {
+        this.physicalEntities[x].force.y -= gravFoce * 1;
+
+        this.physicalEntities[x].force.y = this.mathHelperService.Lerp(this.physicalEntities[x].force.y, 0, -0.075);
+        this.physicalEntities[x].position.y -= this.physicalEntities[x].force.y;
+      }
+    }
+  }
+
+  // moves an entity
+  MoveEntity(entity: GameRectangle, force: Vector2) {
+    force.x = this.mathHelperService.Lerp(-force.x, 0, 0.75);
+    force.y = this.mathHelperService.Lerp(-force.y, 0, 0.75);
+
+    entity.position.x += force.x;
+    entity.position.y += force.y;
   }
 
   RegisterPhysicalEntity(physicalEntity: GameRectangle) {
-    console.log('registering single physical entity');
     if (this.EntityExists(physicalEntity.name) === null) {
-      console.log('adding new physical entity');
-
+      console.log('adding new physical entity [' + physicalEntity.name + ']');
+      physicalEntity.force = new Vector2(0, 0);
       this.physicalEntities.push(<PhysicalEntity>physicalEntity);
     } else {
       console.log('entity [' + physicalEntity.name + '] already exists');
