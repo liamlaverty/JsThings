@@ -35,14 +35,36 @@ export const PLAYER: GameRectangle[] = [
     },
 ];
 
+export const PHYSICAL_OBJECTS: GameRectangle[] = GetPhysicalObjects(20);
 
+function GetPhysicalObjects(itemCount: number): Array<GameRectangle> {
+    const myItems = new Array<GameRectangle>();
 
-export const CLOUDS: GameRectangle[] = GetClouds();
+    for (let i = 0; i < itemCount; i++) {
 
-function GetClouds() {
+        const rndposx = Math.floor(Math.random() * 750) + 0;
+        const rndposy = Math.floor(Math.random() * 750) + 1;
+        const rndsize = 100; //  Math.floor(Math.random() * 120) + 100;
+
+        const myRect = new GameRectangle();
+        myRect.name = 'physical';
+        myRect.isPhysicalObject = true;
+        myRect.id = 2;
+        myRect.color = '#8A2BE2';
+        myRect.position = new Vector2((rndposx * i), rndposy);
+        myRect.size = new Vector2(rndsize, rndsize);
+        myItems.push(myRect);
+
+    }
+    return myItems;
+}
+
+export const CLOUDS: GameRectangle[] = GetClouds(30);
+
+function GetClouds(itemCount: number): Array<GameRectangle> {
 
     const myClouds = new Array<GameRectangle>();
-    for (let i = 0; i < 30; i++) {
+    for (let i = 0; i < itemCount; i++) {
         const rndposx = Math.floor(Math.random() * 2050) + 0;
         const rndposy = Math.floor(Math.random() * 350) + 1;
         const rndsize = Math.floor(Math.random() * 120) + 100;

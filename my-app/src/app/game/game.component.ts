@@ -3,7 +3,7 @@ import { ParentCanvasComponent } from '../viewport/parent-canvas/parent-canvas.c
 import { ViewportModule } from '../viewport/viewport.module';
 import { Layer } from '../models/layer.model';
 import { Rectangle } from '../models/rectangle';
-import { RECTANGLES, CLOUDS, PLAYER, GROUND } from '../mock-rectangles';
+import { RECTANGLES, CLOUDS, PLAYER, GROUND, PHYSICAL_OBJECTS } from '../mock-rectangles';
 import { KeyUpComponentComponent } from '../key-up-component/key-up-component.component';
 import { Camera } from '../camera/camera.model';
 import { MainCharacter } from './MainCharacter/main-character.model';
@@ -160,7 +160,9 @@ export class GameComponent implements OnInit, AfterViewInit {
     // this.SetupSkyLayer(Layers);
     this.SetupCloudLayer(Layers);
     this.SetupGroundLayer(Layers);
+    this.SetupPhysicalLayer(Layers);
     this.SetupPlayerLayer(Layers);
+    
 
     return Layers;
   }
@@ -168,6 +170,14 @@ export class GameComponent implements OnInit, AfterViewInit {
   SetupCloudLayer(layerCollection: Array<Layer>): void {
     const thisLayer: Layer = new Layer;
     thisLayer.Rectangles = CLOUDS;
+
+    layerCollection.push(thisLayer);
+  }
+
+  SetupPhysicalLayer(layerCollection: Array<Layer>): void {
+    const thisLayer: Layer = new Layer;
+
+    thisLayer.Rectangles = PHYSICAL_OBJECTS;
 
     layerCollection.push(thisLayer);
   }

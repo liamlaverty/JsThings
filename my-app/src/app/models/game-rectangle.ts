@@ -6,6 +6,8 @@ export class GameRectangle extends Rectangle {
 
     texture?: string;
 
+    isPhysicalObject?: boolean;
+
     name: string;
     constructor() {
         super();
