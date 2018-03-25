@@ -36,6 +36,7 @@ export class GameComponent implements OnInit, AfterViewInit {
   theCamera: Camera;
   mainCharacter: MainCharacter;
 
+
   constructor(private componentFactoryResolver: ComponentFactoryResolver,
     public mainCharacterService: MainCharacterService) {
 
@@ -64,6 +65,7 @@ export class GameComponent implements OnInit, AfterViewInit {
     const initTime = new Date();
     this.startTime = initTime.valueOf();
     this.frameBuffer = new Array<number>();
+
 
     // this.startTime = new Date();
     console.log('game main init');
@@ -119,16 +121,22 @@ export class GameComponent implements OnInit, AfterViewInit {
     }
   }
 
+
   calculateFps() {
+    this.fps = Math.floor((this.ticks / this.timeDiff) * 1000);
 
-    const bufferlength = this.frameBuffer.length;
-    const bufferTotalTime = this.frameBuffer.reduce((a, b) => a + b, 0);
-    this.fps = bufferlength / bufferTotalTime;
-
-    while (this.frameBuffer.length) {
-      this.frameBuffer.pop();
-    }
   }
+
+  // calculateFpsOld() {
+
+  //   const bufferlength = this.frameBuffer.length;
+  //   const bufferTotalTime = this.frameBuffer.reduce((a, b) => a + b, 0);
+  //   this.fps = (bufferlength / bufferTotalTime );
+
+  //   while (this.frameBuffer.length) {
+  //     this.frameBuffer.pop();
+  //   }
+  // }
   updateTimer() {
     const myInitTime = new Date();
     this.currentTime = myInitTime.valueOf();
