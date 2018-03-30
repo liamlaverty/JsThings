@@ -22,8 +22,11 @@ export const RECTANGLES: GameRectangle[] = [
 export const GROUND: GameRectangle[] = [
     {
         name: 'ground', id: 1, color: '#7cfc00',
-        position: new Vector2(0, 620),
+        position: new Vector2(0, 750),
         size: new Vector2(40000, 100),
+        isPhysicalObject: true,
+        isStaticObject: true,
+        mass: 1
     },
 ];
 
@@ -32,6 +35,9 @@ export const PLAYER: GameRectangle[] = [
         name: 'person', id: 4, color: '#ff0000',
         position: new Vector2(300, 550),
         size: new Vector2(150, 100),
+        isPhysicalObject: true,
+        isStaticObject: false,
+        mass: 0.5
     },
 ];
 
@@ -53,7 +59,10 @@ function GetPhysicalObjects(itemCount: number): Array<GameRectangle> {
         myRect.color = '#8A2BE2';
         myRect.position = new Vector2((rndposx * i), rndposy);
         myRect.size = new Vector2(rndsize, rndsize);
+        myRect.mass = 0.1;
+        myRect.isStaticObject = false;
         myItems.push(myRect);
+
 
     }
     return myItems;

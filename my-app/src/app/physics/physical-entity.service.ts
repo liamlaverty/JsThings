@@ -22,9 +22,8 @@ export class PhysicalEntityService {
 
   TickOnPhysicalEntities() {
     // console.log('ticking on physical entities');
-    this.GreedyApplyGravity(0.1);
     this.GreedyCheckIntersection();
-
+    this.GreedyApplyGravity(0.1);
   }
 
   GreedyCheckIntersection() {
@@ -50,6 +49,9 @@ export class PhysicalEntityService {
         );
         if (this.mathHelperService.AabbVsAabb(leftAabb, rightAabb)) {
           cols++;
+          this.physicalEntities[x].overrideColor = '#fff';
+          this.physicalEntities[y].overrideColor = '#fff';
+          this.EscapeCollision(this.physicalEntities[x], this.physicalEntities[y]);
         }
       }
     }
@@ -57,11 +59,19 @@ export class PhysicalEntityService {
     // +  ']');
   }
 
+  EscapeCollision(left: GameRectangle, right: GameRectangle) {
+     if (left.name === 'person' || right.name === 'person') {
+       console.log('escaping a collision between [' + left.name + '] and [' + right.name + ']');
+     }
+      left.force = new Vector2(0, 0);
+      right.force = new Vector2(0, 0);
+  }
+
 
   GreedyApplyGravity(gravFoce: number) {
 
     for (let x = 0; x < this.physicalEntities.length; x++) {
-      if (this.physicalEntities[x].name !== 'ground') {
+      if (this.physicalEntities[x].isStaticObject !== true) {
         this.physicalEntities[x].force.y -= gravFoce * 1;
 
         this.physicalEntities[x].force.y = this.mathHelperService.Lerp(this.physicalEntities[x].force.y, 0, -0.075);

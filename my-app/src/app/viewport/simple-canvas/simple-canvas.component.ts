@@ -99,8 +99,13 @@ export abstract class SimpleCanvasComponent implements OnInit {
              // this.ctx.fillStyle = pattern;
 
           } else {
-            this.ctx.fillStyle = rectangle.color;
-             this.ctx.fillRect(rectRelativeToCamera.position.x, rectRelativeToCamera.position.y,
+            if (rectangle.overrideColor !== null) {
+              this.ctx.fillStyle = rectangle.overrideColor;
+              rectangle.overrideColor = null;
+            } else {
+              this.ctx.fillStyle = rectangle.color;
+            }
+            this.ctx.fillRect(rectRelativeToCamera.position.x, rectRelativeToCamera.position.y,
             rectRelativeToCamera.size.x, rectRelativeToCamera.size.y);
           }
           // this.ctx.fillRect(rectangle.position.x, rectangle.position.y, rectangle.size.x, rectangle.size.y);
