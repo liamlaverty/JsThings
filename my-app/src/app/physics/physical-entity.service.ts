@@ -12,32 +12,48 @@ export class PhysicalEntityService {
   physicalEntities: PhysicalEntity[];
   mathHelperService: MathHelperService;
   private worldBounds: Vector2;
-  private sectorDefaults = new Vector2(100, 100);
-  private sectors: Array<Rectangle>;
+  private quadTree: QuadTree;
 
   constructor(worldBounds?: Vector2) {
     if (worldBounds !== null && worldBounds !== undefined) {
       this.worldBounds = worldBounds;
       console.log('world bounds are x[' + this.worldBounds.x + '] y[' + this.worldBounds.y + ']');
-      this.BuildSectorList();
+      this.BuildQuadTree();
     }
     console.log('PhysicalEntityService constructor: creating physical entity arr');
     this.physicalEntities = new Array<PhysicalEntity>();
     this.mathHelperService = new MathHelperService();
   }
 
-  BuildSectorList() {
+  BuildQuadTree() {
     console.log('building sector list');
-
-
+    const worldBoundAsRectangle = new Rectangle();
+    worldBoundAsRectangle.position = new Vector2(0, 0);
+    worldBoundAsRectangle.size = this.worldBounds;
+    this.quadTree = new QuadTree(0, worldBoundAsRectangle);
   }
 
   TickOnPhysicalEntities() {
-    // console.log('world bounds are x[' + this.worldBounds.x + '] y[' + this.worldBounds.y + ']');
-    // console.log('ticking on physical entities');
     this.GreedyCheckIntersection();
+    if ((this.quadTree !== null) && (this.quadTree !== undefined)) {
+      // this.RebuildQuadTree();
+    } else {
+      console.log('quad was empty or undefined');
+    }
+
     // this.GreedyApplyGravity(0.1);
   }
+
+  RebuildQuadTree() {
+    // console.log('rebuilding quad tree');
+    this.quadTree.Clear(0);
+
+    for (let x = 0; x < this.physicalEntities.length; x++) {
+      this.quadTree.Insert(this.physicalEntities[x] as Rectangle);
+    }
+
+  }
+
 
   GreedyCheckIntersection() {
     let tickChecks = 0;

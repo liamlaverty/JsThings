@@ -23,25 +23,42 @@ export const GROUND: GameRectangle[] = [
     {
         name: 'ground', id: 1, color: '#7cfc00',
         position: new Vector2(0, 750),
-        size: new Vector2(40000, 100),
+        size: new Vector2(10000, 100),
         isPhysicalObject: true,
         isStaticObject: true,
         mass: 1
     },
 ];
 
-export const PLAYER: GameRectangle[] = [
-    {
-        name: 'person', id: 4, color: '#ff0000',
-        position: new Vector2(300, 550),
-        size: new Vector2(150, 100),
-        isPhysicalObject: true,
-        isStaticObject: false,
-        mass: 0.5
-    },
-];
+// export const PLAYER: GameRectangle[] = [
+//     {
+//         name: 'person', id: 4, color: '#ff0000',
+//         position: new Vector2(300, 550),
+//         size: new Vector2(150, 100),
+//     },
+// ];
 
-export const PHYSICAL_OBJECTS: GameRectangle[] = GetPhysicalObjects(10);
+ export const PLAYER: GameRectangle[] = GetPlayerObjects();
+
+ function GetPlayerObjects(itemCount: number = 1): Array<GameRectangle> {
+     const myItems = new Array<GameRectangle>();
+
+    const myRect = new GameRectangle();
+    myRect.name = 'person';
+    myRect.id = 4;
+    myRect.color = '#ff0000';
+    myRect.position = new Vector2(300, 550);
+    myRect.size = new Vector2(150, 100);
+    myRect.isPhysicalObject = true;
+    myRect.isStaticObject = false;
+    myRect.mass = 0.5;
+    myItems.push(myRect);
+
+     return myItems;
+ }
+
+
+export const PHYSICAL_OBJECTS: GameRectangle[] = GetPhysicalObjects(2);
 
 function GetPhysicalObjects(itemCount: number): Array<GameRectangle> {
     const myItems = new Array<GameRectangle>();

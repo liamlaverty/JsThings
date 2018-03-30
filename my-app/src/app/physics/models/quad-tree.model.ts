@@ -1,6 +1,13 @@
 import { Rectangle } from '../../models/rectangle';
 import { Vector2 } from '../../numerics/vector2/vector2.model';
 
+
+/*
+ *
+ * thorough explanation of this class is available here:
+ * https://gamedevelopment.tutsplus.com/tutorials/quick-tip-use-quadtrees-to-detect-likely-collisions-in-2d-space--gamedev-374
+ *
+*/
 export class QuadTree {
     private MAX_OBJ = 10;
     private MAX_LVL = 5;
@@ -10,11 +17,17 @@ export class QuadTree {
     private bounds: Rectangle;
     private nodes: QuadTree[];
 
-    constructor(pLevel: number, pBounds: Rectangle) {
+    constructor(pLevel: number, pBounds: Rectangle, maxObj: number = 10, maxLvl: number = 5) {
         this.level = pLevel;
         this.objects = new Array<Rectangle>();
         this.bounds = pBounds;
-        this.nodes = new QuadTree[4];
+        this.nodes = new Array<QuadTree>(4);
+        if (this.MAX_OBJ !== maxObj) {
+            this.MAX_OBJ = maxObj;
+        }
+        if (this.MAX_LVL !== maxLvl) {
+            this.MAX_LVL = maxLvl;
+        }
     }
 
 
@@ -34,19 +47,22 @@ export class QuadTree {
     /*
     * Clears this quadtree
     */
-    Clear(): void {
+    Clear(clearingIndexTracker: number): void {
         this.objects = new Array<Rectangle>();
-
+        // console.log('clearing ' + clearingIndexTracker);
         for (let i = 0; i < this.nodes.length; i++) {
-            if (this.nodes[i] !== null) {
-                this.nodes[i].Clear();
-                this.nodes[i] = null;
-            }
+            let thisNode = this.nodes[i];
+            if (thisNode !== null && thisNode !== undefined) {
+                thisNode.Clear(clearingIndexTracker + 1);
+                thisNode = null;
+            } // else {
+                // console.log('node at indexTracker:[' + clearingIndexTracker + '] at arr pos [ ' + i + ' ] was null.. somehow');
+            // }
         }
     }
 
     Insert(thisRectangle: Rectangle): void {
-        if (this.nodes[0] !== null) {
+        if (this.nodes[0] !== null && this.nodes[0] !== undefined) {
             const index: number = this.getIndex(thisRectangle);
 
             if (index !== -1) {
@@ -58,7 +74,7 @@ export class QuadTree {
         this.objects.push(thisRectangle);
 
         if (this.objects.length > this.MAX_OBJ && this.level < this.MAX_LVL) {
-            if (this.nodes[0] === null) {
+            if (this.nodes[0] === null || this.nodes[0] === undefined) {
                 this.split();
             }
 
@@ -80,8 +96,8 @@ export class QuadTree {
     * splits the current node into 4 nodes
     */
     private split(): void {
-        const subWidth: number = Math.floor(this.bounds.GetWidth() / 2);
-        const subHeight: number = Math.floor(this.bounds.GetHeight() / 2);
+        const subWidth: number = Math.floor(this.bounds.size.x / 2);
+        const subHeight: number = Math.floor(this.bounds.size.y / 2);
         const x: number = Math.floor(this.bounds.position.x);
         const y: number = Math.floor(this.bounds.position.y);
         const myLevel = this.level + 1;
@@ -111,19 +127,19 @@ export class QuadTree {
     */
     private getIndex(thisRectangle: Rectangle): number {
         let index = -1;
-        const verticalMidpoint: number = this.bounds.position.x + (this.bounds.GetWidth() / 2);
-        const horizontalMidpont: number = this.bounds.position.y + (this.bounds.GetHeight() / 2);
+        const verticalMidpoint: number = this.bounds.position.x + (this.bounds.size.x / 2);
+        const horizontalMidpont: number = this.bounds.position.y + (this.bounds.size.y / 2);
 
         // fits in the top quadrants?
         const topQuadrant: boolean = (thisRectangle.position.y < horizontalMidpont &&
-            thisRectangle.position.y + thisRectangle.GetHeight() < horizontalMidpont);
+            thisRectangle.position.y + thisRectangle.size.y < horizontalMidpont);
 
         // fits in the bottom quadrants?
         const bottomQuadrant: boolean = (thisRectangle.position.y > horizontalMidpont);
 
         // can fit within the left quadrants?
         if (thisRectangle.position.x < verticalMidpoint &&
-            (thisRectangle.position.x + thisRectangle.GetWidth()) < verticalMidpoint) {
+            (thisRectangle.position.x + thisRectangle.size.x) < verticalMidpoint) {
             if (topQuadrant) {
                 index = 1;
             } else if (bottomQuadrant) {

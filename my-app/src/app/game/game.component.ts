@@ -42,7 +42,7 @@ export class GameComponent implements OnInit, AfterViewInit {
 
   constructor(private componentFactoryResolver: ComponentFactoryResolver,
     public mainCharacterService: MainCharacterService) {
-    this.worldBounds = new Vector2(40000, 1000);
+    this.worldBounds = new Vector2(1000, 1000);
     this.mainCharacter = mainCharacterService.GetMainCharacter();
     this.mainCharacter = this.mainCharacterService.GetMainCharacter();
     this.cameraService = new CameraService();

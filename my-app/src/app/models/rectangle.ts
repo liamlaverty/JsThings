@@ -10,12 +10,12 @@ export class Rectangle {
     //     console.log('getting bottom of the rect');
     // }
 
-    GetWidth(): number {
-        return this.size.x;
-    }
-    GetHeight(): number {
-        return this.size.y;
-    }
+    // GetWidth(): number {
+    //     return this.size.x;
+    // }
+    // GetHeight(): number {
+    //     return this.size.y;
+    // }
 }
 
 
