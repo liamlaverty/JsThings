@@ -38,10 +38,10 @@ export const GROUND: GameRectangle[] = [
 //     },
 // ];
 
- export const PLAYER: GameRectangle[] = GetPlayerObjects();
+export const PLAYER: GameRectangle[] = GetPlayerObjects();
 
- function GetPlayerObjects(itemCount: number = 1): Array<GameRectangle> {
-     const myItems = new Array<GameRectangle>();
+function GetPlayerObjects(itemCount: number = 1): Array<GameRectangle> {
+    const myItems = new Array<GameRectangle>();
 
     const myRect = new GameRectangle();
     myRect.name = 'person';
@@ -54,11 +54,11 @@ export const GROUND: GameRectangle[] = [
     myRect.mass = 0.5;
     myItems.push(myRect);
 
-     return myItems;
- }
+    return myItems;
+}
 
 
-export const PHYSICAL_OBJECTS: GameRectangle[] = GetPhysicalObjects(2);
+export const PHYSICAL_OBJECTS: GameRectangle[] = GetPhysicalObjects(10);
 
 function GetPhysicalObjects(itemCount: number): Array<GameRectangle> {
     const myItems = new Array<GameRectangle>();
@@ -72,7 +72,7 @@ function GetPhysicalObjects(itemCount: number): Array<GameRectangle> {
         const myRect = new GameRectangle();
         myRect.name = 'physical' + i;
         myRect.isPhysicalObject = true;
-        myRect.id = 2;
+        myRect.id = 100 + i;
         myRect.color = '#8A2BE2';
         myRect.position = new Vector2((rndposx * i), rndposy);
         myRect.size = new Vector2(rndsize, rndsize);

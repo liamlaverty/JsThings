@@ -33,7 +33,7 @@ export class QuadTree {
 
     retrieve(objects: Array<Rectangle>, thisRectangle: Rectangle) {
         const index: number = this.getIndex(thisRectangle);
-        if (index !== -1 && this.nodes[0] !== null) {
+        if (index !== -1 && this.nodes[0] !== null && this.nodes[0] !== undefined) {
             this.nodes[index].retrieve(objects, thisRectangle);
         }
 

@@ -14,6 +14,10 @@ export class PhysicalEntityService {
   private worldBounds: Vector2;
   private quadTree: QuadTree;
 
+  private greedyColsPerformanceTotal: number;
+  private goodColsPerformanceTotal: number;
+  private numTicks: number;
+
   constructor(worldBounds?: Vector2) {
     if (worldBounds !== null && worldBounds !== undefined) {
       this.worldBounds = worldBounds;
@@ -23,6 +27,9 @@ export class PhysicalEntityService {
     console.log('PhysicalEntityService constructor: creating physical entity arr');
     this.physicalEntities = new Array<PhysicalEntity>();
     this.mathHelperService = new MathHelperService();
+    this.greedyColsPerformanceTotal = 0;
+    this.goodColsPerformanceTotal = 0;
+    this.numTicks = 0;
   }
 
   BuildQuadTree() {
@@ -34,9 +41,24 @@ export class PhysicalEntityService {
   }
 
   TickOnPhysicalEntities() {
-    this.GreedyCheckIntersection();
+
+
+    // const greedyColsPerfStart = performance.now();
+    // const greedyCols = this.GreedyCheckIntersection();
+    // const greedyColsPerfEnd = performance.now();
+
     if ((this.quadTree !== null) && (this.quadTree !== undefined)) {
-      // this.RebuildQuadTree();
+      // const goodColsPerfStart = performance.now();
+      this.RebuildQuadTree();
+      const goodColls = this.ProcessQuadTree();
+      // const goodColsPerfEnd = performance.now();
+
+      // const greedyTime = (greedyColsPerfEnd - greedyColsPerfStart);
+      // const goodTime = (goodColsPerfEnd - goodColsPerfStart);
+
+      // console.log('Cols: goodColls: [' + goodColls + ']]');
+      // console.log('Cols: [greedcols: [' + greedyCols + '] goodColls: [' + goodColls + ']]');
+      // console.log('Time: [greedcols: [' + greedyTime + '] goodColls: [' + goodTime + ']]');
     } else {
       console.log('quad was empty or undefined');
     }
@@ -51,11 +73,43 @@ export class PhysicalEntityService {
     for (let x = 0; x < this.physicalEntities.length; x++) {
       this.quadTree.Insert(this.physicalEntities[x] as Rectangle);
     }
+  }
 
+  ProcessQuadTree(): number {
+    let collisions = 0;
+    let returnableObjects: Array<Rectangle>;
+    for (let i = 0; i < this.physicalEntities.length; i++) {
+      returnableObjects = new Array<Rectangle>();
+      const gameRectasRect = this.physicalEntities[i] as Rectangle;
+      if (gameRectasRect !== null && gameRectasRect !== undefined) {
+        this.quadTree.retrieve(returnableObjects, gameRectasRect);
+
+        if (returnableObjects.length > -1) {
+          // if (this.physicalEntities[i].id !== returnableObjects[x].id) {
+          const rightAabb = this.mathHelperService.GetAABB(this.physicalEntities[i].position, this.physicalEntities[i].size);
+
+          for (let x = 0; x < returnableObjects.length; x++) {
+            if (this.physicalEntities[i].id !== returnableObjects[x].id) {
+              const leftAabb = this.mathHelperService.GetAABB(returnableObjects[x].position, returnableObjects[x].size);
+              if (this.mathHelperService.AabbVsAabb(leftAabb, rightAabb)) {
+                collisions++;
+                this.physicalEntities[i].overrideColor = '#fff';
+              }
+
+              // console.log('running collision detection between i:[] and x:[]');
+            }
+          }
+        }
+      } else {
+        console.log('game rect was undefined [' + this.physicalEntities[i].name + '] ');
+      }
+    }
+    // console.log('quad tree found [' + collisions + '] collisions');
+    return collisions;
   }
 
 
-  GreedyCheckIntersection() {
+  GreedyCheckIntersection(): number {
     let tickChecks = 0;
     let cols = 0;
     let objCount = 0;
@@ -84,6 +138,8 @@ export class PhysicalEntityService {
         }
       }
     }
+    // console.log('GreedyCheckIntersection collided [' + cols + ']');
+    return cols;
     // console.log('collided [' + cols + '] | objs: [' + objCount + '] | chekced [' + tickChecks
     // +  ']');
   }
