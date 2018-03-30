@@ -35,6 +35,12 @@ export class GameComponent implements OnInit, AfterViewInit {
   timeDiff: number;
   frameBuffer: number[];
   fps = 0;
+
+  recentFps = 0;
+  recentTimeDiff: number;
+  recentTicks: number;
+  recentStartTime: number;
+
   theCamera: Camera;
   mainCharacter: MainCharacter;
   worldBounds: Vector2;
@@ -69,6 +75,8 @@ export class GameComponent implements OnInit, AfterViewInit {
     const initTime = new Date();
     this.startTime = initTime.valueOf();
     this.frameBuffer = new Array<number>();
+    this.recentTicks = 0;
+    this.recentTimeDiff = 0;
 
 
     // this.startTime = new Date();
@@ -108,6 +116,7 @@ export class GameComponent implements OnInit, AfterViewInit {
   tick(): void {
     setTimeout(() => {
       this.ticks++;
+      this.recentTicks++;
       this.updateTimer();
     });
     requestAnimationFrame(() => {
@@ -137,7 +146,11 @@ export class GameComponent implements OnInit, AfterViewInit {
 
   calculateFps() {
     this.fps = Math.floor((this.ticks / this.timeDiff) * 1000);
-
+    this.recentFps = Math.floor((this.recentTicks / this.recentTimeDiff) * 1000);
+    if (this.recentTicks > 50) {
+      this.recentStartTime = new Date().valueOf();
+      this.recentTicks = 0;
+    }
   }
 
   // calculateFpsOld() {
@@ -154,6 +167,8 @@ export class GameComponent implements OnInit, AfterViewInit {
     const myInitTime = new Date();
     this.currentTime = myInitTime.valueOf();
     this.timeDiff = this.currentTime - this.startTime;
+
+    this.recentTimeDiff = this.currentTime -  this.recentStartTime;
   }
 
 
