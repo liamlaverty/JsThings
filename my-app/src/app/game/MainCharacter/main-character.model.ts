@@ -3,6 +3,7 @@ import { Vector2Service } from '../../numerics/vector2/vector2.service';
 import { MathHelperService } from '../../numerics/math-helper/math-helper.service';
 import { GameRectangle } from '../../models/game-rectangle';
 import { PLAYER } from '../../mock-rectangles';
+import { PhysicalEntityService } from '../../physics/physical-entity.service';
 
 
 export class MainCharacter {
@@ -11,22 +12,27 @@ export class MainCharacter {
     rectangleDetails: GameRectangle;
     private vector2Service: Vector2Service;
     private mathHelperService: MathHelperService;
+    private physicalEntityService: PhysicalEntityService;
 
     constructor(rectangles: GameRectangle[]) {
         this.force = new Vector2(0, 0);
         this.rectangleDetails = rectangles[0];
         this.mathHelperService = new MathHelperService();
+        this.physicalEntityService = new PhysicalEntityService();
     }
 
 
     public Update(gameTime: number): void {
+
+        this.physicalEntityService.MoveEntity(this.rectangleDetails, this.force);
+
         // console.log('force = ' + this.force.x);
-        this.force.x = this.mathHelperService.Lerp(-this.force.x, 0, 0.75);
+        // this.force.x = this.mathHelperService.Lerp(-this.force.x, 0, 0.75);
         // console.log('force = ' + this.force.x);
-        this.force.y = this.mathHelperService.Lerp(-this.force.y, 0, 0.75);
+        // this.force.y = this.mathHelperService.Lerp(-this.force.y, 0, 0.75);
 
 
-        this.MoveMe();
+        // this.MoveMe();
     }
 
 
