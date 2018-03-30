@@ -3,27 +3,40 @@ import { PhysicalEntity } from './models/physical-entity.model';
 import { GameRectangle } from '../models/game-rectangle';
 import { MathHelperService } from '../numerics/math-helper/math-helper.service';
 import { Vector2 } from '../numerics/vector2/vector2.model';
+import { Rectangle } from '../models/rectangle';
+import { QuadTree } from './models/quad-tree.model';
 
 @Injectable()
 export class PhysicalEntityService {
 
   physicalEntities: PhysicalEntity[];
   mathHelperService: MathHelperService;
-  worldBounds: Vector2;
+  private worldBounds: Vector2;
+  private sectorDefaults = new Vector2(100, 100);
+  private sectors: Array<Rectangle>;
 
   constructor(worldBounds?: Vector2) {
-    if (worldBounds !== null) {
+    if (worldBounds !== null && worldBounds !== undefined) {
       this.worldBounds = worldBounds;
+      console.log('world bounds are x[' + this.worldBounds.x + '] y[' + this.worldBounds.y + ']');
+      this.BuildSectorList();
     }
     console.log('PhysicalEntityService constructor: creating physical entity arr');
     this.physicalEntities = new Array<PhysicalEntity>();
     this.mathHelperService = new MathHelperService();
   }
 
+  BuildSectorList() {
+    console.log('building sector list');
+
+
+  }
+
   TickOnPhysicalEntities() {
+    // console.log('world bounds are x[' + this.worldBounds.x + '] y[' + this.worldBounds.y + ']');
     // console.log('ticking on physical entities');
     this.GreedyCheckIntersection();
-    this.GreedyApplyGravity(0.1);
+    // this.GreedyApplyGravity(0.1);
   }
 
   GreedyCheckIntersection() {
@@ -60,11 +73,11 @@ export class PhysicalEntityService {
   }
 
   EscapeCollision(left: GameRectangle, right: GameRectangle) {
-     if (left.name === 'person' || right.name === 'person') {
-       console.log('escaping a collision between [' + left.name + '] and [' + right.name + ']');
-     }
-      left.force = new Vector2(0, 0);
-      right.force = new Vector2(0, 0);
+    //  if (left.name === 'person' || right.name === 'person') {
+    //    console.log('escaping a collision between [' + left.name + '] and [' + right.name + ']');
+    //  }
+    //   left.force = new Vector2(0, 0);
+    //   right.force = new Vector2(0, 0);
   }
 
 
