@@ -2,41 +2,42 @@ import { GameRectangle } from './models/game-rectangle';
 import { Vector2 } from './numerics/vector2/vector2.model';
 
 
-export const RECTANGLES: GameRectangle[] = [
-    {
-        name: 'sky', id: 0, color: '#00bfff',
-        // texture: '/assets/img/bg.jpg',
-        position: new Vector2(0, 0),
-        size: new Vector2(10000, 1000),
-    },
-];
+export const RECTANGLES: GameRectangle[] = GetSkyObjects();
 
-// export const SKY: GameRectangle[] = [
-//     {
-//         name: 'sky', id: 0, color: '#afeeee',
-//         texture: '/assets/img/bg.png',
-//         position: new Vector2(0, 0),
-//         size: new Vector2(10000, 1000),
-//     },
-// ];
-export const GROUND: GameRectangle[] = [
-    {
-        name: 'ground', id: 1, color: '#7cfc00',
-        position: new Vector2(0, 750),
-        size: new Vector2(10000, 100),
-        isPhysicalObject: true,
-        isStaticObject: true,
-        mass: 1
-    },
-];
+function GetSkyObjects(itemCount: number = 1): Array<GameRectangle> {
+    const myItems = new Array<GameRectangle>();
 
-// export const PLAYER: GameRectangle[] = [
-//     {
-//         name: 'person', id: 4, color: '#ff0000',
-//         position: new Vector2(300, 550),
-//         size: new Vector2(150, 100),
-//     },
-// ];
+    const myRect = new GameRectangle();
+    myRect.name = 'sky';
+    myRect.id = 0;
+    myRect.color = '#00bfff';
+    // myRect.texture = '/assets/img/bg.jpg';
+    myRect.position = new Vector2(0, 0);
+    myRect.size = new Vector2(10000, 1000);
+    myItems.push(myRect);
+
+    return myItems;
+}
+
+
+export const GROUND: GameRectangle[] = GetGroundObjects();
+
+function GetGroundObjects(itemCount: number= 1): Array<GameRectangle> {
+    const myItems = new Array<GameRectangle>();
+
+    const myRect = new GameRectangle();
+    myRect.name = 'ground';
+    myRect.id = 1;
+    myRect.color = '#7cfc00';
+    myRect.position = new Vector2(0, 750);
+    myRect.size = new Vector2(10000, 100);
+    myRect.isPhysicalObject = true;
+    myRect.isStaticObject = true;
+    myRect.mass = 1;
+    myItems.push(myRect);
+
+    return myItems;
+}
 
 export const PLAYER: GameRectangle[] = GetPlayerObjects();
 
