@@ -41,15 +41,15 @@ export const PLAYER: GameRectangle[] = [
     },
 ];
 
-export const PHYSICAL_OBJECTS: GameRectangle[] = GetPhysicalObjects(20);
+export const PHYSICAL_OBJECTS: GameRectangle[] = GetPhysicalObjects(10);
 
 function GetPhysicalObjects(itemCount: number): Array<GameRectangle> {
     const myItems = new Array<GameRectangle>();
 
     for (let i = 0; i < itemCount; i++) {
 
-        const rndposx = Math.floor(Math.random() * 750) + 0;
-        const rndposy = Math.floor(Math.random() * 750) + 1;
+        const rndposx = Math.floor(Math.random() * 300) + 0;
+        const rndposy = Math.floor(Math.random() * 300) + 1;
         const rndsize = 100; //  Math.floor(Math.random() * 120) + 100;
 
         const myRect = new GameRectangle();
@@ -89,55 +89,4 @@ function GetClouds(itemCount: number): Array<GameRectangle> {
     }
 
     return myClouds;
-
-    // return [
-    // {
-    //     name: 'cloud', id: 2, color: '#fff',
-    //     texture: '/assets/img/cloud.png',
-    //     position: new Vector2(10, 54),
-    //     size: new Vector2(100, 100),
-    // },
-    // {
-    //     name: 'cloud', id: 3, color: '#fff',
-    //     texture: '/assets/img/cloud.png',
-    //     position: new Vector2(-100, -50),
-    //     size: new Vector2(100, 100),
-    // },
-    // {
-    //     name: 'cloud', id: 4, color: '#fff',
-    //     texture: '/assets/img/cloud.png',
-    //     position: new Vector2(100, -50),
-    //     size: new Vector2(100, 100),
-    // },
-    // {
-    //     name: 'cloud', id: 5, color: '#fff',
-    //     texture: '/assets/img/cloud.png',
-    //     position: new Vector2(155, 10),
-    //     size: new Vector2(100, 100),
-    // },
-    // {
-    //     name: 'cloud', id: 6, color: '#fff',
-    //     texture: '/assets/img/cloud.png',
-    //     position: new Vector2(10, 54),
-    //     size: new Vector2(100, 100),
-    // },
-    // {
-    //     name: 'cloud', id: 7, color: '#fff',
-    //     texture: '/assets/img/cloud.png',
-    //     position: new Vector2(-100, -50),
-    //     size: new Vector2(100, 100),
-    // },
-    // {
-    //     name: 'cloud', id: 8, color: '#fff',
-    //     texture: '/assets/img/cloud.png',
-    //     position: new Vector2(1100, 350),
-    //     size: new Vector2(250, 400),
-    // },
-    // {
-    //     name: 'cloud', id: 9, color: '#fff',
-    //     texture: '/assets/img/cloud.png',
-    //     position: new Vector2(1055, 210),
-    //     size: new Vector2(200, 100),
-    // },
-// ];
 }
