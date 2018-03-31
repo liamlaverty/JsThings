@@ -71,20 +71,24 @@ export class ParentCanvasComponent extends SimpleCanvasComponent implements OnIn
 
   Draw(cameraPosition: Vector2, cameraFocalPoint: Vector2, transformMatrix?: Matrix): CanvasRenderingContext2D {
     // console.log('drawing main game component');
-
+    this.GreedyClearScreen();
     const scaleFill = Math.max(this.viewportWidth / this.TARGET_WIDTH,
       this.viewportHeight / this.TARGET_HEIGHT);
 
     const scaleFit = Math.min(this.viewportWidth / this.TARGET_WIDTH,
       this.viewportHeight / this.TARGET_HEIGHT);
 
+    this.ctx.fillStyle = '#000';
+
     for (const childCanvas of this.childCanvasArray) {
       const drawnCanvasLayer = childCanvas.Draw(cameraPosition, cameraFocalPoint, transformMatrix);
 
-      drawnCanvasLayer.setTransform(
-        scaleFit, 0, 0,
-        scaleFit, Math.floor(this.viewportWidth / 4), Math.floor(this.viewportHeight / 4)
-      );
+      // drawnCanvasLayer.setTransform(
+      //   scaleFit, 0, 0,
+      //   scaleFit, Math.floor(this.viewportWidth / 10), Math.floor(this.viewportHeight / 10)
+      // );
+
+
       // drawnCanvasLayer.setTransform(
       //   1, 1, 0,
       //   1, 0, 0
@@ -96,14 +100,17 @@ export class ParentCanvasComponent extends SimpleCanvasComponent implements OnIn
       // drawnCanvasLayer.canvas.style.width = this.viewportWidth + 'px';
       // console.log('drawing with W:[' + this.viewportWidth + '] H:[' + this.viewportHeight + ']');
 
-
-      this.ctx.fillStyle = '#000';
       // this.ctx.fillRect(0, 0, this.viewportWidth, this.viewportHeight);
       // const frameAsImg = new Image(this.viewportHeight, this.viewportWidth);
       this.ctx.drawImage(drawnCanvasLayer.canvas, 0, 0); // , this.viewportWidth, this.viewportHeight);
       // drawnCanvasLayer.canvas.style.height = this.TARGET_HEIGHT + 'px';
       // drawnCanvasLayer.canvas.style.width = this.TARGET_WIDTH + 'px';
     }
+
+    this.ctx.setTransform(
+      scaleFit, 0, 0,
+      scaleFit, Math.floor(this.viewportWidth / 10), Math.floor(this.viewportHeight / 10)
+    );
     return null;
   }
 

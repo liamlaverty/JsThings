@@ -7,5 +7,5 @@
 .child-layer {
     position:absolute;
     left:-10000px;
-    bottom:-10000px;
+    bottom:0px;
 }
