@@ -4,3 +4,8 @@
     background:transparent;
     position:absolute;
 }
+.child-layer {
+    position:absolute;
+    left:-10000px;
+    bottom:-10000px;
+}
