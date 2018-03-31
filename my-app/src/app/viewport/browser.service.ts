@@ -3,15 +3,27 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class BrowserService {
 
-  constructor() { }
+  private viewportWidth;
+  private viewportHeight;
 
-  getBrowserWidth(): number {
-    console.log('getting innerWidth of ' + window.innerWidth);
-    return window.innerWidth;
+  constructor() {
+    this.viewportWidth = window.innerWidth;
+    this.viewportHeight = window.innerHeight;
   }
 
-  getBrowserHeight(): number {
-    console.log('getting innherHeight of ' + window.innerHeight);
-    return window.innerWidth;
+  getBrowserWidth(evt?): number {
+    if (evt !== null && evt !== undefined) {
+      this.viewportWidth = Math.floor(evt.target.innerWidth);
+    }
+    console.log('getting innerWidth of ' + this.viewportWidth);
+    return this.viewportWidth;
+  }
+
+  getBrowserHeight(evt?): number {
+    if (evt !== null && evt !== undefined) {
+      this.viewportHeight = Math.floor(evt.target.innerHeight);
+    }
+    console.log('getting innherHeight of ' + this.viewportHeight);
+    return this.viewportHeight;
   }
 }

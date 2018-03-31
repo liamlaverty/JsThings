@@ -40,19 +40,18 @@ export abstract class SimpleCanvasComponent implements OnInit {
   }
 
   @HostListener('window:resize', ['$event'])
-  onResize() {
-    this.updateBrowserSize();
+  onResize(evt) {
+    this.updateBrowserSize(evt);
     // console.log('updated browser size');
   }
 
 
   ngOnInit() {
     this.absOnInit();
+    this.updateBrowserSize();
   }
 
   absOnInit() {
-    this.updateBrowserSize();
-
   }
 
   abstAfterViewInit() {
@@ -187,34 +186,49 @@ export abstract class SimpleCanvasComponent implements OnInit {
   }
 
 
-  updateBrowserSize() {
-    this.SetBrowserWidth();
-    this.SetBrowserHeight();
+  updateBrowserSize(evt?) {
+    this.SetBrowserWidth(evt);
+    this.SetBrowserHeight(evt);
     this.UpdateCanvasSize(100, 100); // 80% of window size
   }
 
 
-  private SetBrowserHeight(): void {
-    this.browserHeight = this.browserService.getBrowserHeight();
+  private SetBrowserHeight(evt?): void {
+    this.browserHeight = this.browserService.getBrowserHeight(evt);
 
   }
-  private SetBrowserWidth(): void {
-    this.browserWidth = this.browserService.getBrowserWidth();
+  private SetBrowserWidth(evt?): void {
+    this.browserWidth = this.browserService.getBrowserWidth(evt);
   }
 
   private UpdateCanvasSize(heightPercent: number, widthPercent: number) {
 
-    let targetViewportHeight = ((this.browserHeight / 100) * heightPercent);
-    let targetViewportWidth = (targetViewportHeight * (this.AspectRatio));
+    const widthToUse = Math.min(this.browserWidth, (this.browserHeight * this.AspectRatio));
+    const heightToUse = Math.min(this.browserHeight, (this.browserWidth / this.AspectRatio));
+
+    console.log('wToUse:[' + widthToUse + '] hToUse:[' + heightToUse + ']');
 
 
-    this.viewportHeight = targetViewportHeight;
-    this.viewportWidth = targetViewportWidth;
+    if (heightToUse < widthToUse) {
+      console.log('using height to use');
+      this.viewportHeight = Math.floor(heightToUse);
+      this.viewportWidth = Math.floor(this.viewportHeight * this.AspectRatio);
+    } else {
+      console.log('using width to use');
+      // let targetViewportHeight = ((this.browserHeight / 100) * heightPercent);
+      // let targetViewportWidth = (targetViewportHeight * (this.AspectRatio));
 
+      // targetViewportWidth = ((this.browserWidth / 100 ) * widthPercent);
+      // targetViewportHeight = (targetViewportWidth * this.AspectRatio);
+
+
+      // this.viewportHeight = targetViewportHeight;
+      // this.viewportWidth = targetViewportWidth;
+    }
     // this.viewportHeight = ((this.browserHeight / 100) * heightPercent);
     // this.viewportWidth = (this.viewportHeight * (this.AspectRatio));
-    console.log('height is ' + this.viewportHeight);
-    console.log('width is ' + this.viewportWidth);
+    console.log('target height is ' + this.viewportHeight);
+    console.log('target width is ' + this.viewportWidth);
 
 
 
