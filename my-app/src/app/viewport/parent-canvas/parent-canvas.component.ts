@@ -108,8 +108,8 @@ export class ParentCanvasComponent extends SimpleCanvasComponent implements OnIn
     }
 
     this.ctx.setTransform(
-      scaleFit, 0, 0,
-      scaleFit, Math.floor(this.viewportWidth / 10), Math.floor(this.viewportHeight / 10)
+      scaleFill, 0, 0,
+      scaleFill, Math.floor(this.viewportWidth / 10), Math.floor(this.viewportHeight / 10)
     );
     return null;
   }

@@ -130,9 +130,9 @@ export abstract class SimpleCanvasComponent implements OnInit {
 
   protected RectIsOnScreen(theRect: GameRectangle, cameraRect: Rectangle) {
 
-    if (theRect.name !== 'person') {
-      return true;
-    }
+    // if (theRect.name !== 'person') {
+      // return true;
+    // }
 
     // console.log('cam pos: ' + cameraRect.position.concat());
     // console.log('cam size: ' + cameraRect.size.concat());
