@@ -33,7 +33,7 @@ export abstract class SimpleCanvasComponent implements OnInit {
   private setupComplete: boolean;
 
   constructor(protected browserService: BrowserService) {
-    console.log('in simplecanvas');
+    console.log('constructing simplecanvas');
     this.matrixService = new MatrixService();
     this.cameraService = new CameraService();
     this.mathHelperService = new MathHelperService();
@@ -56,7 +56,7 @@ export abstract class SimpleCanvasComponent implements OnInit {
   }
 
   abstAfterViewInit() {
-    console.log('abstract class ngAfterViewInit');
+    // console.log('abstract class ngAfterViewInit');
     const canvas = this.mySimpleCanvas.nativeElement;
     this.canvasHeight = canvas.offsetHeight;
     this.canvasWidth = canvas.offsetWidth;

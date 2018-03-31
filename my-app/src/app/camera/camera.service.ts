@@ -12,6 +12,7 @@ export class CameraService {
 
   CreateCamera(size: Vector2, focalPointPosition: Vector2) {
     if (!this.cameraCreated) {
+      console.log('generating a camera');
       this.theCamera = new Camera(size, focalPointPosition);
     } else {
       console.error('camera is being created more than once! This is widely considered to be a very bad thing');
@@ -20,7 +21,6 @@ export class CameraService {
   }
 
   GetCamera() {
-    console.log('returning a camera');
     return this.theCamera;
   }
 

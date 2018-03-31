@@ -33,7 +33,7 @@ export class PhysicalEntityService {
   }
 
   BuildQuadTree() {
-    console.log('building sector list');
+    // console.log('building sector list');
     const worldBoundAsRectangle = new Rectangle();
     worldBoundAsRectangle.position = new Vector2(0, 0);
     worldBoundAsRectangle.size = this.worldBounds;
@@ -176,16 +176,16 @@ export class PhysicalEntityService {
 
   RegisterPhysicalEntity(physicalEntity: GameRectangle) {
     if (this.EntityExists(physicalEntity.name) === null) {
-      console.log('adding new physical entity [' + physicalEntity.name + ']');
+      // console.log('adding new physical entity [' + physicalEntity.name + ']');
       physicalEntity.force = new Vector2(0, 0);
       this.physicalEntities.push(<PhysicalEntity>physicalEntity);
     } else {
-      console.log('entity [' + physicalEntity.name + '] already exists');
+      console.log('entity [' + physicalEntity.name + '] already exists. Was not recreated');
     }
   }
 
   RegisterPhysicalEntityCollection(physicalEntitySet: Array<GameRectangle>) {
-    console.log('registering set of physical entities');
+    console.log('registering set of [' + physicalEntitySet.length + '] physical entities');
     for (let i = 0; i < physicalEntitySet.length; i++) {
       this.RegisterPhysicalEntity(physicalEntitySet[i]);
     }
