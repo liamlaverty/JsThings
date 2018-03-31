@@ -16,7 +16,7 @@ import { Rectangle } from '../../models/rectangle';
   providers: [BrowserService, MatrixService]
 })
 export abstract class SimpleCanvasComponent implements OnInit {
-  private AspectRatio = 1; // 1.77;
+  private AspectRatio =  1.77;
   @ViewChild('mySimpleCanvas') mySimpleCanvas;
   rectangles: Array<GameRectangle>;
   ctx: CanvasRenderingContext2D;
@@ -186,7 +186,7 @@ export abstract class SimpleCanvasComponent implements OnInit {
   updateBrowserSize() {
     this.SetBrowserWidth();
     this.SetBrowserHeight();
-    this.UpdateCanvasSize(90, 90); // 80% of window size
+    this.UpdateCanvasSize(100, 100); // 80% of window size
   }
 
 
