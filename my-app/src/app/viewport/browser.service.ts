@@ -6,10 +6,12 @@ export class BrowserService {
   constructor() { }
 
   getBrowserWidth(): number {
+    console.log('getting innerWidth of ' + window.innerWidth);
     return window.innerWidth;
   }
 
   getBrowserHeight(): number {
-    return window.innerHeight;
+    console.log('getting innherHeight of ' + window.innerHeight);
+    return window.innerWidth;
   }
 }

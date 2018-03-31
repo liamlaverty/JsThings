@@ -16,7 +16,7 @@ import { Rectangle } from '../../models/rectangle';
   providers: [BrowserService, MatrixService]
 })
 export abstract class SimpleCanvasComponent implements OnInit {
-  private AspectRatio =  1.77;
+  private AspectRatio = 1.77;
   @ViewChild('mySimpleCanvas') mySimpleCanvas;
   rectangles: Array<GameRectangle>;
   ctx: CanvasRenderingContext2D;
@@ -30,6 +30,7 @@ export abstract class SimpleCanvasComponent implements OnInit {
   private cameraService: CameraService;
   private matrixService: MatrixService;
   private mathHelperService: MathHelperService;
+  private setupComplete: boolean;
 
   constructor(protected browserService: BrowserService) {
     console.log('in simplecanvas');
@@ -62,6 +63,7 @@ export abstract class SimpleCanvasComponent implements OnInit {
     this.ctx = canvas.getContext('2d');
 
     console.log('canvas setup with height [' + this.canvasHeight + '], width [' + this.canvasWidth + ']');
+    this.setupComplete = true;
   }
 
   GetContext() {
@@ -69,49 +71,51 @@ export abstract class SimpleCanvasComponent implements OnInit {
   }
 
   Draw(cameraPosition: Vector2, cameraSize: Vector2, transformMatrix?: Matrix) {
-    if (transformMatrix == null) { transformMatrix = this.matrixService.GetIdentityMtx(); }
+    if (this.setupComplete && cameraPosition !== null && cameraPosition !== undefined) {
+      if (transformMatrix == null) { transformMatrix = this.matrixService.GetIdentityMtx(); }
 
-    this.greedyClearCanvas();
-    if (this.layer.Rectangles !== undefined) {
-      const cameraRect = new Rectangle();
-      cameraRect.position = cameraPosition;
-      cameraRect.size = cameraSize;
+      this.greedyClearCanvas();
+      if (this.layer.Rectangles !== undefined) {
+        const cameraRect = new Rectangle();
+        cameraRect.position = cameraPosition;
+        cameraRect.size = cameraSize;
 
-      for (const rectangle of this.layer.Rectangles) {
-        if (this.RectIsOnScreen(rectangle, cameraRect)) {
+        for (const rectangle of this.layer.Rectangles) {
+          if (this.RectIsOnScreen(rectangle, cameraRect)) {
 
-          const rectRelativeToCamera = this.GetRectRelativeToCamera(rectangle, cameraRect);
+            const rectRelativeToCamera = this.GetRectRelativeToCamera(rectangle, cameraRect);
 
-          // pattern: CanvasPattern;
-          if (rectangle.texture !== null && rectangle.texture !== undefined && rectangle.texture.length > 0) {
+            // pattern: CanvasPattern;
+            if (rectangle.texture !== null && rectangle.texture !== undefined && rectangle.texture.length > 0) {
 
-            const image = new Image(rectangle.size.x, rectangle.size.y);
-             const drawable = image.onload = function() {
-              //  const thisTexture = document.createElement('canvas');
-              //  thisTexture.width = rectRelativeToCamera.size.x;
-              //  thisTexture.height = rectRelativeToCamera.size.y;
-              //  thisTexture.getContext('2d').drawImage(image, 0, 0, rectangle.size.x, rectangle.size.y);
-             };
-             image.src = rectangle.texture;
+              const image = new Image(rectangle.size.x, rectangle.size.y);
+              const drawable = image.onload = function () {
+                //  const thisTexture = document.createElement('canvas');
+                //  thisTexture.width = rectRelativeToCamera.size.x;
+                //  thisTexture.height = rectRelativeToCamera.size.y;
+                //  thisTexture.getContext('2d').drawImage(image, 0, 0, rectangle.size.x, rectangle.size.y);
+              };
+              image.src = rectangle.texture;
 
-            const pattern = this.ctx.drawImage(image, rectRelativeToCamera.position.x, rectRelativeToCamera.position.y,
-              rectRelativeToCamera.size.x, rectRelativeToCamera.size.y);
-             // this.ctx.fillStyle = pattern;
+              const pattern = this.ctx.drawImage(image, rectRelativeToCamera.position.x, rectRelativeToCamera.position.y,
+                rectRelativeToCamera.size.x, rectRelativeToCamera.size.y);
+              // this.ctx.fillStyle = pattern;
 
-          } else {
-            if (rectangle.overrideColor !== null) {
-              this.ctx.fillStyle = rectangle.overrideColor;
-              rectangle.overrideColor = null;
             } else {
-              this.ctx.fillStyle = rectangle.color;
+              if (rectangle.overrideColor !== null) {
+                this.ctx.fillStyle = rectangle.overrideColor;
+                rectangle.overrideColor = null;
+              } else {
+                this.ctx.fillStyle = rectangle.color;
+              }
+              this.ctx.fillRect(rectRelativeToCamera.position.x, rectRelativeToCamera.position.y,
+                rectRelativeToCamera.size.x, rectRelativeToCamera.size.y);
             }
-            this.ctx.fillRect(rectRelativeToCamera.position.x, rectRelativeToCamera.position.y,
-            rectRelativeToCamera.size.x, rectRelativeToCamera.size.y);
+            // this.ctx.fillRect(rectangle.position.x, rectangle.position.y, rectangle.size.x, rectangle.size.y);
           }
-          // this.ctx.fillRect(rectangle.position.x, rectangle.position.y, rectangle.size.x, rectangle.size.y);
         }
+        // }
       }
-      // }
     }
   }
 
@@ -121,9 +125,9 @@ export abstract class SimpleCanvasComponent implements OnInit {
     returnRect.size = new Vector2(theRect.size.x, theRect.size.y);
     returnRect.position = new Vector2(-cameraRect.position.x, -cameraRect.position.y);
 
+
     returnRect.position.x += theRect.position.x;
     returnRect.position.y += theRect.position.y;
-
     return returnRect;
 
   }
@@ -200,14 +204,21 @@ export abstract class SimpleCanvasComponent implements OnInit {
 
   private UpdateCanvasSize(heightPercent: number, widthPercent: number) {
 
+    let targetViewportHeight = ((this.browserHeight / 100) * heightPercent);
+    let targetViewportWidth = (targetViewportHeight * (this.AspectRatio));
 
 
-    this.viewportHeight = ((this.browserHeight / 100) * heightPercent);
+    this.viewportHeight = targetViewportHeight;
+    this.viewportWidth = targetViewportWidth;
 
-    // this.viewportWidth = ((this.browserWidth / 100) * widthPercent);
-    this.viewportWidth = (this.viewportHeight * (this.AspectRatio));
+    // this.viewportHeight = ((this.browserHeight / 100) * heightPercent);
+    // this.viewportWidth = (this.viewportHeight * (this.AspectRatio));
     console.log('height is ' + this.viewportHeight);
     console.log('width is ' + this.viewportWidth);
+
+
+
+
 
 
     // this.viewportWidth = ((this.browserWidth / 100) * widthPercent);
