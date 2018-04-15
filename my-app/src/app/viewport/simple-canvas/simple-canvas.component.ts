@@ -129,7 +129,7 @@ export abstract class SimpleCanvasComponent implements OnInit {
   }
 
   protected RectIsOnScreen(theRect: GameRectangle, cameraRect: Rectangle) {
-
+    // return true;
     // if (theRect.name !== 'person') {
       // return true;
     // }
@@ -141,9 +141,8 @@ export abstract class SimpleCanvasComponent implements OnInit {
       // console.log('shoudl draw rectangle [id: ' + theRect.id + ' |name:' + theRect.name + ']');
       return true;
     } else {
-      // console.log('this rectangle is definitely not on screen');
+      // console.log('this rectangle is definitely not on screen [id: ' + theRect.id + ' |name:' + theRect.name + ']');
       return false;
-      // return false;
     }
 
     // const rectBottom = this.mathHelperService.GetRectBottom(theRect);

@@ -36,6 +36,9 @@ export class GameComponent implements OnInit, AfterViewInit {
   frameBuffer: number[];
   fps = 0;
 
+  private CAMERA_TARGET_WIDTH = 1920;
+  private CAMERA_TARGET_HEIGHT = 1080;
+
   recentFps = 0;
   recentTimeDiff: number;
   recentTicks: number;
@@ -53,7 +56,8 @@ export class GameComponent implements OnInit, AfterViewInit {
     this.mainCharacter = this.mainCharacterService.GetMainCharacter();
     this.cameraService = new CameraService();
     this.physicalEntityService = new PhysicalEntityService(this.worldBounds);
-    this.cameraService.CreateCamera(new Vector2(720, 720), this.mainCharacter.rectangleDetails.position);
+    this.cameraService.CreateCamera(new Vector2(this.CAMERA_TARGET_WIDTH, this.CAMERA_TARGET_HEIGHT),
+                                    this.mainCharacter.rectangleDetails.position);
     this.theCamera = this.cameraService.GetCamera();
     // this.theCamera = new Camera(
     //   new Vector2(720, 720), // 720px x 720px

@@ -59,7 +59,7 @@ function GetPlayerObjects(itemCount: number = 1): Array<GameRectangle> {
 }
 
 
-export const PHYSICAL_OBJECTS: GameRectangle[] = GetPhysicalObjects(10);
+export const PHYSICAL_OBJECTS: GameRectangle[] = GetPhysicalObjects(1);
 
 function GetPhysicalObjects(itemCount: number): Array<GameRectangle> {
     const myItems = new Array<GameRectangle>();
@@ -86,7 +86,7 @@ function GetPhysicalObjects(itemCount: number): Array<GameRectangle> {
     return myItems;
 }
 
-export const CLOUDS: GameRectangle[] = GetClouds(30);
+export const CLOUDS: GameRectangle[] = GetClouds(2);
 
 function GetClouds(itemCount: number): Array<GameRectangle> {
 
