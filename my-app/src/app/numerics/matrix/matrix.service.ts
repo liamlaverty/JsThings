@@ -153,6 +153,7 @@ export class MatrixService {
   }
 
   CreateScaleFromVec3(scaleVect: Vector3): Matrix {
+    // console.log(scaleVect);
     const resultMtx = new Matrix(
       scaleVect.X, 0, 0, 0,
       0, scaleVect.Y, 0, 0,

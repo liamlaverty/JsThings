@@ -20,12 +20,12 @@ export class ParentCanvasComponent extends SimpleCanvasComponent implements OnIn
 
   /* canvas sizing */
   private AspectRatio = 1.77; // 16:9
-  private TARGET_WIDTH = 1920;
-  private TARGET_HEIGHT = 1080;
+  // private TARGET_WIDTH = 1920;
+  // private TARGET_HEIGHT = 1080;
   private browserHeight: number;
   private browserWidth: number;
 
-  scaleFactor: number = 5;
+  scaleFactor: number = 5; // I don't know what this does
 
   constructor(protected browserService: BrowserService,
     private componentFactoryResolver: ComponentFactoryResolver,
@@ -115,11 +115,6 @@ export class ParentCanvasComponent extends SimpleCanvasComponent implements OnIn
     return null;
   }
 
-  buttonclicked() {
-    this.scaleFactor = this.scaleFactor + 10;
-    console.log('increasing scale factor to ' + this.scaleFactor);
-
-  }
 
 
   addLayer(layer: Layer) {
@@ -140,17 +135,19 @@ export class ParentCanvasComponent extends SimpleCanvasComponent implements OnIn
   /* canvas sizing */
   private UpdateCanvasSize(heightPercent: number, widthPercent: number) {
 
-    const widthToUse = Math.min(this.browserWidth, (this.browserHeight * this.AspectRatio));
-    const heightToUse = Math.min(this.browserHeight, (this.browserWidth / this.AspectRatio));
+    const widthToUse = Math.min(this.browserWidth, (this.browserHeight * this.AspectRatio)
+    * (widthPercent / 100));
+    const heightToUse = Math.min(this.browserHeight, (this.browserWidth / this.AspectRatio)
+    * (heightPercent / 100));
 
     console.log('wToUse:[' + widthToUse + '] hToUse:[' + heightToUse + ']');
 
 
-    if (heightToUse < widthToUse) {
-      console.log('using height to use');
-      this.viewportHeight = Math.floor(heightToUse);
-      this.viewportWidth = Math.floor(this.viewportHeight * this.AspectRatio);
-    } else {
+     if (heightToUse < widthToUse) {
+       console.log('using height to use');
+       this.viewportHeight = Math.floor(heightToUse);
+       this.viewportWidth = Math.floor(this.viewportHeight * this.AspectRatio);
+     } else {
       console.error('using width to use. This is not implemented');
       // let targetViewportHeight = ((this.browserHeight / 100) * heightPercent);
       // let targetViewportWidth = (targetViewportHeight * (this.AspectRatio));

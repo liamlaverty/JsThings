@@ -31,6 +31,10 @@ export abstract class SimpleCanvasComponent implements OnInit {
   private mathHelperService: MathHelperService;
   private setupComplete: boolean;
 
+
+  protected TARGET_WIDTH = 1920;
+  protected TARGET_HEIGHT = 1080;
+
   constructor(protected browserService: BrowserService) {
     console.log('constructing simplecanvas');
     this.matrixService = new MatrixService();
@@ -193,6 +197,7 @@ export abstract class SimpleCanvasComponent implements OnInit {
 
 
   protected greedyClearCanvas() {
+    // console.log(`clearing canvas with width: ${this.canvasWidth} height: ${this.canvasHeight}`);
     this.ctx.clearRect(0, 0, this.canvasWidth, this.canvasHeight);
   }
 }

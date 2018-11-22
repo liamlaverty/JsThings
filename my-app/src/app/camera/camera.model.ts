@@ -19,7 +19,8 @@ export class Camera {
     Zoom: number;
     Rotation: number;
 
-    constructor(myViewport: Vector2, myFocalPoint: Vector2) { // ,
+    constructor(myViewport: Vector2, myFocalPoint: Vector2) { // 
+        
     // vector2Service: Vector2Service, vector3Service: Vector3Service, mtxService: MatrixService) {
         this.vector2Service = new Vector2Service();
         this.vector3Service = new Vector3Service();
@@ -29,9 +30,11 @@ export class Camera {
         this.FocalPoint = myFocalPoint;
         this.ViewportDiv2 = new Vector2(this.Viewport.x / 2, this.Viewport.y / 2);
         this.Origin = this.ViewportDiv2;
+        this.Zoom = 1;
     }
 
     GetViewMatrix(parallax: Vector2): Matrix {
+        // console.error('get view mtx')
         this.LookAt(this.FocalPoint);
         // this.LookAt(new Vector2(0, 0));
 
@@ -69,10 +72,11 @@ export class Camera {
 
     LookAt(position: Vector2): void {
         // this.Position = new Vector2(0, 0);
+        // console.log('looking at');
 
 
         const viewportSmall = new Vector2(this.Viewport.x / 2, 0); // this.Viewport.y / 2);
-        const tmpPosition = new Vector2(position.x, 0);
+        const tmpPosition = new Vector2(position.x, position.y);
         // position.y = 0;
 
         // console.log('looking at focal point:' + this.FocalPoint.concat() + ' viewportSm:[' + viewportSmall.concat() + ']');
