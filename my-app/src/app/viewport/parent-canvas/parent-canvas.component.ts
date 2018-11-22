@@ -56,8 +56,8 @@ export class ParentCanvasComponent extends SimpleCanvasComponent implements OnIn
   }
 
   GreedyClearScreen(): void {
-    this.ctx.clearRect(0, 0, this.canvasWidth, this.canvasHeight);
-    // this.greedyClearCanvas();
+    // this.ctx.clearRect(0, 0, this.canvasWidth, this.canvasHeight);
+    this.greedyClearCanvas();
   }
 
 
@@ -161,6 +161,11 @@ export class ParentCanvasComponent extends SimpleCanvasComponent implements OnIn
     }
     console.log('target height is ' + this.viewportHeight);
     console.log('target width is ' + this.viewportWidth);
+
+    // for (const layer of this.childCanvasArray) {
+    //   layer.canvasHeight = this.viewportHeight;
+    //   layer.canvasWidth = this.viewportWidth;
+    // }
   }
 
   updateBrowserSize(evt?) {

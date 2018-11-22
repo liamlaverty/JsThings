@@ -74,9 +74,10 @@ export class Camera {
         // this.Position = new Vector2(0, 0);
         // console.log('looking at');
 
-
+        const yOffset = 0; //  position.y / 2;
+ 
         const viewportSmall = new Vector2(this.Viewport.x / 2, 0); // this.Viewport.y / 2);
-        const tmpPosition = new Vector2(position.x, position.y);
+        const tmpPosition = new Vector2(position.x, yOffset);
         // position.y = 0;
 
         // console.log('looking at focal point:' + this.FocalPoint.concat() + ' viewportSm:[' + viewportSmall.concat() + ']');
