@@ -107,10 +107,10 @@ export class ParentCanvasComponent extends SimpleCanvasComponent implements OnIn
       // drawnCanvasLayer.canvas.style.width = this.TARGET_WIDTH + 'px';
     }
 
-    this.ctx.setTransform(
-      scaleFill, 0, 0,
-      scaleFill, Math.floor(this.viewportWidth / 10), Math.floor(this.viewportHeight / 10)
-    );
+     this.ctx.setTransform(
+       scaleFill, 0, 0,
+       scaleFill, Math.floor(this.viewportWidth / 5), Math.floor(this.viewportHeight / 5)
+     );
     return null;
   }
 
