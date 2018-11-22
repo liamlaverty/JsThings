@@ -175,7 +175,8 @@ export class ParentCanvasComponent extends SimpleCanvasComponent implements OnIn
   updateBrowserSize(evt?) {
     this.SetBrowserWidth(evt);
     this.SetBrowserHeight(evt);
-    this.UpdateCanvasSize(100, 100); // 80% of window size
+    console.info(`browser: h:[${this.browserHeight}] w:[${this.browserWidth}]`);
+    this.UpdateCanvasSize(100, 100); // 100% of window size
   }
 
 

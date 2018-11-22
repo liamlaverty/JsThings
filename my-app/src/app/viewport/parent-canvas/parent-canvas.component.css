@@ -1,11 +1,21 @@
 
 .game-viewport-area{
-    position:relative;   
-    margin:0 auto;
+    /* position:relative;   
+    margin:0 auto; */
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    width:100%;
+    height:100%;
 } 
-.game-viewport-area canvas{
+.game-viewport-area canvas.child-layer{
     /* width:100%;
     height:100%; */
     position:absolute;
     background-color:transparent;
+}
+
+.game-canvas{
+    background:pink;
+    vertical-align: middle;
 }
