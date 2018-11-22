@@ -21,8 +21,9 @@ export class ChildCanvasComponent extends SimpleCanvasComponent implements After
 
   ngAfterViewInit(): void {
     this.abstAfterViewInit();
-    console.log('child class ngAfterViewInit');
     this.setCanvasLayerDetails();
+    console.log(`child class [name:'${this.canvasName}'] ngAfterViewInit`);
+    
   }
 
   private setCanvasLayerDetails() {

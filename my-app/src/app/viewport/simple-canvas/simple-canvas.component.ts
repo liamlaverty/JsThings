@@ -76,6 +76,7 @@ export abstract class SimpleCanvasComponent implements OnInit {
         cameraRect.position = cameraPosition;
         cameraRect.size = cameraSize;
 
+
         for (const rectangle of this.layer.Rectangles) {
           if (this.RectIsOnScreen(rectangle, cameraRect)) {
 
@@ -93,19 +94,33 @@ export abstract class SimpleCanvasComponent implements OnInit {
               };
               image.src = rectangle.texture;
 
-              const pattern = this.ctx.drawImage(image, rectRelativeToCamera.position.x, rectRelativeToCamera.position.y,
-                rectRelativeToCamera.size.x, rectRelativeToCamera.size.y);
+                const pattern = this.ctx.drawImage(image, rectRelativeToCamera.position.x, rectRelativeToCamera.position.y,
+                  rectRelativeToCamera.size.x, rectRelativeToCamera.size.y);
+              // const pattern = this.ctx.drawImage(image, 0, 0);
+
+                // console.log('not drawiung a piece');
 
             } else {
+              // console.log('am drawing a  piece')
               if (rectangle.overrideColor !== null) {
                 this.ctx.fillStyle = rectangle.overrideColor;
                 rectangle.overrideColor = null;
               } else {
                 this.ctx.fillStyle = rectangle.color;
               }
+              // this.ctx.fillRect(rectRelativeToCamera.position.x, rectRelativeToCamera.position.y,
+              //   rectRelativeToCamera.size.x, rectRelativeToCamera.size.y);
+              // console.log(`
+              //  x: ${rectRelativeToCamera.position.x}, y: ${rectRelativeToCamera.position.y},
+              //   sizeX: ${rectRelativeToCamera.size.x}, sizeY: ${rectRelativeToCamera.size.y}
+              // `);
               this.ctx.fillRect(rectRelativeToCamera.position.x, rectRelativeToCamera.position.y,
                 rectRelativeToCamera.size.x, rectRelativeToCamera.size.y);
             }
+
+            // this.ctx.setTransform(
+            //   1, 0, 0,
+            //   1, 1, 0);
           }
         }
       } else {

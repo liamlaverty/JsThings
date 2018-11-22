@@ -25,6 +25,7 @@ export class ParentCanvasComponent extends SimpleCanvasComponent implements OnIn
   private browserHeight: number;
   private browserWidth: number;
 
+  scaleFactor: number = 5;
 
   constructor(protected browserService: BrowserService,
     private componentFactoryResolver: ComponentFactoryResolver,
@@ -107,26 +108,18 @@ export class ParentCanvasComponent extends SimpleCanvasComponent implements OnIn
       // drawnCanvasLayer.canvas.style.width = this.TARGET_WIDTH + 'px';
     }
 
-     this.ctx.setTransform(
-       scaleFill, 0, 0,
-       scaleFill, Math.floor(this.viewportWidth / 5), Math.floor(this.viewportHeight / 5)
-     );
+    this.ctx.setTransform(
+      scaleFill, 0, 0,
+      scaleFill, Math.floor(this.viewportWidth / 5), Math.floor(this.viewportHeight / 5)
+    );
     return null;
   }
 
+  buttonclicked() {
+    this.scaleFactor = this.scaleFactor + 10;
+    console.log('increasing scale factor to ' + this.scaleFactor);
 
-
-
-
-
-
-
-
-
-
-
-
-
+  }
 
 
   addLayer(layer: Layer) {
@@ -134,8 +127,9 @@ export class ParentCanvasComponent extends SimpleCanvasComponent implements OnIn
     const factory = this.componentFactoryResolver.resolveComponentFactory(ChildCanvasComponent);
     const ref = this.myParentCanvas.createComponent(factory);
     const canvas = (<ChildCanvasComponent>ref.instance);
-    canvas.viewportHeight = this.TARGET_HEIGHT;
-    canvas.viewportWidth = this.TARGET_WIDTH;
+    canvas.viewportHeight = this.viewportHeight; // this.TARGET_HEIGHT;
+    canvas.viewportWidth = this.viewportWidth; // this.TARGET_WIDTH;
+    console.info(`layer height and width are h[${canvas.viewportHeight}] w[${canvas.viewportWidth}]`);
     canvas.layer = layer;
     console.log('layer contains [' + canvas.layer.Rectangles.length + '] items');
     ref.changeDetectorRef.detectChanges();

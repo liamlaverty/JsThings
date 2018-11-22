@@ -86,18 +86,12 @@ export class GameComponent implements OnInit, AfterViewInit {
     // this.startTime = new Date();
     console.log('game main init');
 
-    const layers = this.GetLayerSettings();
-
-
 
     const factory = this.componentFactoryResolver.resolveComponentFactory(ParentCanvasComponent);
     this.theGameRef = this.theGameRegion.createComponent(factory);
     this.theGame = (<ParentCanvasComponent>this.theGameRef.instance);
 
-    for (const layer of layers) {
-      this.theGame.addLayer(layer);
-      // this.RegisterPhysicals(layer.Rectangles);
-    }
+    
     this.theGameRef.changeDetectorRef.detectChanges();
   }
 
@@ -107,6 +101,11 @@ export class GameComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
     console.log('game main ngAfterViewInit');
+    const layers = this.GetLayerSettings();
+    for (const layer of layers) {
+      this.theGame.addLayer(layer);
+      // this.RegisterPhysicals(layer.Rectangles);
+    }
 
     this.ticks = 0;
     this.tick();
